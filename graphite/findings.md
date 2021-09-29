@@ -2,7 +2,7 @@
 
 Here are my current findings on how to set up Graphite and ingesting CSV data.
 
-First, make sure you are in a Linux environment with Docker and Node.js installed. Also, the Node.js package `zx` is also needed to run the script. Make sure it is installed globally, i.e. you installed it with `npm i -g zx`.
+First, make sure you are in a Linux environment with Docker and Node.js installed. Also, the Node.js packages `zx` and `csv-parse` are also needed to run the script. Make sure it is installed globally, i.e. you installed it with `npm i -g zx`.
 
 Next, run Graphite on Docker:
 

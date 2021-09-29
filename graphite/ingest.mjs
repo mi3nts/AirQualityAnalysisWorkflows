@@ -1,8 +1,8 @@
 #!/usr/bin/env zx
 
 /**
- * CSV ingestion script. Requires Node.js >= 14.13.1 and
- * 'zx' (a Node.js package) installed to run.
+ * CSV ingestion script. Requires Node.js >= 14.13.1,
+ * zx, and csv-parse installed to run.
  * 
  * Provide a CSV filename to the --csv argument. Make sure
  * Graphite dataport is serving on port 2003 before running.
@@ -10,8 +10,7 @@
  * This script will parse the CSV file and put read data under
  * `data.*`.
  */
-import pkg from 'csv';
-const { parse } = pkg;
+import parse from 'csv-parse';
 
 // $.verbose = false;
 
@@ -36,7 +35,6 @@ const parser = parse({
 });
 const readStream = fs.createReadStream(argv.csv);
 readStream.pipe(parser);
-debugger;
 parser.on('readable', async () => {
   let record;
   while (record = parser.read()) {
