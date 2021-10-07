@@ -22,6 +22,9 @@ for file in glob.iglob(input_path):
     # Convert date time to UNIX time
     csv_df['dateTime'] = csv_df['dateTime'].apply(lambda x: int(datetime.fromisoformat(x).timestamp()))
 
+    # Sort the rows by dateTime
+    csv_df.sort_values(by=['dateTime'], inplace=True)
+
     # Iterate over columns of the data frame
     for column in csv_df:
     	# Don't encode dateTime or id as metrics
