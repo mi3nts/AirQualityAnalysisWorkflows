@@ -3,13 +3,19 @@ Start up the grafana container (if you haven't already) with :
 
 Access it in the browser by either:
 > Right clicking and selecting "Open in browser" (if in Visual Studio Code)
+
 or
+
 > Selecting the open in browser option (if on docker desktop)
+
 or
+
 > Locating the port with:
+
 > docker volume ls
 > cat grafana.ini
 > locating the redis:, which will have the address that you can put in a browser
+
 (I'm not quite sure about this last one. Thats how this tutorial: https://www.youtube.com/watch?v=UG_bZzhhnbc did it. But I wasn't able to get there)
 The first two have worked for me.
 
