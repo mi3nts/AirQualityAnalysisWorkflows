@@ -27,3 +27,7 @@ zx ./ingest.mjs --csv ./test.csv
 Since this CSV is quite small, ingestion should not take more than a few minutes on a decently fast computer.
 
 Next, open `localhost` (port 80) on a browser, and set the time frame to include 10/26/2020-10/27/2020, preferably small enough so we can actually see the data points in the visualization.
+
+## In progress
+
+Will be writing up how to properly build and launch the container.

@@ -40,7 +40,7 @@ parser.on('readable', async () => {
   while (record = parser.read()) {
     for (let [field, value] of Object.entries(record)) {
       if (['dateTime', 'id'].includes(field)) continue; // skip dateTime and id fields
-      await nothrow($`echo "data.${field} ${value} ${Math.floor(new Date(record.dateTime).getTime() / 1000)}" | nc -q0 localhost 2003`);
+      await nothrow($`echo "data.${field} ${value} ${Math.floor(new Date(record.dateTime).getTime() / 1000)}" | nc -w0 localhost 2003`);
     }
   }
 })
