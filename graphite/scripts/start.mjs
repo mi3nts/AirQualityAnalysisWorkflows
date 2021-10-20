@@ -18,9 +18,12 @@ while (1) {
   break;
 }
 
-console.log("Ingestion starting");
+let numberOfFilesIngested = 0;
 const fullPaths = await globby(['/dataset/**/*.csv']);
-const ingestionPromises = fullPaths.map((fullPath) => $`./ingest.mjs --csv ${fullPath}`);
+console.log(`Ingesting ${fullPaths.length} file(s)`);
+const ingestionPromises = fullPaths.map((fullPath) => $`./ingest.mjs --csv ${fullPath}`.then(() => {
+  console.log(`Ingested ${++numberOfFilesIngested}`);
+}));
 await Promise.all(ingestionPromises);
 
 console.log("Ingestion done");
