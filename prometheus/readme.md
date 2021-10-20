@@ -1,21 +1,20 @@
 # Workflow for ingesting data through prometheus
 
-Here are the current steps to ingest CSV data into prometheus on your local machine. (Should also serve as steps to containerize the whole system)
+How to run the dockerfile for prometheus?
 
 Prerequisites:
-Linux environment,
-Python 3.8.10 or above, with packages pandas (>=1.3.3),
-Prometheus
+Docker
 
-1. Copy the required csv files into a directory called 'csv_data' (same as the beginning of the input_path in the script). No need to worry about the csvs being in subfolders.
-2. Create a directory called 'openmetrics_data' to store the openmetric files containing the data from the csv (same as the output_path in the script)
-3. Have prometheus installed in a folder called 'prometheus-2.30.0.linux-amd64' (same as the prometheus_path in the script)
-4. Run the ingestion script as follows:
+1. Change directory to this folder.
+2. Run the following commands
 
 ```console
-python3 csvtoopenmetrics.py
+docker build -t mints/prometheus .
+docker run -d -p 9090:9090 mints/prometheus
 ```
 
-3. This should ingest all the data and start up a prometheus server configured to interpret the new data
+3. This should ingest all the data in the csv_data folder and start up a prometheus server configured to interpret the new data
+
+**Note:** If we want to ingest more data into prometheus, clear the csv_data folder of the old data. Copy the new csv files into csv_data. Do steps 1 to 3.
 
 Querying instructions:

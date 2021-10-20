@@ -57,7 +57,3 @@ for file in glob.iglob(output_path+'*'):
     # Ingest the current file using promtool
     ingest_file = subprocess.run([prometheus_path + 'promtool', 'tsdb', 'create-blocks-from', 'openmetrics', file, prometheus_path + 'data'])
     ingest_file.check_returncode()
-
-# Run the prometheus server
-os.chdir(prometheus_path)
-run_prom_server = subprocess.run(['./prometheus', '--storage.tsdb.retention.time=5y', '--query.lookback-delta=5y', '--storage.tsdb.allow-overlapping-blocks'])
