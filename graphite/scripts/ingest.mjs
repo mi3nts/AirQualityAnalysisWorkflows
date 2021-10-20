@@ -44,5 +44,8 @@ parser.on('readable', async () => {
       await nothrow($`echo "data.${field} ${value} ${Math.floor(new Date(record.dateTime).getTime() / 1000)}" | nc -w0 localhost 2003`);
     }
   }
-})
+});
+parser.on('error', async (err) => {
+  console.err(err);
+});
 parser.on('end', () => process.exit(0));
