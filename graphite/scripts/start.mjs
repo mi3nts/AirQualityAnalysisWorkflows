@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 
 const DATASET_DIR = "/dataset";
-// $.verbose = false;
+$.verbose = false;
 
 // Run graphite daemon
 nothrow($`/entrypoint &>/dev/null`);
@@ -19,8 +19,9 @@ while (1) {
 }
 
 const fullPaths = await globby(['/dataset/**/*.csv']);
-for (const fullPath of fullPaths) {
-    await $`./ingest.mjs --csv ${fullPath}`;
+for (const [i, fullPath] of fullPaths.entries()) {
+  console.log(`Ingesting file ${i+1}/${fullPath.length}`)
+  await $`./ingest.mjs --csv ${fullPath}`;
 }
 
 console.log("Ingestion done");
