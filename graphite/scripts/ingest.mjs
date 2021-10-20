@@ -10,6 +10,7 @@
  * This script will parse the CSV file and put read data under
  * `data.*`.
  */
+
 import parse from 'csv-parse';
 
 // $.verbose = false;

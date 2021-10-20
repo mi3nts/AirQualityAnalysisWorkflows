@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 
-const DATASET_DIR = "/data/dataset";
-$.verbose = false;
+const DATASET_DIR = "/dataset";
+// $.verbose = false;
 
 // Run graphite daemon
 nothrow($`/entrypoint &>/dev/null`);
@@ -18,15 +18,11 @@ while (1) {
   break;
 }
 
-const subfolders = await fs.readdir(DATASET_DIR);
-
-for (let subfolder of subfolders) {
-  for (let filePath of await fs.readdir(path.join(DATASET_DIR, subfolder))) {
-    let fullPath = path.join(DATASET_DIR, subfolder, filePath);
-    console.log(fullPath);
+const fullPaths = await globby(['/dataset/**/*.csv']);
+for (const fullPath of fullPaths) {
     await $`./ingest.mjs --csv ${fullPath}`;
-  }
 }
 
-// keep running
-while (1) {}
+console.log("Ingestion done");
+
+process.exit(0);

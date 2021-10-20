@@ -31,3 +31,19 @@ Next, open `localhost` (port 80) on a browser, and set the time frame to include
 ## In progress
 
 Will be writing up how to properly build and launch the container.
+
+Put a few CSVs in the `dataset` folder.
+
+`cd` into this directory with your terminal and then
+
+```bash
+docker build -t org.mints.graphite .
+```
+
+That should build an image named `graphite-mints` with all CSVs in the `dataset` folder.
+
+```bash
+docker run -d -p 80:80 -p 2003-2004:2003-2004 -p 2023-2024:2023-2024 -p 8125:8125/udp -p 8126:8126 -it org.mints.graphite
+```
+
+That should get a container running with your ingested data.
