@@ -13,7 +13,7 @@
 
 import parse from 'csv-parse';
 
-// $.verbose = false;
+$.verbose = false;
 
 // Check if CSV filename given as arg
 if (!argv.csv) {
