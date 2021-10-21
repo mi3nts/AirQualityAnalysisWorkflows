@@ -12,4 +12,6 @@ COPY dataset /dataset
 # Start data ingestion
 RUN ./start.mjs
 
+ENTRYPOINT []
+
 CMD ["/entrypoint"]
