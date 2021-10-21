@@ -1,0 +1,30 @@
+version: "3"
+services:
+  graphite:
+    build:
+      context: .
+    image: org.mints.graphite
+    networks: 
+      - mints-graphite
+    ports:
+      - "80:80"
+      - "2003-2004:2003-2004"
+      - "2023-2024:2023-2024"
+      - "8125:8125/udp"
+      - "8126:8126"
+  grafana:
+    image: grafana/grafana
+    networks:
+      - mints-graphite
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - graphite
+
+networks:
+  mints-graphite:
+
+volumes:
+  grafana-data:
