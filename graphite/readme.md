@@ -1,32 +1,23 @@
-Start up the grafana container (if you haven't already) with :
-> docker run -d -p 3000:3000 grafana/grafana
+# Instructions on how to set up
 
-Access it in the browser by either:
-> Right clicking and selecting "Open in browser" (if in Visual Studio Code)
+## Building and starting the containers
 
-or
+Put a few CSV files in the `dataset` folder. Then, run
 
-> Selecting the open in browser option (if on docker desktop)
+```bash
+docker compose up -d
+```
 
-or
+This will take a while, as the initial build of the Graphite image will do the ingestion. Once it's up, access Graphite at `localhost` (port 80) and Grafana at `localhost:3000`.
 
-> Locating the port with:
+## Setting up a dashboard
 
-> docker volume ls
-> cat grafana.ini
-> locating the redis:, which will have the address that you can put in a browser
+Access Grafana at `localhost:3000` and log in with the default credentials of `admin:admin`.
 
-(I'm not quite sure about this last one. Thats how this tutorial: https://www.youtube.com/watch?v=UG_bZzhhnbc did it. But I wasn't able to get there)
-The first two have worked for me.
+Next, hover over the **Configuration** submenu (cog wheel) and click on **Data Sources**, then **Add data source**. Choose **Graphite**, and in the URL field type `graphite`. Then at the bottom of the page click on **Save & test**. It should say "Data source is working".
 
-Should have a login screen displaying the grafana logo, as well as a prompt for username and password.
-Default username and password are both admin.
-Next screen will ask you to change password.
+Then hover over the **Create** submenu (plus icon) and click on **Dashboard**, then click on **Add an empty panel**. At the lower half of the screen, you can name your query anything instead of `A`; you can select your metrics. The data should be under `data`, from which you can choose among `C2H5OH`, `C3H8`, `C4H10`, etc. or all of them by selecting `*`. Next, you'll need to select a time range for your graph, which can be accessed with the clock icon in the upper right:
 
-Next screen will show "Welcome to Grafana".
+![time range selection](./readme_time-range.png)
 
-Select "Data Sources/ Add your first data source"
-
-Graphite should be the second option. (Prometheus is also there)
-
-There will be an option for a url to load in data. 
+If you're done, click **Apply**. Then click on **Save dashboard** (save icon) in the top right. Name your dashboard however you like.
