@@ -21,3 +21,7 @@ Then hover over the **Create** submenu (plus icon) and click on **Dashboard**, t
 ![time range selection](./readme_time-range.png)
 
 If you're done, click **Apply**. Then click on **Save dashboard** (save icon) in the top right. Name your dashboard however you like.
+
+## Stopping the containers
+
+Run `docker compose down` to stop the 2 containers. The dashboard information should be persisted under the `grafana-data` volume.
