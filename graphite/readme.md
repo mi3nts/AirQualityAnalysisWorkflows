@@ -5,7 +5,7 @@
 Put a few CSV files in the `dataset` folder. Then, run
 
 ```bash
-docker compose up -d
+docker-compose up -d
 ```
 
 This will take a while, as the initial build of the Graphite image will do the ingestion. Once it's up, access Graphite at `localhost` (port 80) and Grafana at `localhost:3000`.
