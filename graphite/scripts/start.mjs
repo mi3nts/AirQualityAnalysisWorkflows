@@ -1,31 +1,10 @@
 #!/usr/bin/env zx
 
-const DATASET_DIR = "/dataset";
-$.verbose = false;
+// Run entrypoint
+$`/entrypoint`;
 
-// Run graphite daemon
-nothrow($`/entrypoint &>/dev/null`);
-
-// Check if the container is running
-while (1) {
-  try {
-    await $`ss -tulpn | grep ":2003"`;
-  } catch (p) {
-    // sleep for 5 seconds
-    await new Promise(resolve => setTimeout(resolve, 5000));
-    continue;
-  }
-  break;
+// Check if data folder does not exist already
+if (await globby(['/opt/graphite/storage/whisper/data']).length === 0) {
+  console.log('Data folder does not exist; copying from previous data');
+  await $`cp -R /igdata /opt/graphite/storage/whisper/data`;
 }
-
-let numberOfFilesIngested = 0;
-const fullPaths = await globby(['/dataset/**/*.csv']);
-console.log(`Ingesting ${fullPaths.length} file(s)`);
-const ingestionPromises = fullPaths.map((fullPath) => $`./ingest.mjs --csv ${fullPath}`.then(() => {
-  console.log(`Ingested ${++numberOfFilesIngested}`);
-}));
-await Promise.all(ingestionPromises);
-
-console.log("Ingestion done");
-
-process.exit(0);
