@@ -12,6 +12,8 @@ services:
       - "2023-2024:2023-2024"
       - "8125:8125/udp"
       - "8126:8126"
+    volumes:
+      - graphite-data:/opt/graphite/storage/whisper
   grafana:
     image: grafana/grafana
     networks:
@@ -28,3 +30,4 @@ networks:
 
 volumes:
   grafana-data:
+  graphite-data:
