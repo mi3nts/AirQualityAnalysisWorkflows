@@ -11,9 +11,6 @@ RUN npm i csv-parse
 COPY scripts /scripts
 COPY dataset /dataset
 
-# Start data ingestion
-RUN ./build.mjs
-
 ENTRYPOINT []
 
-CMD ["./start.mjs"]
+CMD ["./entrypoint"]
