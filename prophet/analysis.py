@@ -39,15 +39,6 @@ end_datetime = dt.datetime.strptime(end_datetime,"%d/%m/%Y")
 prom = PrometheusConnect(disable_ssl=True)      #establish connection w/ prometheus server
 my_label_config = {'id': '47cb5580002e004a'}    #use node id ...
 
-"""
-Need to iterate over the metric list to get the data
-append the y columsn to each ofther for the quick analysis text file,
-o.w. keep everything else the same for the predictions: i guess those will have to be in a list too.
-
-so i think 2 sets of dataframes. one for all the metrics together, 
-and another that is a list of dataframes, formatted as it was before so that the predictions can be outputted
-"""
-
 listOfMetricsForPredictions = []
 analysisDF = None
 
@@ -79,14 +70,28 @@ for metric in metricList:
     listOfMetricsForPredictions.append(metric_df)
 
 # --------------------------------- Analysis ----------------------------------
-
+analysisFigures = []
+print(analysisDF)
 with open("analysis.txt", 'w') as f:
     for metric in metricList:
+        # writing summaries to text file
         writeThisToFile = str(metric + " Analysis" + '\n')
         f.write(writeThisToFile)
         description = str(analysisDF[metric].describe()) + '\n\n'
-        print(description)
         f.write(description)
+
+        # making seaborn exploratory analysis plots
+        plt.boxplot(x = metric, data=analysisDF)
+        boxname = "figures/" + metric + "boxplot.png"
+        plt.savefig(boxname)
+        plt.xlabel(metric)
+        plt.ylabel("PPM")
+        plt.clf()
+        plt.hist(x = metric, data=analysisDF)
+        histname = "figures/" + metric + "histogram.png"
+        plt.xlabel(metric)
+        plt.ylabel("PPM")
+        plt.savefig(histname)
 
 # -------------------------------- Predictions --------------------------------
 metricCounter = 0
@@ -114,6 +119,7 @@ for dataframes in listOfMetricsForPredictions:
 # saving plots in the figures folder of the current working directory
 figCounter = 0
 for fig in figs:
-    name = 'figures/' + str(metricList[int(figCounter/2)]) + str(figCounter)
+    # setting the name, divided by 2 to get the right metric
+    name = 'figures/' + str(metricList[int(figCounter/2)]) + " " + str(figCounter)
     fig.savefig(name)
     figCounter += 1
