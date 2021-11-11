@@ -15,8 +15,8 @@ This will take a while, as the initial build of the Graphite image will do the i
 Right now the web UI is relatively bare-bones, but you can do the most important task here, and that is ingestion. In the future I will make the dataset folder bindmounted, so you can ingest data you *just* put in the folder.
 
 - Check the status of the ingestion engine with the `Status` button. Make sure it's `idle`.
-- Start ingestion by clicking on the `Ingest` button. The status should say `ingesting` now and should take a while to finish. In the future, I will make this status update in real-time, but for now, please routinely check if the status returns again to `idle`. That's when the ingestion has finished.
-- If you want to remove the ingested data for any reason, click on `Delete`.
+- Start ingestion by clicking on the `Ingest` button. **This invokes `/scripts/build.mjs` in the `graphite-webui-1` container.** The status should say `ingesting` now and should take a while to finish. In the future, I will make this status update in real-time, but for now, please routinely check if the status returns again to `idle`. That's when the ingestion has finished.
+- If you want to remove the ingested data for any reason, click on `Delete`. **This removes the `/opt/graphite/storage/whisper/data` folder in the `graphite-graphite-1`.**
 
 ## Setting up a dashboard
 
@@ -32,4 +32,4 @@ If you're done, click **Apply**. Then click on **Save dashboard** (save icon) in
 
 ## Stopping the containers
 
-Run `docker compose down` to stop the 2 containers. The dashboard information should be persisted under the `grafana-data` volume.
+Run `docker compose down` to stop the containers.
