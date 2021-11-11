@@ -28,6 +28,7 @@ RUN npm i csv-parse
 
 WORKDIR /home/node/frontend
 
+RUN npm i
 RUN npm run build
 
 CMD [ "sh", "-c", "/usr/bin/backend-server & npm run serve --host" ]
