@@ -2,13 +2,21 @@
 
 ## Building and starting the containers
 
-Put a few CSV files in the `dataset` folder. Then, run
+Put a few CSV files in the `webui/dataset` folder. Then, run
 
 ```bash
 docker-compose up -d
 ```
 
-This will take a while, as the initial build of the Graphite image will do the ingestion. Once it's up, access Graphite at `localhost` (port 80) and Grafana at `localhost:3000`.
+This will take a while, as the initial build of the Graphite image will do the ingestion. Once it's up, access the web UI at `localhost:8080` and Grafana at `localhost:3000`.
+
+## Data ingestion & deletion
+
+Right now the web UI is relatively bare-bones, but you can do the most important task here, and that is ingestion. In the future I will make the dataset folder bindmounted, so you can ingest data you *just* put in the folder.
+
+- Check the status of the ingestion engine with the `Status` button. Make sure it's `idle`.
+- Start ingestion by clicking on the `Ingest` button. The status should say `ingesting` now and should take a while to finish. In the future, I will make this status update in real-time, but for now, please routinely check if the status returns again to `idle`. That's when the ingestion has finished.
+- If you want to remove the ingested data for any reason, click on `Delete`.
 
 ## Setting up a dashboard
 

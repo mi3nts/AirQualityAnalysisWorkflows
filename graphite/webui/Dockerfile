@@ -15,6 +15,19 @@ RUN chmod +x main
 # 1: for frontend and running backend app
 FROM node:16.13.0-alpine3.14
 
-COPY --from=0 /workdir/main /usr/bin/backend-server
+RUN npm i -g zx
 
-CMD [ "/usr/bin/backend-server" ]
+COPY --from=0 /workdir/main /usr/bin/backend-server
+COPY frontend /home/node
+COPY dataset /dataset
+COPY scripts /scripts
+
+WORKDIR /scripts
+
+RUN npm i csv-parse
+
+WORKDIR /home/node/frontend
+
+RUN npm run build
+
+CMD [ "sh", "-c", "/usr/bin/backend-server & npm run serve --host" ]

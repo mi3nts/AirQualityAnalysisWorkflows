@@ -2,32 +2,33 @@ version: "3"
 services:
   graphite:
     build:
-      context: .
-    image: graphiteapp/graphite-statsd
+      context: graphite-env
     networks: 
-      - mints-graphite
+      - backend
     ports:
       - "80:80"
       - "2003-2004:2003-2004"
       - "2023-2024:2023-2024"
       - "8125:8125/udp"
       - "8126:8126"
-    volumes:
-      - graphite-data:/opt/graphite/storage/whisper
   grafana:
     image: grafana/grafana
     networks:
-      - mints-graphite
+      - backend
     ports:
       - "3000:3000"
-    volumes:
-      - grafana-data:/var/lib/grafana
     depends_on:
       - graphite
+  webui:
+    build:
+      context: webui
+    ports:
+      - "8080:5000"
+      - "6060:6060"
+    networks:
+      - backend
+      - frontend
 
 networks:
-  mints-graphite:
-
-volumes:
-  grafana-data:
-  graphite-data:
+  frontend:
+  backend:

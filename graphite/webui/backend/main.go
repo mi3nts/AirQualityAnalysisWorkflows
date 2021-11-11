@@ -11,7 +11,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"os/exec"
 	"time"
 
@@ -31,7 +30,8 @@ var statusMap = map[statusType]string{STATUS_IDLE: "idle", STATUS_INGESTING: "in
 
 func main() {
 	// Check for Graphite up
-	for _, err := http.Get("graphite:8008"); err != nil; {
+	for _, err := http.Get(`http://graphite:8008`); err != nil; {
+		log.Printf(err.Error())
 		log.Printf("Graphite deletion handler not up; retrying")
 		time.Sleep(2 * time.Second)
 	}
@@ -46,18 +46,17 @@ func main() {
 			case STATUS_INGESTING:
 				// Start ingestion
 				currentStatus = STATUS_INGESTING
-				ingestCmd := exec.Command("node", "/scripts/start.mjs")
+				ingestCmd := exec.Command("/scripts/build.mjs")
 				if err := ingestCmd.Run(); err != nil {
 					log.Fatal(err)
 				}
-				time.Sleep(time.Second * 5)
 
 				// Finish ingestion
 				currentStatus = STATUS_IDLE
 			case STATUS_DELETING:
 				// Start deleting
 				currentStatus = STATUS_DELETING
-				if resp, err := http.Get("graphite:8008/delete"); err != nil || resp.StatusCode != 200 {
+				if resp, err := http.Get(`http://graphite:8008/delete`); err != nil || resp.StatusCode != 200 {
 					log.Fatal(err)
 				}
 				time.Sleep(10 * time.Second) // TODO: figure out a better way to tell if server deleted whisper data
@@ -106,9 +105,7 @@ func main() {
 		c.WriteString("OK")
 		return c.SendStatus(200)
 	})
-	port := os.Getenv("VITE_BACKEND_PORT")
-	if port == "" {
-		port = "6060"
-	}
-	app.Listen(":" + port)
+
+	log.Printf("Backend server is serving on port 6060")
+	app.Listen(":6060")
 }
