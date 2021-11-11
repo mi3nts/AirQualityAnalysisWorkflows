@@ -133,3 +133,6 @@ dmypy.json
 
 # Images
 *.png
+
+# Text files
+*.txt
