@@ -9,6 +9,9 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
+	"os/exec"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -25,6 +28,12 @@ const (
 var statusMap = map[statusType]string{STATUS_IDLE: "idle", STATUS_INGESTING: "ingesting", STATUS_DELETING: "deleting"}
 
 func main() {
+	// Check for Graphite up
+	for _, err := http.Get("graphite:8008"); err != nil; {
+		log.Printf("Graphite deletion handler not up; retrying")
+		time.Sleep(2 * time.Second)
+	}
+
 	currentStatus := STATUS_IDLE
 	actionNotify := make(chan statusType)
 	defer close(actionNotify)
@@ -35,18 +44,20 @@ func main() {
 			case STATUS_INGESTING:
 				// Start ingestion
 				currentStatus = STATUS_INGESTING
-
-				// TODO: write actual ingestion
-				time.Sleep(5 * time.Second)
+				ingestCmd := exec.Command("node", "/scripts/start.mjs")
+				if err := ingestCmd.Run(); err != nil {
+					log.Fatal(err)
+				}
 
 				// Finish ingestion
 				currentStatus = STATUS_IDLE
 			case STATUS_DELETING:
 				// Start deleting
 				currentStatus = STATUS_DELETING
-
-				// TODO: write actual deletion
-				time.Sleep(5 * time.Second)
+				if resp, err := http.Get("graphite:8008/delete"); err != nil || resp.StatusCode != 200 {
+					log.Fatal(err)
+				}
+				time.Sleep(10 * time.Second) // TODO: figure out a better way to tell if server deleted whisper data
 
 				// Finish ingestion
 				currentStatus = STATUS_IDLE
@@ -77,6 +88,7 @@ func main() {
 		}
 		actionNotify <- STATUS_INGESTING
 
+		c.WriteString("OK")
 		return c.SendStatus(200)
 	})
 
@@ -87,6 +99,7 @@ func main() {
 		}
 		actionNotify <- STATUS_DELETING
 
+		c.WriteString("OK")
 		return c.SendStatus(200)
 	})
 
