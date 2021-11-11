@@ -3,7 +3,7 @@ services:
   graphite:
     build:
       context: .
-    image: org.mints.graphite
+    image: graphiteapp/graphite-statsd
     networks: 
       - mints-graphite
     ports:

@@ -11,10 +11,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 type statusType int
@@ -48,6 +50,7 @@ func main() {
 				if err := ingestCmd.Run(); err != nil {
 					log.Fatal(err)
 				}
+				time.Sleep(time.Second * 5)
 
 				// Finish ingestion
 				currentStatus = STATUS_IDLE
@@ -69,11 +72,12 @@ func main() {
 	}(actionNotify)
 
 	app := fiber.New()
+	app.Use(cors.New())
 
 	// Default handler
 	app.Get("/", func(c *fiber.Ctx) error {
 		// Requires an action
-		return c.SendStatus(404)
+		return c.Status(200).SendString("OK")
 	})
 
 	// Status report handler
@@ -84,7 +88,7 @@ func main() {
 	// Start ingestion handler
 	app.Get("/ingest", func(c *fiber.Ctx) error {
 		if currentStatus != STATUS_IDLE {
-			return c.Status(409).SendString(fmt.Sprintf("Not idle; currently %s", statusMap[currentStatus]))
+			return c.Status(409).SendString(fmt.Sprintf("not idle; currently %s", statusMap[currentStatus]))
 		}
 		actionNotify <- STATUS_INGESTING
 
@@ -95,13 +99,16 @@ func main() {
 	// Start deletion handler
 	app.Get("/delete", func(c *fiber.Ctx) error {
 		if currentStatus != STATUS_IDLE {
-			return c.Status(409).SendString(fmt.Sprintf("Not idle; currently %s", statusMap[currentStatus]))
+			return c.Status(409).SendString(fmt.Sprintf("not idle; currently %s", statusMap[currentStatus]))
 		}
 		actionNotify <- STATUS_DELETING
 
 		c.WriteString("OK")
 		return c.SendStatus(200)
 	})
-
-	app.Listen(":3000")
+	port := os.Getenv("VITE_BACKEND_PORT")
+	if port == "" {
+		port = "6060"
+	}
+	app.Listen(":" + port)
 }
