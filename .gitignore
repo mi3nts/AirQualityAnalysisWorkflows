@@ -130,3 +130,9 @@ dmypy.json
 
 # Mac stuff
 **/.DS_Store
+
+# Images
+*.png
+
+# Text files
+*.txt
