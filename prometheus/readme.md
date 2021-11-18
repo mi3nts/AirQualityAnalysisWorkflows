@@ -1,5 +1,7 @@
 # Instructions
 
+## Setup
+
 Prerequisites:
 Docker, Some csv data in the `csv_data` folder
 
@@ -11,7 +13,7 @@ docker-compose up -d
 3. This will build and start two containers, one for the prometheus server (with the data put in `csv_data` already ingested) and one for Grafana.
 4. Access prometheus at `localhost:9090` and Grafana at `localhost:3000`
 
-Querying instructions (Prometheus):
+## Querying instructions (Prometheus):
 
 1. Go to `localhost:9090/graph`. You should see a screen like this:
 
@@ -32,7 +34,7 @@ example:
 
 More querying information: https://prometheus.io/docs/prometheus/latest/querying/basics/
 
-Grafana Dashboard instructions:
+## Grafana Dashboard instructions:
 
 1. Go to `localhost:3000`. You should see a screen like this:
 
@@ -52,3 +54,9 @@ Grafana Dashboard instructions:
 example:
 
 ![Screenshot (206)](https://user-images.githubusercontent.com/60592738/142475802-ff60f9f1-7b58-4ac2-94e7-e35d97aff255.png)
+
+## Shutdown
+
+Run `docker-compose down` to stop and remove the containers. 
+
+(Run `docker-compose stop` to stop them without deleting, can now be restarted using `docker-compose start`)
