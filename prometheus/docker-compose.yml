@@ -1,0 +1,12 @@
+version: "3"
+services:
+  prometheus:
+    build: .
+    ports:
+      - "9090:9090"
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
