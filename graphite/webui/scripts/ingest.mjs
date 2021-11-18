@@ -11,7 +11,7 @@
  * `data.*`.
  */
 
-import parse from 'csv-parse';
+const { parse } = require('csv-parse');
 
 $.verbose = false;
 
@@ -32,7 +32,7 @@ try {
 // Read the CSV file
 const parser = parse({
   columns: true,
-  from: 2
+  from: 1
 });
 const readStream = fs.createReadStream(argv.csv);
 readStream.pipe(parser);
@@ -48,4 +48,3 @@ parser.on('readable', async () => {
 parser.on('error', async (err) => {
   console.err(err);
 });
-parser.on('end', () => process.exit(0));

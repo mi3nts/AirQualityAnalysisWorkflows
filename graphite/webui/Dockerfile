@@ -15,16 +15,13 @@ RUN chmod +x main
 # 1: for frontend and running backend app
 FROM node:16.13.0-alpine3.14
 
-RUN npm i -g zx
+RUN npm i -g zx csv-parse
+ENV NODE_PATH=/usr/local/lib/node_modules
 
 COPY --from=0 /workdir/main /usr/bin/backend-server
-COPY frontend /home/node
+COPY frontend /home/node/frontend
 COPY dataset /dataset
 COPY scripts /scripts
-
-WORKDIR /scripts
-
-RUN npm i csv-parse
 
 WORKDIR /home/node/frontend
 
