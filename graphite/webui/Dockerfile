@@ -20,7 +20,6 @@ ENV NODE_PATH=/usr/local/lib/node_modules
 
 COPY --from=0 /workdir/main /usr/bin/backend-server
 COPY frontend /home/node/frontend
-COPY dataset /dataset
 COPY scripts /scripts
 
 WORKDIR /home/node/frontend
