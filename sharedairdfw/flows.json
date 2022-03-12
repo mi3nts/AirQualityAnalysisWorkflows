@@ -7,26 +7,6 @@
         "info": ""
     },
     {
-        "id": "3cc11d24.ff01a2",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "name": "WARNING: please check you have started this container with a volume that is mounted to /data\\n otherwise any flow changes are lost when you redeploy or upgrade the container\\n (e.g. upgrade to a more recent node-red docker image).\\n  If you are using named volumes you can ignore this warning.\\n Double click or see info side panel to learn how to start Node-RED in Docker to save your work",
-        "info": "\nTo start docker with a bind mount volume (-v option), for example:\n\n```\ndocker run -it -p 1880:1880 -v /home/user/node_red_data:/data --name mynodered nodered/node-red\n```\n\nwhere `/home/user/node_red_data` is a directory on your host machine where you want to store your flows.\n\nIf you do not do this then you can experiment and redploy flows, but if you restart or upgrade the container the flows will be disconnected and lost. \n\nThey will still exist in a hidden data volume, which can be recovered using standard docker techniques, but that is much more complex than just starting with a named volume as described above.",
-        "x": 350,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "d44f88739c71936a",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "name": "Subscribe to a topic",
-        "info": "",
-        "x": 250,
-        "y": 280,
-        "wires": []
-    },
-    {
         "id": "70712986916c3b26",
         "type": "mqtt in",
         "z": "f6f2187d.f17ca8",
@@ -40,45 +20,12 @@
         "rh": 0,
         "inputs": 0,
         "x": 270,
-        "y": 360,
+        "y": 60,
         "wires": [
             [
                 "594dae494bf3c3e8"
             ]
         ]
-    },
-    {
-        "id": "594dae494bf3c3e8",
-        "type": "json",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 570,
-        "y": 360,
-        "wires": [
-            [
-                "e60e06f46b6461e3"
-            ]
-        ]
-    },
-    {
-        "id": "e60e06f46b6461e3",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 360,
-        "wires": []
     },
     {
         "id": "9d5c25cd3d7a159e",
@@ -93,8 +40,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 440,
+        "x": 330,
+        "y": 200,
         "wires": [
             [
                 "751527d9d035d5a0"
@@ -109,8 +56,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 440,
+        "x": 650,
+        "y": 200,
         "wires": [
             [
                 "fa409987246429a7"
@@ -130,8 +77,8 @@
         "targetType": "msg",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 800,
-        "y": 440,
+        "x": 900,
+        "y": 200,
         "wires": []
     },
     {
@@ -148,7 +95,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 280,
-        "y": 500,
+        "y": 340,
         "wires": [
             [
                 "1517583cd0da58db"
@@ -164,29 +111,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 500,
+        "y": 340,
         "wires": [
             [
-                "3ac61d9c0d7cf3ec"
+                "15d4fbb82213996f"
             ]
         ]
-    },
-    {
-        "id": "3ac61d9c0d7cf3ec",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 500,
-        "wires": []
     },
     {
         "id": "6641e5c283fb535a",
@@ -202,7 +132,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 280,
-        "y": 560,
+        "y": 480,
         "wires": [
             [
                 "6a2465e3421dd978"
@@ -218,29 +148,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 560,
+        "y": 480,
         "wires": [
             [
-                "488db86aa1b48957"
+                "03db26f26e3ac9a1"
             ]
         ]
-    },
-    {
-        "id": "488db86aa1b48957",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 560,
-        "wires": []
     },
     {
         "id": "053f9aa527cb9111",
@@ -275,26 +188,9 @@
         "y": 620,
         "wires": [
             [
-                "806284dacf13e6fc"
+                "5a95e97e58b21e89"
             ]
         ]
-    },
-    {
-        "id": "806284dacf13e6fc",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 620,
-        "wires": []
     },
     {
         "id": "9fae0802dde62e3a",
@@ -310,7 +206,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 280,
-        "y": 680,
+        "y": 720,
         "wires": [
             [
                 "842063d6ddb04e71"
@@ -326,29 +222,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 680,
+        "y": 720,
         "wires": [
             [
-                "8977335c2d414a51"
+                "ec7a7946d17b0bca"
             ]
         ]
-    },
-    {
-        "id": "8977335c2d414a51",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 680,
-        "wires": []
     },
     {
         "id": "ecd05a595e298c3c",
@@ -364,7 +243,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 290,
-        "y": 740,
+        "y": 820,
         "wires": [
             [
                 "9a857b9545543182"
@@ -380,29 +259,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 740,
+        "y": 820,
         "wires": [
             [
-                "584acd309db9cfa1"
+                "52f68d0e62bf17ff"
             ]
         ]
-    },
-    {
-        "id": "584acd309db9cfa1",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 740,
-        "wires": []
     },
     {
         "id": "d74a657c2cb18577",
@@ -418,7 +280,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 290,
-        "y": 800,
+        "y": 920,
         "wires": [
             [
                 "d524e5b21132dd19"
@@ -434,29 +296,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 800,
+        "y": 920,
         "wires": [
             [
-                "e2c06a8fb9954d85"
+                "ac8dc19361ee0403"
             ]
         ]
-    },
-    {
-        "id": "e2c06a8fb9954d85",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 800,
-        "wires": []
     },
     {
         "id": "3f9bf50e7f7c0d38",
@@ -472,7 +317,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 280,
-        "y": 860,
+        "y": 1020,
         "wires": [
             [
                 "69acc655f907ce82"
@@ -488,29 +333,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 860,
+        "y": 1020,
         "wires": [
             [
-                "45dbdd408a244704"
+                "26c1fc6d89c6cb97"
             ]
         ]
-    },
-    {
-        "id": "45dbdd408a244704",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 860,
-        "wires": []
     },
     {
         "id": "d70219fe98eb965f",
@@ -525,8 +353,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 277,
-        "y": 925,
+        "x": 280,
+        "y": 1120,
         "wires": [
             [
                 "476c1f14d210392d"
@@ -541,30 +369,13 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 567,
-        "y": 925,
+        "x": 570,
+        "y": 1120,
         "wires": [
             [
-                "6cda83f66806e63c"
+                "1190890671c4a0f9"
             ]
         ]
-    },
-    {
-        "id": "6cda83f66806e63c",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 920,
-        "wires": []
     },
     {
         "id": "b32de1355b05539a",
@@ -579,8 +390,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 980,
+        "x": 470,
+        "y": 1220,
         "wires": [
             [
                 "bd67ac553177977c"
@@ -595,8 +406,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 980,
+        "x": 770,
+        "y": 1220,
         "wires": [
             [
                 "6d1b179139d0b3e8"
@@ -616,8 +427,8 @@
         "targetType": "msg",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 800,
-        "y": 980,
+        "x": 1000,
+        "y": 1220,
         "wires": []
     },
     {
@@ -634,7 +445,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 280,
-        "y": 1040,
+        "y": 1320,
         "wires": [
             [
                 "20cd3b54aef2bcfd"
@@ -650,83 +461,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 1040,
+        "y": 1320,
         "wires": [
             [
-                "059248accd94d3ef"
+                "f29a7a79ac83ec38"
             ]
         ]
-    },
-    {
-        "id": "059248accd94d3ef",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1040,
-        "wires": []
-    },
-    {
-        "id": "47707160dd3e824e",
-        "type": "mqtt in",
-        "z": "f6f2187d.f17ca8",
-        "name": "LIBRAD",
-        "topic": "+/LIBRAD",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "eeac082b50da81c5",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 280,
-        "y": 1100,
-        "wires": [
-            [
-                "5f3f5da85701d4f3"
-            ]
-        ]
-    },
-    {
-        "id": "5f3f5da85701d4f3",
-        "type": "json",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 570,
-        "y": 1100,
-        "wires": [
-            [
-                "e7669e292f5c4633"
-            ]
-        ]
-    },
-    {
-        "id": "e7669e292f5c4633",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1100,
-        "wires": []
     },
     {
         "id": "96a4cb169a1fa7f2",
@@ -741,11 +481,11 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 1160,
+        "x": 140,
+        "y": 1520,
         "wires": [
             [
-                "1a80f6e4eb3c3a0c"
+                "918b1d52b5f6d6b1"
             ]
         ]
     },
@@ -758,29 +498,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 1160,
+        "y": 1520,
         "wires": [
             [
-                "da8e54f105b62392"
+                "b3439e706f7fb8ca"
             ]
         ]
-    },
-    {
-        "id": "da8e54f105b62392",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1160,
-        "wires": []
     },
     {
         "id": "df771b99337b8805",
@@ -796,7 +519,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 270,
-        "y": 1220,
+        "y": 1620,
         "wires": [
             [
                 "ab0a93096b38aa81"
@@ -812,83 +535,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 1220,
+        "y": 1620,
         "wires": [
             [
-                "938ea4e30e25df7a"
+                "7263168d496d9ec0"
             ]
         ]
-    },
-    {
-        "id": "938ea4e30e25df7a",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1220,
-        "wires": []
-    },
-    {
-        "id": "57494680e2d81150",
-        "type": "mqtt in",
-        "z": "f6f2187d.f17ca8",
-        "name": "SCD30",
-        "topic": "+/SCD30",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "eeac082b50da81c5",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 270,
-        "y": 1280,
-        "wires": [
-            [
-                "56b04e9dd9472651"
-            ]
-        ]
-    },
-    {
-        "id": "56b04e9dd9472651",
-        "type": "json",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 570,
-        "y": 1280,
-        "wires": [
-            [
-                "4fba1bb07de064e7"
-            ]
-        ]
-    },
-    {
-        "id": "4fba1bb07de064e7",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1280,
-        "wires": []
     },
     {
         "id": "db4db8da8779fd7f",
@@ -903,8 +555,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 1340,
+        "x": 390,
+        "y": 1820,
         "wires": [
             [
                 "835542919881d7d7"
@@ -919,8 +571,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1340,
+        "x": 690,
+        "y": 1820,
         "wires": [
             [
                 "49f5c51c7693f7d1"
@@ -940,8 +592,8 @@
         "targetType": "msg",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 800,
-        "y": 1340,
+        "x": 920,
+        "y": 1820,
         "wires": []
     },
     {
@@ -958,7 +610,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 270,
-        "y": 1400,
+        "y": 1920,
         "wires": [
             [
                 "636b6d4815d1088a"
@@ -974,29 +626,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 1400,
+        "y": 1920,
         "wires": [
             [
-                "8df61508237d20cf"
+                "871ec94e7b830856"
             ]
         ]
-    },
-    {
-        "id": "8df61508237d20cf",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1400,
-        "wires": []
     },
     {
         "id": "e613428806bd976d",
@@ -1012,7 +647,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 280,
-        "y": 1460,
+        "y": 2020,
         "wires": [
             [
                 "3b89895febf5d0d9"
@@ -1028,29 +663,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 1460,
+        "y": 2020,
         "wires": [
             [
-                "1af13cc9dee3290a"
+                "ebd8af303159ed74"
             ]
         ]
-    },
-    {
-        "id": "1af13cc9dee3290a",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1460,
-        "wires": []
     },
     {
         "id": "45db5f2034dcb79d",
@@ -1066,7 +684,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 280,
-        "y": 1520,
+        "y": 2120,
         "wires": [
             [
                 "351eb7111d28a46e"
@@ -1082,29 +700,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 1520,
+        "y": 2120,
         "wires": [
             [
-                "5fbcb28b045fb5dd"
+                "d3e586e2f0480cf4"
             ]
         ]
-    },
-    {
-        "id": "5fbcb28b045fb5dd",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1520,
-        "wires": []
     },
     {
         "id": "8f0c9b3fcece6f95",
@@ -1120,7 +721,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 280,
-        "y": 1580,
+        "y": 2220,
         "wires": [
             [
                 "fc0b32863e2ca205"
@@ -1136,36 +737,19 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 1580,
+        "y": 2220,
         "wires": [
             [
-                "e8a1a97c24f7b4e1"
+                "a1161ba646a6bae5"
             ]
         ]
-    },
-    {
-        "id": "e8a1a97c24f7b4e1",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1580,
-        "wires": []
     },
     {
         "id": "9dd50ff43ff0dc81",
         "type": "mqtt in",
         "z": "f6f2187d.f17ca8",
-        "name": "AS3935",
-        "topic": "+/AS3935",
+        "name": "ADPS9002",
+        "topic": "+/ADPS9002",
         "qos": "2",
         "datatype": "auto",
         "broker": "eeac082b50da81c5",
@@ -1173,8 +757,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 1640,
+        "x": 340,
+        "y": 140,
         "wires": [
             [
                 "e31d2f8c10daf91f"
@@ -1189,30 +773,13 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1640,
+        "x": 590,
+        "y": 140,
         "wires": [
             [
-                "7ecedd729ff04398"
+                "b630a4a2e13b9472"
             ]
         ]
-    },
-    {
-        "id": "7ecedd729ff04398",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1640,
-        "wires": []
     },
     {
         "id": "e706b1ff9eeb3349",
@@ -1227,8 +794,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 1700,
+        "x": 400,
+        "y": 2300,
         "wires": [
             [
                 "7d7d44666163d5de"
@@ -1243,8 +810,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1700,
+        "x": 690,
+        "y": 2300,
         "wires": [
             [
                 "5d86ab020ac1abcc"
@@ -1264,8 +831,8 @@
         "targetType": "msg",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 800,
-        "y": 1700,
+        "x": 920,
+        "y": 2300,
         "wires": []
     },
     {
@@ -1281,8 +848,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 290,
-        "y": 1760,
+        "x": 410,
+        "y": 2360,
         "wires": [
             [
                 "f634be5859de084f"
@@ -1297,8 +864,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1760,
+        "x": 690,
+        "y": 2360,
         "wires": [
             [
                 "82059b2a9411af04"
@@ -1318,8 +885,8 @@
         "targetType": "msg",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 800,
-        "y": 1760,
+        "x": 920,
+        "y": 2360,
         "wires": []
     },
     {
@@ -1336,7 +903,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 270,
-        "y": 1820,
+        "y": 2460,
         "wires": [
             [
                 "278c5aa6feda144e"
@@ -1352,28 +919,1277 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 1820,
+        "y": 2460,
         "wires": [
             [
-                "ccd23a262c352457"
+                "b0552e9032f8c80b"
             ]
         ]
     },
     {
-        "id": "ccd23a262c352457",
+        "id": "e375be9679786887",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "YXXDR",
+        "topic": "+/YXXDR",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 390,
+        "y": 2660,
+        "wires": [
+            [
+                "4e299df659bb1c76"
+            ]
+        ]
+    },
+    {
+        "id": "4e299df659bb1c76",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 690,
+        "y": 2660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "65ca5c9411e32337",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "AS3935 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1120,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "594dae494bf3c3e8",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 60,
+        "wires": [
+            [
+                "840b98c8f02e3296"
+            ]
+        ]
+    },
+    {
+        "id": "840b98c8f02e3296",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        source: parseFloat(msg.payload.source),\n        energy: parseFloat(msg.payload.energy),\n        distance: parseFloat(msg.payload.distance)\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 60,
+        "wires": [
+            [
+                "98dc5e46efb323c5",
+                "65ca5c9411e32337"
+            ]
+        ]
+    },
+    {
+        "id": "98dc5e46efb323c5",
         "type": "debug",
         "z": "f6f2187d.f17ca8",
         "name": "",
         "active": false,
         "tosidebar": true,
-        "console": true,
-        "tostatus": true,
+        "console": false,
+        "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "statusVal": "payload",
+        "statusVal": "",
         "statusType": "auto",
-        "x": 800,
+        "x": 1110,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "478afaadde4124cb",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Note Receiving any Data!",
+        "info": "",
+        "x": 150,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "25621242e2e5cb3a",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "BME280 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "15d4fbb82213996f",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        temperature: parseFloat(msg.payload.temperature),\n        pressure: parseFloat(msg.payload.pressure),\n        humidity: parseFloat(msg.payload.humidity),\n        altitude: parseFloat(msg.payload.altitude),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 340,
+        "wires": [
+            [
+                "25621242e2e5cb3a",
+                "74243a7792413e0f"
+            ]
+        ]
+    },
+    {
+        "id": "74243a7792413e0f",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "36e4f7e968f9d037",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "BME680 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "03db26f26e3ac9a1",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        temperature: parseFloat(msg.payload.temperature),\n        pressure: parseFloat(msg.payload.pressure),\n        humidity: parseFloat(msg.payload.humidity),\n        gas: parseFloat(msg.payload.gas),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 480,
+        "wires": [
+            [
+                "36e4f7e968f9d037",
+                "63857ee2d5a04a61"
+            ]
+        ]
+    },
+    {
+        "id": "63857ee2d5a04a61",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "53fb2a0894c5a2ec",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "GL001 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1090,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "5a95e97e58b21e89",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        lightLevel: parseFloat(msg.payload.lightLevel),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 620,
+        "wires": [
+            [
+                "53fb2a0894c5a2ec",
+                "8045ae2e087cb8eb"
+            ]
+        ]
+    },
+    {
+        "id": "8045ae2e087cb8eb",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "5effd89cfcda9021",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "GPGGA Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "ec7a7946d17b0bca",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        UTCTimeStamp: parseFloat(msg.payload.UTCTimeStamp),\n        latitude: parseFloat(msg.payload.latitude),\n        latDirection: msg.payload.latDirection,\n        longitude: parseFloat(msg.payload.longitude),\n        lonDirection: msg.payload.lonDirection,\n        gpsQuality: parseFloat(msg.payload.gpsQuality),\n        altitude: parseFloat(msg.payload.altitude),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 720,
+        "wires": [
+            [
+                "5effd89cfcda9021",
+                "3325874f38842f12"
+            ]
+        ]
+    },
+    {
+        "id": "3325874f38842f12",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "69cd5528a453d312",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "GPSGPGGA2 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1120,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "52f68d0e62bf17ff",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        latitudeCoordinate: parseFloat(msg.payload.latitudeCoordinate),\n        longitudeCoordinate: parseFloat(msg.payload.longitudeCoordinate),\n        latitude: parseFloat(msg.payload.latitude), \n        latitudeDirection: msg.payload.latitudeDirection,\n        longitude: parseFloat(msg.payload.longitude),\n        longitudeDirection: msg.payload.longitudeDirection,\n        altitude: parseFloat(msg.payload.altitude),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 820,
+        "wires": [
+            [
+                "69cd5528a453d312",
+                "d327a921738aeba9"
+            ]
+        ]
+    },
+    {
+        "id": "d327a921738aeba9",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "ac7f43191439a55e",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "GPSGPRMC2 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1120,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "ac8dc19361ee0403",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        latitudeCoordinate: parseFloat(msg.payload.latitudeCoordinate),\n        longitudeCoordinate: parseFloat(msg.payload.longitudeCoordinate),\n        latitude: parseFloat(msg.payload.latitude), \n        latitudeDirection: msg.payload.latitudeDirection,\n        longitude: parseFloat(msg.payload.longitude),\n        longitudeDirection: msg.payload.longitudeDirection,\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 920,
+        "wires": [
+            [
+                "ac7f43191439a55e",
+                "d04f781d08525b8d"
+            ]
+        ]
+    },
+    {
+        "id": "d04f781d08525b8d",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "5647cd3d4b141b34",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "GUV001 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "26c1fc6d89c6cb97",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        uvLevel: parseFloat(msg.payload.uvLevel)\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1020,
+        "wires": [
+            [
+                "5647cd3d4b141b34",
+                "4bd8d4096c5c8364"
+            ]
+        ]
+    },
+    {
+        "id": "4bd8d4096c5c8364",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "5a2ae17bcfd34bd6",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "HM3301 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "1190890671c4a0f9",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        pm1: parseFloat(msg.payload.pm1),\n        pm2_5: parseFloat(msg.payload.pm2_5),\n        pm10: parseFloat(msg.payload.pm10),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1120,
+        "wires": [
+            [
+                "5a2ae17bcfd34bd6",
+                "1e5f6d8e993557c9"
+            ]
+        ]
+    },
+    {
+        "id": "1e5f6d8e993557c9",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "d725d072818b709c",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Note Receiving any Data!",
+        "info": "",
+        "x": 270,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "05bd01f34e3c532f",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "IPS7100 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "f29a7a79ac83ec38",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        pc0_1: parseFloat(msg.payload.pc0_1),\n        pc0_3: parseFloat(msg.payload.pc0_3),\n        pc0_5: parseFloat(msg.payload.pc0_5),\n        pc1_0: parseFloat(msg.payload.pc1_0),\n        pc2_5: parseFloat(msg.payload.pc2_5),\n        pc5_0: parseFloat(msg.payload.pc5_0),\n        pc10_0: parseFloat(msg.payload.pc10_0),\n        \n        pm0_1: parseFloat(msg.payload.pm0_1),\n        pm0_3: parseFloat(msg.payload.pm0_3),\n        pm0_5: parseFloat(msg.payload.pm0_5),\n        pm1_0: parseFloat(msg.payload.pm1_0),\n        pm2_5: parseFloat(msg.payload.pm2_5),\n        pm5_0: parseFloat(msg.payload.pm5_0),\n        pm10_0: parseFloat(msg.payload.pm10_0),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1320,
+        "wires": [
+            [
+                "05bd01f34e3c532f",
+                "b6c7e1324bfcd49b"
+            ]
+        ]
+    },
+    {
+        "id": "b6c7e1324bfcd49b",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "47707160dd3e824e",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "LIBRAD",
+        "topic": "+/LIBRAD",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 280,
+        "y": 1420,
+        "wires": [
+            [
+                "5f3f5da85701d4f3"
+            ]
+        ]
+    },
+    {
+        "id": "5f3f5da85701d4f3",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 1420,
+        "wires": [
+            [
+                "6e58c4f2a11b2119"
+            ]
+        ]
+    },
+    {
+        "id": "52a4a4881137ab7b",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "LIBRAD Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "6e58c4f2a11b2119",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        countPerMinute: parseFloat(msg.payload.countPerMinute),\n        radiationValue: parseFloat(msg.payload.radiationValue),\n        timeSpent: parseFloat(msg.payload.timeSpent),\n        LIBRADCount: parseFloat(msg.payload.LIBRADCount)\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1420,
+        "wires": [
+            [
+                "52a4a4881137ab7b",
+                "4b2392d11c8d98fe"
+            ]
+        ]
+    },
+    {
+        "id": "4b2392d11c8d98fe",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "c879bc2fe35c9391",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "MGS001 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "b3439e706f7fb8ca",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        nh3: parseFloat(msg.payload.nh3),\n        co: parseFloat(msg.payload.co),\n        no2: parseFloat(msg.payload.no2),\n        c3h8: parseFloat(msg.payload.c3h8),\n        c4h10: parseFloat(msg.payload.c4h10),\n        ch4: parseFloat(msg.payload.ch4),\n        h2: parseFloat(msg.payload.h2),\n        c2h5oh: parseFloat(msg.payload.c2h5oh),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1520,
+        "wires": [
+            [
+                "c879bc2fe35c9391",
+                "7531e5a7bc7b8398"
+            ]
+        ]
+    },
+    {
+        "id": "7531e5a7bc7b8398",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 1480,
+        "wires": []
+    },
+    {
+        "id": "918b1d52b5f6d6b1",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "drop spaces",
+        "func": "msg.payload = msg.payload.replace(\"c2h5oh  \", \"c2h5oh\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 1520,
+        "wires": [
+            [
+                "1a80f6e4eb3c3a0c"
+            ]
+        ]
+    },
+    {
+        "id": "af2c1635cbf9a48c",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "OPCN3 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "7263168d496d9ec0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        valid: parseFloat(msg.payload.valid),\n        binCount0: parseFloat(msg.payload.binCount0),\n        binCount1: parseFloat(msg.payload.binCount1),\n        binCount2: parseFloat(msg.payload.binCount2),\n        binCount3: parseFloat(msg.payload.binCount3),\n        binCount4: parseFloat(msg.payload.binCount4),\n        binCount5: parseFloat(msg.payload.binCount5),\n        binCount6: parseFloat(msg.payload.binCount6),\n        binCount7: parseFloat(msg.payload.binCount7),\n        binCount8: parseFloat(msg.payload.binCount8),\n        binCount9: parseFloat(msg.payload.binCount9),\n        binCount10: parseFloat(msg.payload.binCount10),\n        binCount11: parseFloat(msg.payload.binCount11),\n        binCount12: parseFloat(msg.payload.binCount12),\n        binCount13: parseFloat(msg.payload.binCount13),\n        binCount14: parseFloat(msg.payload.binCount14),\n        binCount15: parseFloat(msg.payload.binCount15),\n        binCount16: parseFloat(msg.payload.binCount16),\n        binCount17: parseFloat(msg.payload.binCount17),\n        binCount18: parseFloat(msg.payload.binCount18),\n        binCount19: parseFloat(msg.payload.binCount19),\n        binCount20: parseFloat(msg.payload.binCount20),\n        binCount21: parseFloat(msg.payload.binCount21),\n        binCount22: parseFloat(msg.payload.binCount22),\n        binCount23: parseFloat(msg.payload.binCount23),\n        \n        bin1TimeToCross: parseFloat(msg.payload.bin1TimeToCross),\n        bin3TimeToCross: parseFloat(msg.payload.bin3TimeToCross),\n        bin5TimeToCross: parseFloat(msg.payload.bin5TimeToCross),\n        bin7TimeToCross: parseFloat(msg.payload.bin7TimeToCross),\n        \n        samplingPeriod: parseFloat(msg.payload.samplingPeriod),\n        humidity: parseFloat(msg.payload.humidity),\n        pm1: parseFloat(msg.payload.pm1),\n        pm2_5: parseFloat(msg.payload.pm2_5),\n        pm10: parseFloat(msg.payload.pm10),\n        \n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1620,
+        "wires": [
+            [
+                "af2c1635cbf9a48c",
+                "44fc55d7b2355a82"
+            ]
+        ]
+    },
+    {
+        "id": "44fc55d7b2355a82",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "57494680e2d81150",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "SCD30",
+        "topic": "+/SCD30",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 1720,
+        "wires": [
+            [
+                "56b04e9dd9472651"
+            ]
+        ]
+    },
+    {
+        "id": "56b04e9dd9472651",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 1720,
+        "wires": [
+            [
+                "67e11d8937f1c6d0"
+            ]
+        ]
+    },
+    {
+        "id": "9dc4014e03e99aa0",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "SCD30 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1090,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "67e11d8937f1c6d0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n        c02: parseFloat(msg.payload.c02),\n        temperature: parseFloat(msg.payload.temperature),\n        humidity: parseFloat(msg.payload.humidity),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1720,
+        "wires": [
+            [
+                "9dc4014e03e99aa0",
+                "ce209f606823ea31"
+            ]
+        ]
+    },
+    {
+        "id": "ce209f606823ea31",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 1680,
+        "wires": []
+    },
+    {
+        "id": "3ccf6e9a7bf9efb0",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Note Receiving any Data!",
+        "info": "",
+        "x": 210,
         "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "6e5a1c3f1fa8fbd4",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Note Receiving any Data!",
+        "info": "",
+        "x": 210,
+        "y": 2300,
+        "wires": []
+    },
+    {
+        "id": "97d8ff8b8ee31bb1",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Note Receiving any Data!",
+        "info": "",
+        "x": 210,
+        "y": 2360,
+        "wires": []
+    },
+    {
+        "id": "a052b24ded73d08e",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "TB108L Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "871ec94e7b830856",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n       ozone: parseFloat(msg.payload.ozone),\n       temperature: parseFloat(msg.payload.temperature),\n       pressure: parseFloat(msg.payload.pressure),\n       voltage: parseFloat(msg.payload.voltage)\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1920,
+        "wires": [
+            [
+                "a052b24ded73d08e",
+                "ec9a81e795c5f4f7"
+            ]
+        ]
+    },
+    {
+        "id": "ec9a81e795c5f4f7",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "6e428da3ce8b2857",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "TMG3993 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 2020,
+        "wires": []
+    },
+    {
+        "id": "ebd8af303159ed74",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n       infraRed: parseFloat(msg.payload.infraRed),\n       red: parseFloat(msg.payload.red),\n       green: parseFloat(msg.payload.green),\n       blue: parseFloat(msg.payload.blue),\n       proximity: parseFloat(msg.payload.proximity),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 2020,
+        "wires": [
+            [
+                "6e428da3ce8b2857",
+                "a3efd507038f26c1"
+            ]
+        ]
+    },
+    {
+        "id": "a3efd507038f26c1",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 1980,
+        "wires": []
+    },
+    {
+        "id": "ab06fa5d16ec4a01",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "TSL2591 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "d3e586e2f0480cf4",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n       luminosity: parseFloat(msg.payload.luminosity),\n       ir: parseFloat(msg.payload.ir), \n       full: parseFloat(msg.payload.full),\n       visible: parseFloat(msg.payload.visible),\n       lux: parseFloat(msg.payload.lux),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 2120,
+        "wires": [
+            [
+                "ab06fa5d16ec4a01",
+                "1f4667806167e646"
+            ]
+        ]
+    },
+    {
+        "id": "1f4667806167e646",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "fbcac68290292024",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "VEML6075 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1110,
+        "y": 2220,
+        "wires": []
+    },
+    {
+        "id": "a1161ba646a6bae5",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload = [\n    {\n       rawUVA: parseFloat(msg.payload.rawUVA),\n       rawUVB: parseFloat(msg.payload.rawUVB),\n       irCompensation: parseFloat(msg.payload.irCompensation),\n       uva: parseFloat(msg.payload.uva),\n       uvb: parseFloat(msg.payload.uvb),\n       index: parseFloat(msg.payload.index),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 2220,
+        "wires": [
+            [
+                "fbcac68290292024",
+                "7670d199db89906a"
+            ]
+        ]
+    },
+    {
+        "id": "7670d199db89906a",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "b630a4a2e13b9472",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "64fb0ac80d574ff5",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Note Receiving any Data!",
+        "info": "",
+        "x": 150,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "11f20d4cfa1b91cf",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "WIMDA Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 2460,
+        "wires": []
+    },
+    {
+        "id": "b0552e9032f8c80b",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "wdt = msg.payload.windDirectionTrue;\nif (wdt == \"\") {\n  wdt=0.0;\n} else {\n  wdt=parseFloat(wdt);\n}\n\nwdm = msg.payload.windDirectionMagnetic;\nif (wdm==\"\"){\n    wdm=0.0;\n} else{\n    wdm=parseFloat(wdm);\n}\n\nwsk = msg.payload.windSpeedKnots\nif (wsk==\"\"){\n    wsk=0.0;\n} else{\n    wsk=parseFloat(wsk);\n}\n\nwsmps = msg.payload.windSpeedMetersPerSecond;\nif (wsmps==\"\"){\n    wsmps=0.0;\n} else{\n    wsmps=parseFloat(wsmps);\n}\n\nmsg.payload = [\n    {\n       barrometricPressureMercury: parseFloat(msg.payload.barrometricPressureMercury),\n       barrometricPressureBars: parseFloat(msg.payload.barrometricPressureBars),\n       airTemperature: parseFloat(msg.payload.airTemperature),\n       relativeHumidity: parseFloat(msg.payload.relativeHumidity),\n       dewPoint: parseFloat(msg.payload.dewPoint),\n       windDirectionTrue: parseFloat(wdt),\n       windDirectionMagnetic: parseFloat(wdm),\n       windSpeedKnots: parseFloat(wsk),\n       windSpeedMetersPerSecond: parseFloat(wsmps),\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 2460,
+        "wires": [
+            [
+                "11f20d4cfa1b91cf",
+                "ed48c7f8355a1b0f"
+            ]
+        ]
+    },
+    {
+        "id": "ed48c7f8355a1b0f",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 2420,
         "wires": []
     },
     {
@@ -1390,7 +2206,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 280,
-        "y": 1880,
+        "y": 2560,
         "wires": [
             [
                 "d703562e6e74a901"
@@ -1406,82 +2222,76 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 1880,
+        "y": 2560,
         "wires": [
             [
-                "8505f7519a8054c8"
+                "7dc8e96e0b81aa43"
             ]
         ]
     },
     {
-        "id": "8505f7519a8054c8",
-        "type": "debug",
+        "id": "55c452a818824055",
+        "type": "influxdb out",
         "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 800,
-        "y": 1880,
+        "influxdb": "6d81027f06ed63bd",
+        "name": "WIMWV Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "MINTS",
+        "bucket": "SharedAirDFW",
+        "x": 1100,
+        "y": 2560,
         "wires": []
     },
     {
-        "id": "e375be9679786887",
-        "type": "mqtt in",
-        "z": "f6f2187d.f17ca8",
-        "name": "YXXDR",
-        "topic": "+/YXXDR",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "eeac082b50da81c5",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 270,
-        "y": 1940,
-        "wires": [
-            [
-                "4e299df659bb1c76"
-            ]
-        ]
-    },
-    {
-        "id": "4e299df659bb1c76",
-        "type": "json",
+        "id": "7dc8e96e0b81aa43",
+        "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 570,
-        "y": 1940,
+        "func": "\nmsg.payload = [\n    {\n        windAngle: parseFloat(msg.payload.windAngle),\n        WAReference: msg.payload.WAReference,\n        windSpeed: parseFloat(msg.payload.windSpeed),\n        WSUnits: msg.payload.WSUnits,\n    },\n    {\n        location: msg.topic.split(\"/\")[0]\n    },\n];\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 2560,
         "wires": [
             [
-                "cc22090b91079ebd"
+                "55c452a818824055",
+                "42652e648395d212"
             ]
         ]
     },
     {
-        "id": "cc22090b91079ebd",
+        "id": "42652e648395d212",
         "type": "debug",
         "z": "f6f2187d.f17ca8",
         "name": "",
         "active": false,
         "tosidebar": true,
-        "console": true,
-        "tostatus": true,
+        "console": false,
+        "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "statusVal": "payload",
+        "statusVal": "",
         "statusType": "auto",
-        "x": 800,
-        "y": 1940,
+        "x": 1090,
+        "y": 2520,
+        "wires": []
+    },
+    {
+        "id": "fa76dadeb20276e5",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Note Receiving any Data!",
+        "info": "",
+        "x": 210,
+        "y": 2660,
         "wires": []
     },
     {
@@ -1510,6 +2320,20 @@
         "willPayload": "",
         "willMsg": {},
         "sessionExpiry": ""
+    },
+    {
+        "id": "6d81027f06ed63bd",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "InfluxDB",
+        "usetls": false,
+        "tls": "a262c54bb2fd3604",
+        "influxdbVersion": "2.0",
+        "url": "http://influxdb:8086",
+        "rejectUnauthorized": true
     },
     {
         "id": "a262c54bb2fd3604",
