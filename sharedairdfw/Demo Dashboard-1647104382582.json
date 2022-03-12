@@ -1,0 +1,1052 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "iteration": 1647104317878,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 30,
+      "panels": [
+        {
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 15,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 10,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "displayName": "C2H5OH",
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": ""
+                  }
+                ]
+              },
+              "unit": "ppm"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 8,
+            "x": 0,
+            "y": 1
+          },
+          "id": 32,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-03-12T16:35:57Z",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "General",
+              "folderUid": "",
+              "updated": "2022-03-12T16:35:57Z",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "MSG001 Ethanol",
+            "type": "timeseries",
+            "uid": "MITkNiE7k",
+            "version": 1
+          },
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "dt-STgPnz"
+              },
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c2h5oh\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Ethanol",
+          "type": "timeseries"
+        },
+        {
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 15,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 10,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "displayName": "C2H5OH",
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": ""
+                  }
+                ]
+              },
+              "unit": "ppm"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 8,
+            "x": 8,
+            "y": 1
+          },
+          "id": 33,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-03-12T16:36:50Z",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "General",
+              "folderUid": "",
+              "updated": "2022-03-12T16:36:50Z",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "MSG001 Propane",
+            "type": "timeseries",
+            "uid": "v5mWHmEnz",
+            "version": 1
+          },
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "dt-STgPnz"
+              },
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c3h8\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Propane",
+          "type": "timeseries"
+        }
+      ],
+      "title": "MSG001",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 16,
+      "panels": [
+        {
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 4,
+            "x": 1,
+            "y": 2
+          },
+          "id": 18,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-03-12T15:52:53Z",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "General",
+              "folderUid": "",
+              "updated": "2022-03-12T15:52:53Z",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "BME680 Humidity",
+            "type": "gauge",
+            "uid": "CS-b7iE7z",
+            "version": 1
+          },
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "dt-STgPnz"
+              },
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Humidity",
+          "type": "gauge"
+        },
+        {
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "max": 110,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 102
+                  }
+                ]
+              },
+              "unit": "pressurekpa"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 4,
+            "x": 6,
+            "y": 2
+          },
+          "id": 26,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-03-12T15:56:52Z",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "General",
+              "folderUid": "",
+              "updated": "2022-03-12T16:11:36Z",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "BME680 Pressure",
+            "type": "gauge",
+            "uid": "zh9w7iPnz",
+            "version": 6
+          },
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "dt-STgPnz"
+              },
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Pressure",
+          "type": "gauge"
+        },
+        {
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 60
+                  }
+                ]
+              },
+              "unit": "celsius"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 4,
+            "x": 11,
+            "y": 2
+          },
+          "id": 24,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "dt-STgPnz"
+              },
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "BME680 Temperature",
+          "type": "gauge"
+        }
+      ],
+      "title": "BME680",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 8,
+      "panels": [
+        {
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 1,
+            "y": 3
+          },
+          "id": 10,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-03-12T15:38:51Z",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "General",
+              "folderUid": "",
+              "updated": "2022-03-12T15:38:51Z",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "BME280 Humidity",
+            "type": "gauge",
+            "uid": "VxjUGiEnk",
+            "version": 1
+          },
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "dt-STgPnz"
+              },
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Humidity",
+          "type": "gauge"
+        },
+        {
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 110000,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 102000
+                  }
+                ]
+              },
+              "unit": "pressurepa"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 6,
+            "y": 3
+          },
+          "id": 28,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-03-12T15:54:01Z",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "General",
+              "folderUid": "",
+              "updated": "2022-03-12T16:12:22Z",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "BME280 Pressure",
+            "type": "gauge",
+            "uid": "WaYfnmEnk",
+            "version": 5
+          },
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "dt-STgPnz"
+              },
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Pressure",
+          "type": "gauge"
+        },
+        {
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 60
+                  }
+                ]
+              },
+              "unit": "celsius"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 11,
+            "y": 3
+          },
+          "id": 20,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-03-12T15:41:54Z",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "General",
+              "folderUid": "",
+              "updated": "2022-03-12T15:43:39Z",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "BME280 Temperature",
+            "type": "gauge",
+            "uid": "CxT3GiE7k",
+            "version": 3
+          },
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "dt-STgPnz"
+              },
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Temperature",
+          "type": "gauge"
+        }
+      ],
+      "title": "BME280",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 6,
+      "panels": [],
+      "title": "IPS7100",
+      "type": "row"
+    },
+    {
+      "cards": {},
+      "color": {
+        "cardColor": "#b4ff00",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolatePurples",
+        "exponent": 0.5,
+        "mode": "spectrum"
+      },
+      "dataFormat": "tsbuckets",
+      "description": "",
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      },
+      "heatmap": {},
+      "hideZeroBuckets": false,
+      "highlightCards": true,
+      "id": 4,
+      "legend": {
+        "show": false
+      },
+      "libraryPanel": {
+        "description": "",
+        "meta": {
+          "connectedDashboards": 1,
+          "created": "2022-03-12T15:08:32Z",
+          "createdBy": {
+            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+            "id": 1,
+            "name": "admin"
+          },
+          "folderName": "General",
+          "folderUid": "",
+          "updated": "2022-03-12T16:44:43Z",
+          "updatedBy": {
+            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+            "id": 1,
+            "name": "admin"
+          }
+        },
+        "name": "IPS7100 Particle Counts",
+        "type": "heatmap",
+        "uid": "kLczZiPnz",
+        "version": 3
+      },
+      "reverseYBuckets": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "dt-STgPnz"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_1\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "dt-STgPnz"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_3\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "dt-STgPnz"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "dt-STgPnz"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc1_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "dt-STgPnz"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc2_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "dt-STgPnz"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc5_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "dt-STgPnz"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc10_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "G"
+        }
+      ],
+      "title": "Particle Counts",
+      "tooltip": {
+        "show": true,
+        "showHistogram": false
+      },
+      "transparent": true,
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "yAxis": {
+        "format": "short",
+        "logBase": 1,
+        "show": true
+      },
+      "yBucketBound": "auto"
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 5,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "conμgm3"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      },
+      "id": 2,
+      "libraryPanel": {
+        "description": "",
+        "meta": {
+          "connectedDashboards": 1,
+          "created": "2022-03-12T15:08:41Z",
+          "createdBy": {
+            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+            "id": 1,
+            "name": "admin"
+          },
+          "folderName": "General",
+          "folderUid": "",
+          "updated": "2022-03-12T16:41:30Z",
+          "updatedBy": {
+            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+            "id": 1,
+            "name": "admin"
+          }
+        },
+        "name": "IPS7100 PM",
+        "type": "timeseries",
+        "uid": "gcYzWiE7k",
+        "version": 7
+      },
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "dt-STgPnz"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_1\" or r[\"_field\"] == \"pm0_3\" or r[\"_field\"] == \"pm0_5\" or r[\"_field\"] == \"pm0_1\" or r[\"_field\"] == \"pm2_5\" or r[\"_field\"] == \"pm5_0\" or r[\"_field\"] == \"pm10_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Particulate Matter",
+      "transparent": true,
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 34,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "001e06303b4f",
+          "value": "001e06303b4f"
+        },
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"location\")",
+        "description": "device_ids",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "device_id",
+        "options": [],
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"location\")",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Demo Dashboard",
+  "uid": "Nl-_gmPnz",
+  "version": 9,
+  "weekStart": ""
+}
