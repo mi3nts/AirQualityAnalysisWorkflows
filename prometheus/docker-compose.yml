@@ -4,9 +4,14 @@ services:
     build: .
     ports:
       - "9090:9090"
+    volumes:
+      - csv_data:/csv_data
   grafana:
     image: grafana/grafana
     ports:
       - "3000:3000"
     depends_on:
       - prometheus
+
+volumes:
+  csv_data:
