@@ -12,6 +12,10 @@ services:
       - "3000:3000"
     depends_on:
       - prometheus
-
+  scheduler:
+      image: mcuadros/ofelia:latest
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock:consistent
+        - ./ofelia.ini:/etc/ofelia/config.ini:consistent
 volumes:
   csv_data:
