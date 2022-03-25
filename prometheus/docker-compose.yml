@@ -5,7 +5,9 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - csv_data:/csv_data
+      - type: bind
+        source: ./csv_data
+        target: /csv_data
   grafana:
     image: grafana/grafana
     ports:

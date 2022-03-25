@@ -7,9 +7,13 @@ from pathlib import Path
 import subprocess
 
 # File name specification
-input_path = 'csv_data/**/*.csv'
-output_path = 'openmetrics_data/'
-prometheus_path = 'prometheus-2.30.0.linux-amd64/'
+input_path = '/csv_data/**/*.csv'
+output_path = '/openmetrics_data/'
+prometheus_path = '/prometheus-2.30.0.linux-amd64/'
+
+
+# remember what files are new
+new_files = []
 
 # Iterate over the files in the input path
 for file in glob.iglob(input_path):
@@ -18,6 +22,13 @@ for file in glob.iglob(input_path):
     # Remove missing rows/corrupted lines
     csv_df.dropna(subset=['dateTime'], inplace=True)
     base_file_name = Path(file).stem
+
+    # Do not recreate files already converted to openmetrics
+    # Skip to next file in input path
+    if Path(output_path+base_file_name).is_file():
+        continue
+
+    new_files.append(output_path + base_file_name)
     openmetrics_file = open(output_path + base_file_name, "w")
     # Convert date time to UNIX time
     csv_df['dateTime'] = csv_df['dateTime'].apply(lambda x: int(datetime.fromisoformat(x).timestamp()))
@@ -51,8 +62,8 @@ for file in glob.iglob(input_path):
 
     openmetrics_file.close()
 
-# Iterate over all the openmetric format files
-for file in glob.iglob(output_path+'*'):
+# Iterate over all new openmetric format files
+for file in new_files:
     print('Ingesting file ' + file)
     # Ingest the current file using promtool
     ingest_file = subprocess.run([prometheus_path + 'promtool', 'tsdb', 'create-blocks-from', 'openmetrics', file, prometheus_path + 'data'])
