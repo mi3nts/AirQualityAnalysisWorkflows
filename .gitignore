@@ -136,3 +136,6 @@ dmypy.json
 
 # Text files
 *.txt
+
+# Idea
+*.idea
