@@ -5,6 +5,7 @@ RUN apt install build-essential gcc -y
 
 ### Setup prometheus
 COPY prometheus-2.30.0.linux-amd64/         /prometheus-2.30.0.linux-amd64
+RUN chmod -R u=rwx prometheus-2.30.0.linux-amd64/
 COPY csv_data/                   /csv_data
 RUN chmod -R u=rwx csv_data/
 RUN mkdir openmetrics_data/

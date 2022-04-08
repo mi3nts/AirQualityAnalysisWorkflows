@@ -19,5 +19,7 @@ services:
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock:consistent
         - ./ofelia.ini:/etc/ofelia/config.ini:consistent
+      depends_on:
+        - prometheus
 volumes:
   csv_data:
