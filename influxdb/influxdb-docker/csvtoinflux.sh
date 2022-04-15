@@ -52,7 +52,7 @@ function loadCsvToInflux() {
       elif [[ "$col" =~ timestamp|dateStamp ]]; then
         datatype="${datatype},ignored"
       elif [[ "$col" =~ status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID ]]; then
-        datatype="${datatype},string"
+        datatype="${datatype},tag"
       else
         datatype="${datatype},field"
       fi
@@ -64,7 +64,7 @@ function loadCsvToInflux() {
     # Perform some edits on the CSV, and load into influx using influx write.
     perl -pe 's/^([0-9-]+) ([0-9:.]+)/\1T\2Z/ and s/,\s+/,/g and s/NAN//g and s/,$/,,/' < "$filepath" | \
     influx write \
-      --bucket sharedairdfw \
+      --bucket SharedAirDFW \
       --format csv \
       --header "#datatype $datatype"
   else
@@ -80,7 +80,7 @@ function loadCsvToInflux() {
       elif [[ "$col" =~ timestamp|dateStamp ]]; then
         datatype="${datatype},ignored"
       elif [[ "$col" =~ status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID ]]; then
-        datatype="${datatype},string"
+        datatype="${datatype},tag"
       else
         datatype="${datatype},field"
       fi
@@ -100,7 +100,7 @@ function loadCsvToInflux() {
     #     empty)
     perl -pe 's/^([0-9-]+) ([0-9:.]+)/\1T\2Z/ and s/,\s+/,/g and s/NAN//g and s/,$/,,/' < "$filepath" | \
     influx write \
-      --bucket sharedairdfw \
+      --bucket SharedAirDFW \
       --format csv \
       --header "#constant measurement,$part2" \
       --header "#constant tag,nodeId,$part1" \
