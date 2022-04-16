@@ -52,35 +52,7 @@ function loadCsvToInflux() {
       elif [[ "$col" =~ timestamp|dateStamp ]]; then
         datatype="${datatype},ignored"
       elif [[ "$col" =~ status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID ]]; then
-        datatype="${datatype},tag"
-      else
-        datatype="${datatype},field"
-      fi
-    done
-
-    # Remove first comma
-    datatype=${datatype:1}
-
-    # Perform some edits on the CSV, and load into influx using influx write.
-    perl -pe 's/^([0-9-]+) ([0-9:.]+)/\1T\2Z/ and s/,\s+/,/g and s/NAN//g and s/,$/,,/' < "$filepath" | \
-    influx write \
-      --bucket SharedAirDFW \
-      --format csv \
-      --header "#datatype $datatype"
-  else
-    echo "Detected single-sensor CSV"
-    # Build datatype string from column names
-    # https://docs.influxdata.com/influxdb/v2.1/reference/syntax/annotated-csv/extended/
-    header=$(head -1 "$filepath")
-    IFS=',' read -ra headerArr <<< "$header"
-
-    for col in "${headerArr[@]}"; do
-      if [[ "$col" == 'dateTime' ]]; then
-        datatype="${datatype},dateTime"
-      elif [[ "$col" =~ timestamp|dateStamp ]]; then
-        datatype="${datatype},ignored"
-      elif [[ "$col" =~ status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID ]]; then
-        datatype="${datatype},tag"
+        datatype="${datatype},string"
       else
         datatype="${datatype},field"
       fi
@@ -98,12 +70,41 @@ function loadCsvToInflux() {
     #  4. Add trailing comma to lines with trailing comma, due to a bug in the CSV parser. This bug reads the first value
     #     of the next line as the last value of the current line, if there is no value specified in the CSV (i.e. it's
     #     empty)
+    #  5. Change "nodeid" (case insensitive) to "location"
+    perl -pe 's/^([0-9-]+) ([0-9:.]+)/\1T\2Z/ and s/,\s+/,/g and s/NAN//g and s/,$/,,/ and s/nodeid/location/i' < "$filepath" | \
+    influx write \
+      --bucket SharedAirDFW \
+      --format csv \
+      --header "#datatype $datatype"
+  else
+    echo "Detected single-sensor CSV"
+    # Build datatype string from column names
+    # https://docs.influxdata.com/influxdb/v2.1/reference/syntax/annotated-csv/extended/
+    header=$(head -1 "$filepath")
+    IFS=',' read -ra headerArr <<< "$header"
+
+    for col in "${headerArr[@]}"; do
+      if [[ "$col" == 'dateTime' ]]; then
+        datatype="${datatype},dateTime"
+      elif [[ "$col" =~ timestamp|dateStamp ]]; then
+        datatype="${datatype},ignored"
+      elif [[ "$col" =~ status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID ]]; then
+        datatype="${datatype},string"
+      else
+        datatype="${datatype},field"
+      fi
+    done
+
+    # Remove first comma
+    datatype=${datatype:1}
+
+    # Perform some edits on the CSV, and load into influx using influx write.
     perl -pe 's/^([0-9-]+) ([0-9:.]+)/\1T\2Z/ and s/,\s+/,/g and s/NAN//g and s/,$/,,/' < "$filepath" | \
     influx write \
       --bucket SharedAirDFW \
       --format csv \
       --header "#constant measurement,$part2" \
-      --header "#constant tag,nodeId,$part1" \
+      --header "#constant tag,location,$part1" \
       --header "#datatype $datatype"
   fi
 }

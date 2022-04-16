@@ -4,7 +4,7 @@ version: '3'
 services: 
   influxdb: 
     build: ./influxdb-docker
-    image: custom-influxdb
+    image: mints-influxdb
     volumes:
       - influxdb_data:/var/lib/influxdb
     ports:
@@ -15,13 +15,21 @@ services:
       - DOCKER_INFLUXDB_INIT_PASSWORD
       - DOCKER_INFLUXDB_INIT_ORG
       - DOCKER_INFLUXDB_INIT_BUCKET
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
 
   nodered:
-    image: nodered/node-red:latest
+    build: ./nodered-docker
+    image: mints-nodered
     ports:
       - "1880:1880"
-    volumes:
-      - node-red_data:/data
+    environment:
+      - DOCKER_INFLUXDB_INIT_ORG
+      - DOCKER_INFLUXDB_INIT_BUCKET
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+      - MQTT_CENTRAL_NODES_USERNAME
+      - MQTT_CENTRAL_NODES_PASSWORD
+      - MQTT_LORA_NODES_USERNAME
+      - MQTT_LORA_NODES_PASSWORD
 
   grafana:
     image: grafana/grafana:latest
