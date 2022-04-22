@@ -42,6 +42,5 @@ services:
 
 volumes:
   influxdb_data:
-  node-red_data:
   grafana_data:
 
