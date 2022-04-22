@@ -16,6 +16,15 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG
       - DOCKER_INFLUXDB_INIT_BUCKET
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+      
+  
+  ofelia:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - influxdb
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:consistent
+      - ./ofelia.ini:/etc/ofelia/config.ini:consistent 
 
   nodered:
     build: ./nodered-docker
