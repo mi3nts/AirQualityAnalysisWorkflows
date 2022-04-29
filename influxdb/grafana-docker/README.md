@@ -6,8 +6,11 @@ Grafana has the following [bug](https://github.com/grafana/grafana/issues/46247)
 create any library panels if they are to be provisioned on startup. I (Eric) have deleted the `libraryPanel`
 property of all panels in the dashboard json created by John, to get it to load properly.
 
-Grafana generates a random UID for everything unless provided. So, I have manually provided a UID in the InfluxDB
-datasource, which should be referenced in every dashbaord which uses InfluxDB.
+Grafana generates a random UID for everything unless provided—including datasources. So, I have manually provided a UID
+in the InfluxDB datasource, which should be referenced in every dashboard which uses InfluxDB.
+
+The provisioning docs are wrong for plugin installation. To install plugins, use the `GF_INSTALL_PLUGINS`
+environment variable. The format is a comma-separated list of identifiers.
 
 ## Additional Information
 
