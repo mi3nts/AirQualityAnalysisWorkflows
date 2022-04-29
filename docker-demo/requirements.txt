@@ -1,2 +1,0 @@
-numpy==1.22.2
-prometheus-client==0.13.1
