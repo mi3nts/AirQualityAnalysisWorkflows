@@ -16,6 +16,15 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG
       - DOCKER_INFLUXDB_INIT_BUCKET
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+      
+  
+  ofelia:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - influxdb
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:consistent
+      - ./ofelia.ini:/etc/ofelia/config.ini:consistent 
 
   nodered:
     build: ./nodered-docker
@@ -30,18 +39,23 @@ services:
       - MQTT_CENTRAL_NODES_PASSWORD
       - MQTT_LORA_NODES_USERNAME
       - MQTT_LORA_NODES_PASSWORD
+    depends_on:
+      - influxdb
 
   grafana:
-    image: grafana/grafana:latest
-    volumes:
-      - grafana_data:/var/lib/grafana
+    build: ./grafana-docker
+    image: mints-grafana
     ports:
       - "3000:3000"
+    environment:
+      - DOCKER_INFLUXDB_INIT_ORG
+      - DOCKER_INFLUXDB_INIT_BUCKET
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+      - GF_SECURITY_ADMIN_USER
+      - GF_SECURITY_ADMIN_PASSWORD
+      - GF_INSTALL_PLUGINS
     depends_on:
       - influxdb
 
 volumes:
   influxdb_data:
-  node-red_data:
-  grafana_data:
-
