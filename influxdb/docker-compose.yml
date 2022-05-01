@@ -6,7 +6,7 @@ services:
     build: ./influxdb-docker
     image: mints-influxdb
     volumes:
-      - influxdb_data:/var/lib/influxdb
+      - influxdb_data:/var/lib/influxdb2
     ports:
       - '8086:8086'
     environment:
