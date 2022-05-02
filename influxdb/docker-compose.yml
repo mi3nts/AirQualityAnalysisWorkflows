@@ -6,8 +6,17 @@ services:
     build: ./influxdb-docker
     image: mints-influxdb
     volumes:
-      - influxdb_data:/var/lib/influxdb2
-      - influxdb_config:/etc/influxdb2
+      - type: bind
+        source: ${DOCKER_INFLUXDB_DATA_BM}
+        target: /var/lib/influxdb2
+      - type: bind
+        source: ${DOCKER_INFLUXDB_CONFIG_BM}
+        target: /etc/influxdb2
+      # - influxdb_data:/var/lib/influxdb2
+      # - influxdb_config:/etc/influxdb2
+
+
+
     ports:
       - '8086:8086'
     environment:
@@ -26,6 +35,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:consistent
       - ./ofelia.ini:/etc/ofelia/config.ini:consistent 
+
+
+
 
   nodered:
     build: ./nodered-docker
@@ -58,6 +70,6 @@ services:
     depends_on:
       - influxdb
 
-volumes:
-  influxdb_data:
-  influxdb_config:
+# volumes:
+#   influxdb_data:
+#   influxdb_config:
