@@ -2037,7 +2037,7 @@
         "type": "debug",
         "z": "b44edfff80da0ecb",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -2063,7 +2063,8 @@
         "y": 560,
         "wires": [
             [
-                "0fbad8a9bc13f0d3"
+                "0fbad8a9bc13f0d3",
+                "1dc1459fe8e6d4a3"
             ]
         ]
     },
@@ -2072,7 +2073,7 @@
         "type": "influxdb out",
         "z": "b44edfff80da0ecb",
         "influxdb": "6d81027f06ed63bd",
-        "name": "BME280 Write",
+        "name": "BME688CNR Write",
         "measurement": "",
         "precision": "n",
         "retentionPolicy": "",
@@ -2081,7 +2082,7 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1660,
+        "x": 1670,
         "y": 560,
         "wires": []
     },
@@ -2090,7 +2091,7 @@
         "type": "debug",
         "z": "b44edfff80da0ecb",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -2127,7 +2128,7 @@
         "type": "influxdb out",
         "z": "b44edfff80da0ecb",
         "influxdb": "6d81027f06ed63bd",
-        "name": "IPS7100 Write",
+        "name": "IPS7100CNR Write",
         "measurement": "",
         "precision": "n",
         "retentionPolicy": "",
@@ -2136,7 +2137,7 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1640,
+        "x": 1650,
         "y": 620,
         "wires": []
     }
