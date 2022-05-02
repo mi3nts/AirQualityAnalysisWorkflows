@@ -12,9 +12,6 @@ services:
       - type: bind
         source: ${DOCKER_INFLUXDB_CONFIG_BM}
         target: /etc/influxdb2
-      # - influxdb_data:/var/lib/influxdb2
-      # - influxdb_config:/etc/influxdb2
-
 
 
     ports:
@@ -33,7 +30,7 @@ services:
     depends_on:
       - influxdb
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:consistent
+#      - /var/run/docker.sock:/var/run/docker.sock:consistent
       - ./ofelia.ini:/etc/ofelia/config.ini:consistent 
 
 
