@@ -1,4 +1,4 @@
-FROM nodered/node-red
+FROM docker.io/nodered/node-red
 
 # Install modified node modules, including the influxdb support
 COPY package.json .

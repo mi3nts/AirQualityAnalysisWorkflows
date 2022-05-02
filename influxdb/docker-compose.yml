@@ -20,7 +20,7 @@ services:
       
   
   ofelia:
-    image: mcuadros/ofelia:latest
+    image: docker.io/mcuadros/ofelia:latest
     depends_on:
       - influxdb
     volumes:
