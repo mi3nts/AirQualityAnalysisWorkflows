@@ -7,6 +7,7 @@ services:
     image: mints-influxdb
     volumes:
       - influxdb_data:/var/lib/influxdb2
+      - influxdb_config:/etc/influxdb2
     ports:
       - '8086:8086'
     environment:
@@ -59,3 +60,4 @@ services:
 
 volumes:
   influxdb_data:
+  influxdb_config:
