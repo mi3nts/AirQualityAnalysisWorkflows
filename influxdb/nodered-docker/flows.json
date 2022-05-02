@@ -1533,7 +1533,7 @@
         "type": "function",
         "z": "b44edfff80da0ecb",
         "name": "LoRaSummaryWrite",
-        "func": "portIDs = {\n    11: \"OPCN2\",\n    13: \"OPCN3\",\n    15: \"IPS7100\",\n    23: \"BME680\",\n    21: \"BME280\",\n    33: \"SCD30\",\n    31: \"MGS001\",\n    5: \"GPGGALR\",\n    3: \"INA219Duo\",\n    2: \"PM\",\n    1: \"LoRaDefault\",\n};\n\n\nmsg.payload =\n    {\n        sensorID: portIDs[msg.payload.fPort],\n        framePort: msg.payload.fPort,\n        //base16data: Buffer.from(msg.payload.data).toString('base64').toString('hex'),\n        base16data: Buffer.from(msg.payload.data, 'base64').toString('hex'),\n\n        //gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID).toString('base64').toString('hex'),\n        gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID, 'base64').toString('hex'),\n        \n        nodeID: msg.topic.split(\"/\")[5]\n    };\n\n\n\n\nreturn msg;",
+        "func": "portIDs = {\n    11: \"OPCN2\",\n    13: \"OPCN3\",\n    15: \"IPS7100\",\n    23: \"BME680\",\n    21: \"BME280\",\n    33: \"SCD30\",\n    31: \"MGS001\",\n    5: \"GPGGALR\",\n    3: \"INA219Duo\",\n    2: \"PM\",\n    1: \"LoRaDefault\",\n    17: \"IPS7100CNR\",\n    25: \"BME688CNR\",\n};\n\n\nmsg.payload =\n    {\n        sensorID: portIDs[msg.payload.fPort],\n        framePort: msg.payload.fPort,\n        //base16data: Buffer.from(msg.payload.data).toString('base64').toString('hex'),\n        base16data: Buffer.from(msg.payload.data, 'base64').toString('hex'),\n\n        //gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID).toString('base64').toString('hex'),\n        gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID, 'base64').toString('hex'),\n        \n        nodeID: msg.topic.split(\"/\")[5]\n    };\n\n\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1606,11 +1606,21 @@
                 "t": "eq",
                 "v": "GPGGALR",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "BME688CNR",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "IPS7100CNR",
+                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 7,
+        "outputs": 9,
         "x": 980,
         "y": 320,
         "wires": [
@@ -1634,6 +1644,12 @@
             ],
             [
                 "565ba56ef806b401"
+            ],
+            [
+                "d0ad4e7b66b363f2"
+            ],
+            [
+                "42910917b6fea05e"
             ]
         ]
     },
@@ -2014,6 +2030,114 @@
         "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
         "x": 1670,
         "y": 480,
+        "wires": []
+    },
+    {
+        "id": "0fbad8a9bc13f0d3",
+        "type": "debug",
+        "z": "b44edfff80da0ecb",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "d0ad4e7b66b363f2",
+        "type": "function",
+        "z": "b44edfff80da0ecb",
+        "name": "BME688CNR Unpack",
+        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload = [\n    {\n        temperature: Buffer.from(rawdata.slice(0, 8), 'hex').readFloatLE(),\n        pressure: Buffer.from(rawdata.slice(8, 16), 'hex').readFloatLE(),\n        humidity: Buffer.from(rawdata.slice(16, 24), 'hex').readFloatLE(),\n        vocAqi: Buffer.from(rawdata.slice(24, 32), 'hex').readFloatLE(),\n        bvocEq: Buffer.from(rawdata.slice(32, 40), 'hex').readFloatLE(),\n        gasEst: Buffer.from(rawdata.slice(40, 48), 'hex').readFloatLE(),\n        co2Eq: Buffer.from(rawdata.slice(48, 56), 'hex').readFloatLE(),\n        \n    },\n    {\n        location: msg.payload.nodeID\n    },\n];\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 560,
+        "wires": [
+            [
+                "0fbad8a9bc13f0d3"
+            ]
+        ]
+    },
+    {
+        "id": "1dc1459fe8e6d4a3",
+        "type": "influxdb out",
+        "z": "b44edfff80da0ecb",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "BME280 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
+        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
+        "x": 1660,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "c1d0d99c5c9f2b38",
+        "type": "debug",
+        "z": "b44edfff80da0ecb",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "42910917b6fea05e",
+        "type": "function",
+        "z": "b44edfff80da0ecb",
+        "name": "IPS7100CNR Unpack",
+        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload = [\n    {\n        pc0_1: Buffer.from(rawdata.slice(0, 8), 'hex').readUInt32LE(),\n        pc0_3: Buffer.from(rawdata.slice(8, 16), 'hex').readUInt32LE(),\n        pc0_5: Buffer.from(rawdata.slice(16, 24), 'hex').readUInt32LE(),\n        pc1_0: Buffer.from(rawdata.slice(24, 32), 'hex').readUInt32LE(),\n        pc2_5: Buffer.from(rawdata.slice(32, 40), 'hex').readUInt32LE(),\n        pc5_0: Buffer.from(rawdata.slice(40, 48), 'hex').readUInt32LE(),\n        pc10_0: Buffer.from(rawdata.slice(48, 56), 'hex').readUInt32LE(),\n        \n        pm0_1: Buffer.from(rawdata.slice(56, 64), 'hex').readFloatLE(),\n        pm0_3: Buffer.from(rawdata.slice(64, 72), 'hex').readFloatLE(),\n        pm0_5: Buffer.from(rawdata.slice(72, 80), 'hex').readFloatLE(),\n        pm1_0: Buffer.from(rawdata.slice(80, 88), 'hex').readFloatLE(),\n        pm2_5: Buffer.from(rawdata.slice(88, 96), 'hex').readFloatLE(),\n        pm5_0: Buffer.from(rawdata.slice(96, 104), 'hex').readFloatLE(),\n        pm10_0: Buffer.from(rawdata.slice(104, 112), 'hex').readFloatLE(),\n    },\n    {\n        location: msg.payload.nodeID\n    },\n];\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 620,
+        "wires": [
+            [
+                "c1d0d99c5c9f2b38",
+                "fd0af16085ab455d"
+            ]
+        ]
+    },
+    {
+        "id": "fd0af16085ab455d",
+        "type": "influxdb out",
+        "z": "b44edfff80da0ecb",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "IPS7100 Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
+        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
+        "x": 1640,
+        "y": 620,
         "wires": []
     }
 ]
