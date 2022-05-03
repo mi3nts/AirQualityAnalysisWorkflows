@@ -2053,7 +2053,7 @@
         "type": "function",
         "z": "b44edfff80da0ecb",
         "name": "BME688CNR Unpack",
-        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload = [\n    {\n        temperature: Buffer.from(rawdata.slice(0, 8), 'hex').readFloatLE(),\n        pressure: Buffer.from(rawdata.slice(8, 16), 'hex').readFloatLE(),\n        humidity: Buffer.from(rawdata.slice(16, 24), 'hex').readFloatLE(),\n        vocAqi: Buffer.from(rawdata.slice(24, 32), 'hex').readFloatLE(),\n        bvocEq: Buffer.from(rawdata.slice(32, 40), 'hex').readFloatLE(),\n        gasEst: Buffer.from(rawdata.slice(40, 48), 'hex').readFloatLE(),\n        co2Eq: Buffer.from(rawdata.slice(48, 56), 'hex').readFloatLE(),\n        \n    },\n    {\n        location: msg.payload.nodeID\n    },\n];\n\n\n\nreturn msg;",
+        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload = [\n    {\n        temperature: Buffer.from(rawdata.slice(0, 8), 'hex').readFloatLE(),\n        humidity: Buffer.from(rawdata.slice(8, 16), 'hex').readFloatLE(),\n        pressure: Buffer.from(rawdata.slice(16, 24), 'hex').readFloatLE(),\n        vocAqi: Buffer.from(rawdata.slice(24, 32), 'hex').readFloatLE(),\n        bvocEq: Buffer.from(rawdata.slice(32, 40), 'hex').readFloatLE(),\n        gasEst: Buffer.from(rawdata.slice(40, 48), 'hex').readFloatLE(),\n        co2Eq: Buffer.from(rawdata.slice(48, 56), 'hex').readFloatLE(),\n        \n    },\n    {\n        location: msg.payload.nodeID\n    },\n];\n\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
