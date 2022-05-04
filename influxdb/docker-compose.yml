@@ -12,7 +12,7 @@ services:
       - type: bind
         source: ${DOCKER_INFLUXDB_CONFIG_BM}
         target: /etc/influxdb2
-
+    restart: unless-stopped
 
     ports:
       - '8086:8086'
@@ -32,7 +32,7 @@ services:
     volumes:
 #      - /var/run/docker.sock:/var/run/docker.sock:consistent
       - ./ofelia.ini:/etc/ofelia/config.ini:consistent 
-
+    restart: unless-stopped
 
 
 
@@ -51,6 +51,8 @@ services:
       - MQTT_LORA_NODES_PASSWORD
     depends_on:
       - influxdb
+    restart: unless-stopped
+
 
   grafana:
     build: ./grafana-docker
@@ -67,6 +69,4 @@ services:
     depends_on:
       - influxdb
 
-# volumes:
-#   influxdb_data:
-#   influxdb_config:
+    restart: unless-stopped
