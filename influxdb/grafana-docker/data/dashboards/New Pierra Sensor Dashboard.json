@@ -1,0 +1,822 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 4,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Concentration",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1.5,
+            "pointSize": 2.5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "conμgm3"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 23,
+        "w": 14,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last"
+          ],
+          "displayMode": "list",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm10_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm5_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm2_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm1_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_3\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_1\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "A"
+        }
+      ],
+      "title": "PM Concentration",
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "Time"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "pm0_1 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 0.1",
+              "pm0_1 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 0.1",
+              "pm0_1 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "PM 0.1",
+              "pm0_3 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 0.3",
+              "pm0_3 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 0.3",
+              "pm0_3 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "PM 0.3",
+              "pm0_5 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 0.5",
+              "pm0_5 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 0.5",
+              "pm0_5 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "PM 0.5",
+              "pm1 {location=\"001e06318c91\", name=\"HM3301\"}": "PM 1.0",
+              "pm10 {location=\"001e06318c91\", name=\"HM3301\"}": "PM 10.0",
+              "pm10_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 10.0",
+              "pm10_0 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 10.0",
+              "pm10_0 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "PM 10.0",
+              "pm1_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 1.0",
+              "pm1_0 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 1.0",
+              "pm1_0 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "PM 1.0",
+              "pm2_5 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 2.5",
+              "pm2_5 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 2.5",
+              "pm2_5 {location=\"001e06318c91\", name=\"HM3301\"}": "PM 2.5",
+              "pm2_5 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "PM 2.5",
+              "pm5_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 5.0",
+              "pm5_0 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 5.0",
+              "pm5_0 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "PM 5.0"
+            }
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "ppm"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 14,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME688CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"bvocEq\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Breath VOC",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 40,
+          "min": -20,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": -20
+              },
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 30
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 19,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME688CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Temperature",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "ppm"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 14,
+        "y": 8
+      },
+      "id": 7,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME688CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"vocAqi\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "A"
+        }
+      ],
+      "title": "vocAqi",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 75
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 19,
+        "y": 8
+      },
+      "id": 11,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME688CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")\n  |> map(fn: (r) => ({r with _value: r._value }))",
+          "refId": "A"
+        }
+      ],
+      "title": "Humidity",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ppm"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 14,
+        "y": 16
+      },
+      "id": 8,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME688CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"gasEst\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "A"
+        }
+      ],
+      "title": "gasEst",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1100,
+          "min": 900,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1013.2
+              }
+            ]
+          },
+          "unit": "pressurembar"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 19,
+        "y": 16
+      },
+      "id": 12,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME688CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "A"
+        }
+      ],
+      "title": "bvocEq",
+      "type": "gauge"
+    },
+    {
+      "cards": {},
+      "color": {
+        "cardColor": "#b4ff00",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolateTurbo",
+        "exponent": 0.5,
+        "mode": "spectrum"
+      },
+      "dataFormat": "tsbuckets",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 23,
+        "w": 14,
+        "x": 0,
+        "y": 23
+      },
+      "heatmap": {},
+      "hideZeroBuckets": true,
+      "highlightCards": true,
+      "id": 4,
+      "legend": {
+        "show": true
+      },
+      "reverseYBuckets": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_1\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))\n  ",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_3\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc1_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc2_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc5_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc10_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+          "refId": "G"
+        }
+      ],
+      "title": "Particle Counts [Log10(cps)]",
+      "tooltip": {
+        "show": true,
+        "showHistogram": false
+      },
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "Time"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "pc0_1 {location=\"001e06303b4f\", name=\"IPS7100\"}": "0.1 µm",
+              "pc0_1 {location=\"001e063059c1\", name=\"IPS7100\"}": "0.1 µm",
+              "pc0_1 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "0.1 μm",
+              "pc0_3 {location=\"001e06303b4f\", name=\"IPS7100\"}": "0.3 µm",
+              "pc0_3 {location=\"001e063059c1\", name=\"IPS7100\"}": "0.3 µm",
+              "pc0_3 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "0.3 μm",
+              "pc0_5 {location=\"001e06303b4f\", name=\"IPS7100\"}": "0.5 µm",
+              "pc0_5 {location=\"001e063059c1\", name=\"IPS7100\"}": "0.5 µm",
+              "pc0_5 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "0.5 μm",
+              "pc10_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "10.0 µm",
+              "pc10_0 {location=\"001e063059c1\", name=\"IPS7100\"}": "10.0 µm",
+              "pc10_0 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "10.0 μm",
+              "pc1_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "1.0 µm",
+              "pc1_0 {location=\"001e063059c1\", name=\"IPS7100\"}": "1.0 µm",
+              "pc1_0 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "1.0 μm",
+              "pc2_5 {location=\"001e06303b4f\", name=\"IPS7100\"}": "2.5 µm",
+              "pc2_5 {location=\"001e063059c1\", name=\"IPS7100\"}": "2.5 µm",
+              "pc2_5 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "2.5 μm",
+              "pc5_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "5.0 µm",
+              "pc5_0 {location=\"001e063059c1\", name=\"IPS7100\"}": "5.0 µm",
+              "pc5_0 {location=\"2cf7f12032304cc3\", name=\"IPS7100CNR\"}": "5.0 μm",
+              "pm0_1 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 0.1",
+              "pm0_3 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 0.3",
+              "pm0_5 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 0.5",
+              "pm1 {location=\"001e06318c91\", name=\"HM3301\"}": "PM 1.0",
+              "pm10 {location=\"001e06318c91\", name=\"HM3301\"}": "PM 10.0",
+              "pm10_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 10.0",
+              "pm1_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 1.0",
+              "pm2_5 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 2.5",
+              "pm2_5 {location=\"001e06318c91\", name=\"HM3301\"}": "PM 2.5",
+              "pm5_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 5.0"
+            }
+          }
+        }
+      ],
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "yAxis": {
+        "format": "µm",
+        "logBase": 1,
+        "show": true
+      },
+      "yBucketBound": "middle"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "ppm"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 14,
+        "y": 24
+      },
+      "id": 9,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME688CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"co2Eq\")\n  |> filter(fn: (r) => r[\"location\"] == \"2cf7f12032304cc3\")",
+          "refId": "A"
+        }
+      ],
+      "title": "CO2",
+      "type": "gauge"
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "New Pierra Sensor Dashboard",
+  "uid": "new-pierra-sensor-dashboard",
+  "version": 4,
+  "weekStart": ""
+}

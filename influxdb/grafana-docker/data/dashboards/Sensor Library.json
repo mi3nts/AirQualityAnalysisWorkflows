@@ -4264,7 +4264,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Sensor Library",
-  "uid": "influxdb-uid",
+  "uid": "sensor-library",
   "version": 22,
   "weekStart": ""
 }
