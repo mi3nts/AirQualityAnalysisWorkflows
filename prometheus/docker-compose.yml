@@ -2,6 +2,7 @@ version: "3"
 services:
   prometheus:
     build: .
+    image: mints-prometheus
     ports:
       - "9090:9090"
     volumes:
@@ -9,11 +10,16 @@ services:
         source: ./rawMqtt
         target: /rawMqtt
   grafana:
-    image: grafana/grafana
+    build: ./grafana-docker
+    image: mints-prom-grafana
     ports:
       - "3000:3000"
     depends_on:
       - prometheus
+    environment:
+      - GF_SECURITY_ADMIN_USER
+      - GF_SECURITY_ADMIN_PASSWORD
+      - GF_INSTALL_PLUGINS
   scheduler:
       image: mcuadros/ofelia:latest
       volumes:
