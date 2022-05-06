@@ -103,18 +103,29 @@
     },
     {
       "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 18,
+        "x": 0,
+        "y": 8
+      },
+      "id": 6,
+      "options": {
+        "content": "This panel below would be more useful if we could click on the markers and \"drill down\" into another dashboard, with that location pre-selected. Unfortunately, [Geomap does not support that right now](https://github.com/grafana/grafana/discussions/43124).",
+        "mode": "markdown"
+      },
+      "pluginVersion": "8.3.6",
+      "title": "Info",
+      "type": "text"
+    },
+    {
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "links": [
-            {
-              "targetBlank": true,
-              "title": "Test",
-              "url": "http://google.com"
-            }
-          ],
+          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -150,20 +161,22 @@
         "h": 22,
         "w": 18,
         "x": 0,
-        "y": 8
+        "y": 10
       },
       "id": 2,
       "options": {
         "basemap": {
-          "config": {},
+          "config": {
+            "server": "streets"
+          },
           "name": "Layer 0",
-          "type": "xyz"
+          "type": "esri-xyz"
         },
         "controls": {
           "mouseWheelZoom": true,
           "showAttribution": false,
           "showDebug": false,
-          "showScale": true,
+          "showScale": false,
           "showZoom": true
         },
         "layers": [
@@ -172,7 +185,7 @@
               "showLegend": true,
               "style": {
                 "color": {
-                  "fixed": "dark-red"
+                  "fixed": "dark-purple"
                 },
                 "opacity": 0.7,
                 "rotation": {
