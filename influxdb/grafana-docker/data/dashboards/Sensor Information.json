@@ -63,7 +63,7 @@
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 25,
         "w": 18,
         "x": 0,
         "y": 0
@@ -79,6 +79,7 @@
             "lastNotNull"
           ],
           "fields": "/^staleness$/",
+          "limit": 1000,
           "values": true
         },
         "text": {
@@ -104,18 +105,18 @@
     {
       "description": "",
       "gridPos": {
-        "h": 2,
+        "h": 3,
         "w": 18,
         "x": 0,
-        "y": 8
+        "y": 25
       },
-      "id": 6,
+      "id": 7,
       "options": {
-        "content": "This panel below would be more useful if we could click on the markers and \"drill down\" into another dashboard, with that location pre-selected. Unfortunately, [Geomap does not support that right now](https://github.com/grafana/grafana/discussions/43124).",
+        "content": "Once Geomaps support [data links](https://github.com/grafana/grafana/discussions/43124), make clicking markers link to another dashboard. This will enable users to \"drill down\" into the data. ",
         "mode": "markdown"
       },
       "pluginVersion": "8.3.6",
-      "title": "Info",
+      "title": "Info on Geomaps",
       "type": "text"
     },
     {
@@ -125,7 +126,13 @@
           "color": {
             "mode": "thresholds"
           },
-          "links": [],
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Test",
+              "url": "http://google.com"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -158,19 +165,17 @@
         ]
       },
       "gridPos": {
-        "h": 22,
-        "w": 18,
+        "h": 14,
+        "w": 9,
         "x": 0,
-        "y": 10
+        "y": 28
       },
       "id": 2,
       "options": {
         "basemap": {
-          "config": {
-            "server": "streets"
-          },
+          "config": {},
           "name": "Layer 0",
-          "type": "esri-xyz"
+          "type": "default"
         },
         "controls": {
           "mouseWheelZoom": true,
@@ -185,7 +190,7 @@
               "showLegend": true,
               "style": {
                 "color": {
-                  "fixed": "dark-purple"
+                  "fixed": "dark-blue"
                 },
                 "opacity": 0.7,
                 "rotation": {
@@ -209,8 +214,8 @@
                   "mode": "field"
                 },
                 "textConfig": {
-                  "fontSize": 10,
-                  "offsetX": 12,
+                  "fontSize": 16,
+                  "offsetX": 14,
                   "offsetY": 0,
                   "textAlign": "left",
                   "textBaseline": "middle"
@@ -229,9 +234,9 @@
         ],
         "view": {
           "id": "coords",
-          "lat": 32.775387,
-          "lon": -97.005391,
-          "zoom": 10.26
+          "lat": 32.789092,
+          "lon": -96.75536,
+          "zoom": 9.6
         }
       },
       "pluginVersion": "8.3.6",
@@ -241,11 +246,161 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> last()\n  |> pivot(rowKey:[\"location\"], columnKey:[\"_field\"], valueColumn:\"_value\")\n  |> drop(columns: [\"_start\"])\n  |> rename(columns: {latitudeCoordinate: \"latitude\", longitudeCoordinate: \"longitude\", _stop: \"time\", _measurement: \"sensor\"})\n  |> group()",
+          "query": "// For GPSGPGGA2 and GPSGPRMC2, the \"latitude\" is converted into \"latitudeCoordinate\" for us :)\nGPSGPGGA2andGPSGPRMC2 = from(bucket: \"SharedAirDFW\")\n  // Limit scope for smaller computation\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  // Take any processed (i.e. standard format) coordinate fields\n  |> filter(fn: (r) => r[\"_measurement\"] =~ /GPSGPGGA2|GPSGPRMC2/ and r[\"_field\"] =~ /latitudeCoordinate|longitudeCoordinate/)\n  // Only care about most recent report. We do this again, but this one filters out the majority of data and speeds up computation\n  |> last(column: \"_time\")\n  // Pivot and group by location (and time, so the column doesnt go away)\n  |> pivot(rowKey:[\"location\", \"_time\"], columnKey:[\"_field\"], valueColumn:\"_value\")\n  // Rename to common name for joining\n  |> rename(columns: {latitudeCoordinate: \"latitude\", longitudeCoordinate: \"longitude\"})\n  // Join everything back into a single table\n  |> group()\n\n// For GPGALR, the longitude/latitude can be taken as-is\nGPGALR = from(bucket: \"SharedAirDFW\")\n  // Limit scope for smaller computation\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  // Take any processed (i.e. standard format) coordinate fields\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGALR\" and r[\"_field\"] =~ /latitude|longitude/)\n  // Only care about most recent report. We do this again, but this one filters out the majority of data and speeds up computation\n  |> last(column: \"_time\")\n  // Pivot and group by location (and time, so the column doesnt go away)\n  |> pivot(rowKey:[\"location\", \"_time\"], columnKey:[\"_field\"], valueColumn:\"_value\")\n  // Join everything back into a single table\n  |> group()\n\n// GPGALR\n\n// For GPGGA, we need to convert longitude/latitude ourselves :()\nGPGGA = from(bucket: \"SharedAirDFW\")\n  // Limit scope for smaller computation\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  // Take any processed (i.e. standard format) coordinate fields\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGA\" and r[\"_field\"] =~ /latitude|longitude/)\n  // Only care about most recent report. We do this again, but this one filters out the majority of data and speeds up computation\n  |> last(column: \"_time\")\n  // Pivot and group by location (and time, so the column doesnt go away)\n  |> pivot(rowKey:[\"location\", \"_time\"], columnKey:[\"_field\"], valueColumn:\"_value\")\n  // Divide by 100 to obtain real coordinates\n  |> map(fn: (r) => ({ r with latitude: r.latitude / 100.0, longitude: r.longitude / 100.0 }))\n  // Join everything back into a single table\n  |> group()\n\n// Union all of the GPS coordinate tables together. Basically just does concatination, because they have the same schemas\ncoordinates = union(tables: [GPSGPGGA2andGPSGPRMC2, GPGALR, GPGGA])\n  // Somtimes there are multiple GPS sensors on a single location/device. Take the latest one\n  |> group(columns: [\"location\"])\n  |> last(column: \"_time\")\n  |> group()\n  // We do not care about these rows\n  |> drop(columns: [\"_start\", \"_stop\", \"_time\"])\n  // Rename \"measurement\" for better UX\n  |> rename(columns: {_measurement: \"sensor\"})\n  \ncoordinates",
           "refId": "A"
         }
       ],
       "title": "Explore Sensors",
+      "transformations": [],
+      "type": "geomap"
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "location"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "string"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "pm10_0"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 3
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 9,
+        "x": 9,
+        "y": 28
+      },
+      "id": 5,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": false,
+          "showDebug": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "pm10_0",
+                  "fixed": "dark-blue"
+                },
+                "opacity": 0.5,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 8,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "text": {
+                  "field": "location",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 16,
+                  "offsetX": 14,
+                  "offsetY": 0,
+                  "textAlign": "left",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "latitude": "latitude",
+              "longitude": "longitude",
+              "mode": "auto"
+            },
+            "name": "Layer 1",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "view": {
+          "id": "coords",
+          "lat": 32.789092,
+          "lon": -96.75536,
+          "zoom": 9.6
+        }
+      },
+      "pluginVersion": "8.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "// For GPSGPGGA2 and GPSGPRMC2, the \"latitude\" is converted into \"latitudeCoordinate\" for us :)\nGPSGPGGA2andGPSGPRMC2 = from(bucket: \"SharedAirDFW\")\n  // Limit scope for smaller computation\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  // Take any processed (i.e. standard format) coordinate fields\n  |> filter(fn: (r) => r[\"_measurement\"] =~ /GPSGPGGA2|GPSGPRMC2/ and r[\"_field\"] =~ /latitudeCoordinate|longitudeCoordinate/)\n  // Only care about most recent report. We do this again, but this one filters out the majority of data and speeds up computation\n  |> last(column: \"_time\")\n  // Pivot and group by location (and time, so the column doesnt go away)\n  |> pivot(rowKey:[\"location\", \"_time\"], columnKey:[\"_field\"], valueColumn:\"_value\")\n  // Rename to common name for joining\n  |> rename(columns: {latitudeCoordinate: \"latitude\", longitudeCoordinate: \"longitude\"})\n  // Join everything back into a single table\n  |> group()\n\n// For GPGALR, the longitude/latitude can be taken as-is\nGPGALR = from(bucket: \"SharedAirDFW\")\n  // Limit scope for smaller computation\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  // Take any processed (i.e. standard format) coordinate fields\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGALR\" and r[\"_field\"] =~ /latitude|longitude/)\n  // Only care about most recent report. We do this again, but this one filters out the majority of data and speeds up computation\n  |> last(column: \"_time\")\n  // Pivot and group by location (and time, so the column doesnt go away)\n  |> pivot(rowKey:[\"location\", \"_time\"], columnKey:[\"_field\"], valueColumn:\"_value\")\n  // Join everything back into a single table\n  |> group()\n\n// GPGALR\n\n// For GPGGA, we need to convert longitude/latitude ourselves :()\nGPGGA = from(bucket: \"SharedAirDFW\")\n  // Limit scope for smaller computation\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  // Take any processed (i.e. standard format) coordinate fields\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGA\" and r[\"_field\"] =~ /latitude|longitude/)\n  // Only care about most recent report. We do this again, but this one filters out the majority of data and speeds up computation\n  |> last(column: \"_time\")\n  // Pivot and group by location (and time, so the column doesnt go away)\n  |> pivot(rowKey:[\"location\", \"_time\"], columnKey:[\"_field\"], valueColumn:\"_value\")\n  // Divide by 100 to obtain real coordinates\n  |> map(fn: (r) => ({ r with latitude: r.latitude / 100.0, longitude: r.longitude / 100.0 }))\n  // Join everything back into a single table\n  |> group()\n\n// Union all of the GPS coordinate tables together. Basically just does concatination, because they have the same schemas\ncoordinates = union(tables: [GPSGPGGA2andGPSGPRMC2, GPGALR, GPGGA])\n  // Somtimes there are multiple GPS sensors on a single location/device. Take the latest one\n  |> group(columns: [\"location\"])\n  |> last(column: \"_time\")\n  |> group()\n  // We do not care about these rows\n  |> drop(columns: [\"_start\", \"_stop\"])\n  // Rename \"measurement\" for better UX\n  |> rename(columns: {_measurement: \"gps-sensor\", _time: \"gps-updated-time\"})\n\npm = from(bucket: \"SharedAirDFW\")\n  // Limit scope for smaller computation\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_field\"] =~ /pm10(_0)?|pm5(_0)?|pm2_5/ )\n  |> last(column: \"_time\")\n  |> pivot(rowKey:[\"location\", \"_time\"], columnKey:[\"_field\"], valueColumn:\"_value\")\n  // Rename all pm10 to pm10_0, pm5 to pm5_0\n  |> rename(fn: (column) => (if column == \"pm10\" then \"pm10_0\" else if column == \"pm5\" then \"pm5_0\" else column))\n  |> group(columns: [\"location\"])\n  |> last(column: \"_time\")\n  |> group()\n  |> drop(columns: [\"_start\", \"_stop\"])\n  |> rename(columns: {_measurement: \"pm-sensor\", _time: \"pm-update-time\"})\n\njoin(tables: {a: coordinates, b: pm}, on: [\"location\"])\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Particulate Matter",
       "transformations": [],
       "type": "geomap"
     }
