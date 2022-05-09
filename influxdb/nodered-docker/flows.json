@@ -111,18 +111,6 @@
         "rejectUnauthorized": true
     },
     {
-        "id": "373fa459.54e07c",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "WEATHER",
-        "name": "Weather",
-        "usetls": false,
-        "tls": "",
-        "influxdbVersion": "1.x"
-    },
-    {
         "id": "5c3a4e27.a99f9",
         "type": "mqtt-broker",
         "name": "",
@@ -144,20 +132,6 @@
         "willPayload": ""
     },
     {
-        "id": "eeb221fb.ab27f",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "test",
-        "name": "test",
-        "usetls": true,
-        "tls": "d50d0c9f.31e858",
-        "influxdbVersion": "1.x",
-        "url": "http://localhost:8086",
-        "rejectUnauthorized": true
-    },
-    {
         "id": "d50d0c9f.31e858",
         "type": "tls-config",
         "name": "",
@@ -169,34 +143,6 @@
         "caname": "",
         "servername": "",
         "verifyservercert": false
-    },
-    {
-        "id": "16bed9e221e11523",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "database",
-        "name": "test 1.8 flux",
-        "usetls": false,
-        "tls": "d50d0c9f.31e858",
-        "influxdbVersion": "1.8-flux",
-        "url": "https://localhost:8086",
-        "rejectUnauthorized": false
-    },
-    {
-        "id": "1d1b734fb1eec314",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "database",
-        "name": "",
-        "usetls": false,
-        "tls": "d50d0c9f.31e858",
-        "influxdbVersion": "2.0",
-        "url": "https://localhost:9999",
-        "rejectUnauthorized": false
     },
     {
         "id": "70712986916c3b26",
