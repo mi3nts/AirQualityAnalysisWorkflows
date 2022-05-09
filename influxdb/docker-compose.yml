@@ -12,10 +12,15 @@ services:
       - type: bind
         source: ${DOCKER_INFLUXDB_CONFIG_BM}
         target: /etc/influxdb2
+    networks:
+      - shared
     restart: unless-stopped
 
     ports:
       - '8086:8086'
+    env_file:
+      - .env
+
     environment:
       - DOCKER_INFLUXDB_INIT_MODE
       - DOCKER_INFLUXDB_INIT_USERNAME
@@ -31,7 +36,10 @@ services:
       - influxdb
     volumes:
 #      - /var/run/docker.sock:/var/run/docker.sock:consistent
-      - ./ofelia.ini:/etc/ofelia/config.ini:consistent 
+      - ./ofelia.ini:/etc/ofelia/config.ini:consistent
+    networks:
+      - shared
+
     restart: unless-stopped
 
 
@@ -41,6 +49,11 @@ services:
     image: mints-nodered
     ports:
       - "1880:1880"
+    networks:
+      - shared
+    env_file:
+      - .env
+
     environment:
       - DOCKER_INFLUXDB_INIT_ORG
       - DOCKER_INFLUXDB_INIT_BUCKET
@@ -49,6 +62,7 @@ services:
       - MQTT_CENTRAL_NODES_PASSWORD
       - MQTT_LORA_NODES_USERNAME
       - MQTT_LORA_NODES_PASSWORD
+
     depends_on:
       - influxdb
     restart: unless-stopped
@@ -59,6 +73,11 @@ services:
     image: mints-grafana
     ports:
       - "3000:3000"
+    networks:
+      - shared
+    env_file:
+      - .env
+
     environment:
       - DOCKER_INFLUXDB_INIT_ORG
       - DOCKER_INFLUXDB_INIT_BUCKET
@@ -70,3 +89,7 @@ services:
       - influxdb
 
     restart: unless-stopped
+
+
+networks:
+  shared:
