@@ -1057,11 +1057,11 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
+        "x": 550,
         "y": 2460,
         "wires": [
             [
-                "304ca8d3d559712f"
+                "8d9af69181100715"
             ]
         ]
     },
@@ -1404,6 +1404,25 @@
         "x": 970,
         "y": 460,
         "wires": []
+    },
+    {
+        "id": "8d9af69181100715",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "msg.payload.windAngleTrue = msg.payload.windDirectionTrue; \nmsg.payload.windAngleMagnetic = msg.payload.windDirectionMagnetic;\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 2460,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
     },
     {
         "id": "9c8cb7de31fcbeef",
