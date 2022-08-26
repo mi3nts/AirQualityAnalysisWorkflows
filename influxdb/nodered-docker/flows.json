@@ -169,8 +169,8 @@
         "id": "9d5c25cd3d7a159e",
         "type": "mqtt in",
         "z": "f6f2187d.f17ca8",
-        "name": "AS6272",
-        "topic": "+/AS6272",
+        "name": "AS7262",
+        "topic": "+/AS7262",
         "qos": "2",
         "datatype": "auto",
         "broker": "eeac082b50da81c5",
@@ -178,8 +178,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 330,
-        "y": 200,
+        "x": 270,
+        "y": 240,
         "wires": [
             [
                 "751527d9d035d5a0"
@@ -194,30 +194,13 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 650,
-        "y": 200,
+        "x": 590,
+        "y": 240,
         "wires": [
             [
-                "fa409987246429a7"
+                "304ca8d3d559712f"
             ]
         ]
-    },
-    {
-        "id": "fa409987246429a7",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 900,
-        "y": 200,
-        "wires": []
     },
     {
         "id": "5040ce7af43b87a1",
@@ -326,8 +309,7 @@
         "y": 620,
         "wires": [
             [
-                "304ca8d3d559712f",
-                "942fef5f3fbcae4b"
+                "304ca8d3d559712f"
             ]
         ]
     },
@@ -517,60 +499,6 @@
         ]
     },
     {
-        "id": "b32de1355b05539a",
-        "type": "mqtt in",
-        "z": "f6f2187d.f17ca8",
-        "name": "IP",
-        "topic": "+/IP",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "eeac082b50da81c5",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 470,
-        "y": 1220,
-        "wires": [
-            [
-                "bd67ac553177977c"
-            ]
-        ]
-    },
-    {
-        "id": "bd67ac553177977c",
-        "type": "json",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 770,
-        "y": 1220,
-        "wires": [
-            [
-                "6d1b179139d0b3e8"
-            ]
-        ]
-    },
-    {
-        "id": "6d1b179139d0b3e8",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 1000,
-        "y": 1220,
-        "wires": []
-    },
-    {
         "id": "3cd8b914e2bf9a5c",
         "type": "mqtt in",
         "z": "f6f2187d.f17ca8",
@@ -685,8 +613,8 @@
         "id": "db4db8da8779fd7f",
         "type": "mqtt in",
         "z": "f6f2187d.f17ca8",
-        "name": "SI114x",
-        "topic": "+/SI114x",
+        "name": "SI114X",
+        "topic": "+/SI114X",
         "qos": "2",
         "datatype": "auto",
         "broker": "eeac082b50da81c5",
@@ -694,7 +622,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 390,
+        "x": 270,
         "y": 1820,
         "wires": [
             [
@@ -710,30 +638,13 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 690,
+        "x": 570,
         "y": 1820,
         "wires": [
             [
-                "49f5c51c7693f7d1"
+                "304ca8d3d559712f"
             ]
         ]
-    },
-    {
-        "id": "49f5c51c7693f7d1",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 920,
-        "y": 1820,
-        "wires": []
     },
     {
         "id": "68875c98d9a55c42",
@@ -887,8 +798,8 @@
         "id": "9dd50ff43ff0dc81",
         "type": "mqtt in",
         "z": "f6f2187d.f17ca8",
-        "name": "ADPS9002",
-        "topic": "+/ADPS9002",
+        "name": "APDS9002",
+        "topic": "+/APDS9002",
         "qos": "2",
         "datatype": "auto",
         "broker": "eeac082b50da81c5",
@@ -896,7 +807,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 340,
+        "x": 280,
         "y": 140,
         "wires": [
             [
@@ -912,67 +823,11 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 590,
+        "x": 570,
         "y": 140,
         "wires": [
-            [
-                "b630a4a2e13b9472"
-            ]
+            []
         ]
-    },
-    {
-        "id": "e706b1ff9eeb3349",
-        "type": "mqtt in",
-        "z": "f6f2187d.f17ca8",
-        "name": "SEN02323",
-        "topic": "+/SEN02323",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "eeac082b50da81c5",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 400,
-        "y": 2300,
-        "wires": [
-            [
-                "7d7d44666163d5de"
-            ]
-        ]
-    },
-    {
-        "id": "7d7d44666163d5de",
-        "type": "json",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 690,
-        "y": 2300,
-        "wires": [
-            [
-                "5d86ab020ac1abcc"
-            ]
-        ]
-    },
-    {
-        "id": "5d86ab020ac1abcc",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 920,
-        "y": 2300,
-        "wires": []
     },
     {
         "id": "435241d1a0b333cc",
@@ -987,8 +842,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 410,
-        "y": 2360,
+        "x": 290,
+        "y": 2380,
         "wires": [
             [
                 "f634be5859de084f"
@@ -1003,30 +858,13 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 690,
-        "y": 2360,
+        "x": 570,
+        "y": 2380,
         "wires": [
             [
-                "82059b2a9411af04"
+                "304ca8d3d559712f"
             ]
         ]
-    },
-    {
-        "id": "82059b2a9411af04",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 920,
-        "y": 2360,
-        "wires": []
     },
     {
         "id": "29cd9f83e1ce88a2",
@@ -1042,7 +880,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 270,
-        "y": 2460,
+        "y": 2520,
         "wires": [
             [
                 "278c5aa6feda144e"
@@ -1058,7 +896,7 @@
         "action": "",
         "pretty": false,
         "x": 550,
-        "y": 2460,
+        "y": 2520,
         "wires": [
             [
                 "8d9af69181100715"
@@ -1078,8 +916,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 390,
-        "y": 2660,
+        "x": 270,
+        "y": 2720,
         "wires": [
             [
                 "4e299df659bb1c76"
@@ -1094,8 +932,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 690,
-        "y": 2660,
+        "x": 570,
+        "y": 2720,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1119,16 +957,6 @@
         ]
     },
     {
-        "id": "478afaadde4124cb",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "name": "Note Receiving any Data!",
-        "info": "",
-        "x": 150,
-        "y": 200,
-        "wires": []
-    },
-    {
         "id": "69cd5528a453d312",
         "type": "influxdb out",
         "z": "f6f2187d.f17ca8",
@@ -1144,16 +972,6 @@
         "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
         "x": 1430,
         "y": 1520,
-        "wires": []
-    },
-    {
-        "id": "d725d072818b709c",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "name": "Note Receiving any Data!",
-        "info": "",
-        "x": 270,
-        "y": 1220,
         "wires": []
     },
     {
@@ -1250,63 +1068,6 @@
         ]
     },
     {
-        "id": "3ccf6e9a7bf9efb0",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "name": "Note Receiving any Data!",
-        "info": "",
-        "x": 210,
-        "y": 1820,
-        "wires": []
-    },
-    {
-        "id": "6e5a1c3f1fa8fbd4",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "name": "Note Receiving any Data!",
-        "info": "",
-        "x": 210,
-        "y": 2300,
-        "wires": []
-    },
-    {
-        "id": "97d8ff8b8ee31bb1",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "name": "Note Receiving any Data!",
-        "info": "",
-        "x": 210,
-        "y": 2360,
-        "wires": []
-    },
-    {
-        "id": "b630a4a2e13b9472",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 890,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "64fb0ac80d574ff5",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "name": "Note Receiving any Data!",
-        "info": "",
-        "x": 150,
-        "y": 140,
-        "wires": []
-    },
-    {
         "id": "fee9d514d3d2b592",
         "type": "mqtt in",
         "z": "f6f2187d.f17ca8",
@@ -1320,7 +1081,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 280,
-        "y": 2560,
+        "y": 2620,
         "wires": [
             [
                 "d703562e6e74a901"
@@ -1336,22 +1097,12 @@
         "action": "",
         "pretty": false,
         "x": 570,
-        "y": 2560,
+        "y": 2620,
         "wires": [
             [
                 "304ca8d3d559712f"
             ]
         ]
-    },
-    {
-        "id": "fa76dadeb20276e5",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "name": "Note Receiving any Data!",
-        "info": "",
-        "x": 210,
-        "y": 2660,
-        "wires": []
     },
     {
         "id": "304ca8d3d559712f",
@@ -1390,22 +1141,6 @@
         "wires": []
     },
     {
-        "id": "942fef5f3fbcae4b",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 970,
-        "y": 460,
-        "wires": []
-    },
-    {
         "id": "8d9af69181100715",
         "type": "function",
         "z": "f6f2187d.f17ca8",
@@ -1417,7 +1152,264 @@
         "finalize": "",
         "libs": [],
         "x": 720,
+        "y": 2520,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "b32de1355b05539a",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "IP",
+        "topic": "+/IP",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 1220,
+        "wires": [
+            [
+                "bd67ac553177977c"
+            ]
+        ]
+    },
+    {
+        "id": "bd67ac553177977c",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 1220,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "e706b1ff9eeb3349",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "SEN0232",
+        "topic": "+/SEN0232",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 280,
+        "y": 2300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7d7d44666163d5de",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 2300,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "7681447109bd5b4d",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "QLMRAD001",
+        "topic": "+/QLMRAD001",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 2820,
+        "wires": [
+            [
+                "13685bb0d08ecd8b"
+            ]
+        ]
+    },
+    {
+        "id": "13685bb0d08ecd8b",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 2820,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "1e80512aea60b9c7",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "SKYCAM_002",
+        "topic": "+/SKYCAM_002",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
         "y": 2460,
+        "wires": [
+            [
+                "205dbe5e97a12a74"
+            ]
+        ]
+    },
+    {
+        "id": "205dbe5e97a12a74",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 2460,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "4c4b8da335fddc3f",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GPVTG",
+        "topic": "+/GPVTG",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 2920,
+        "wires": [
+            [
+                "d7b72bd247129e11"
+            ]
+        ]
+    },
+    {
+        "id": "d7b72bd247129e11",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 2920,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "a1eee64a84b1b088",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GPVTG",
+        "topic": "+/GPVTG",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 3020,
+        "wires": [
+            [
+                "d292d35c514eb7ae"
+            ]
+        ]
+    },
+    {
+        "id": "d292d35c514eb7ae",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 550,
+        "y": 3020,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "324ae54351e283cf",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "MBC001",
+        "topic": "+/MBC001",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1500,
+        "y": 1940,
+        "wires": [
+            [
+                "b876e919a08b38f8"
+            ]
+        ]
+    },
+    {
+        "id": "b876e919a08b38f8",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1790,
+        "y": 1940,
         "wires": [
             [
                 "304ca8d3d559712f"
