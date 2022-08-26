@@ -85,6 +85,7 @@ services:
       - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER:?err}
       - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD:?err}
       - GF_INSTALL_PLUGINS=${GF_INSTALL_PLUGINS:?err}
+      - GF_AUTH_ANONYMOUS_ENABLED=true
     depends_on:
       - influxdb
 
