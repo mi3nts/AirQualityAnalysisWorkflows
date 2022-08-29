@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,12 +24,15 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1651600444123,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -34,6 +40,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -92,7 +100,8 @@
             "last"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -200,7 +209,26 @@
         "mode": "spectrum"
       },
       "dataFormat": "tsbuckets",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 6,
         "w": 9,
@@ -214,6 +242,43 @@
       "legend": {
         "show": true
       },
+      "options": {
+        "calculate": false,
+        "calculation": {},
+        "cellGap": 2,
+        "cellValues": {},
+        "color": {
+          "exponent": 0.5,
+          "fill": "#b4ff00",
+          "mode": "scheme",
+          "scale": "exponential",
+          "scheme": "Turbo",
+          "steps": 128
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "auto"
+        },
+        "showValue": "never",
+        "tooltip": {
+          "show": true,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": true,
+          "unit": "short"
+        }
+      },
+      "pluginVersion": "9.1.0",
       "reverseYBuckets": true,
       "targets": [
         {
@@ -319,6 +384,10 @@
       "yBucketBound": "auto"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "gridPos": {
         "h": 11,
@@ -400,6 +469,10 @@
       "type": "fatcloud-windrose-panel"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -450,7 +523,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.4.0-beta1",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -465,6 +538,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -508,7 +585,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.4.0-beta1",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -523,6 +600,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -564,7 +645,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.4.0-beta1",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -580,6 +661,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -619,14 +704,14 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.4.0-beta1",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"co2\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c02\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
           "refId": "A"
         }
       ],
@@ -634,6 +719,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -684,7 +773,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.4.0-beta1",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -699,90 +788,10 @@
       "type": "gauge"
     },
     {
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 70
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
       },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 20,
-        "y": 12
-      },
-      "id": 26,
-      "libraryPanel": {
-        "description": "",
-        "meta": {
-          "connectedDashboards": 2,
-          "created": "2022-04-15T16:11:58Z",
-          "createdBy": {
-            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
-            "id": 1,
-            "name": "admin"
-          },
-          "folderName": "General",
-          "folderUid": "",
-          "updated": "2022-04-15T16:11:58Z",
-          "updatedBy": {
-            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
-            "id": 1,
-            "name": "admin"
-          }
-        },
-        "name": "BME680  Humidity",
-        "type": "gauge",
-        "uid": "influxdb-uid",
-        "version": 1
-      },
-      "options": {
-        "orientation": "vertical",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "8.4.0-beta1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Humidity",
-      "type": "gauge"
-    },
-    {
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -878,6 +887,9 @@
             "type": "markers"
           }
         ],
+        "tooltip": {
+          "mode": "details"
+        },
         "view": {
           "id": "coords",
           "lat": 32.9483967299,
@@ -885,7 +897,7 @@
           "zoom": 11
         }
       },
-      "pluginVersion": "8.4.0-beta1",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -906,6 +918,10 @@
       "type": "geomap"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -913,6 +929,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "left",
             "barAlignment": 0,
@@ -971,8 +989,9 @@
       "options": {
         "legend": {
           "calcs": [],
-          "displayMode": "hidden",
-          "placement": "bottom"
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
           "mode": "single",
@@ -994,6 +1013,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1040,7 +1063,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.4.0-beta1",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -1056,16 +1079,20 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 35,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "001e06323a37",
           "value": "001e06323a37"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
         },
         "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"location\")",
         "hide": 0,
@@ -1089,7 +1116,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Central Node Demo",
-  "uid": "lpHF8Q8nz",
-  "version": 26,
+  "uid": "central_node_demo",
+  "version": 3,
   "weekStart": ""
 }

@@ -24,8 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 8,
-  "iteration": 1656680482153,
+  "id": 6,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -44,6 +43,21 @@
         "uid": "influxdb-uid"
       },
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -57,6 +71,43 @@
       "legend": {
         "show": true
       },
+      "options": {
+        "calculate": false,
+        "calculation": {},
+        "cellGap": 2,
+        "cellValues": {},
+        "color": {
+          "exponent": 0.5,
+          "fill": "#b4ff00",
+          "mode": "scheme",
+          "scale": "exponential",
+          "scheme": "Turbo",
+          "steps": 128
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "unknown"
+        },
+        "showValue": "never",
+        "tooltip": {
+          "show": true,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": true,
+          "unit": "short"
+        }
+      },
+      "pluginVersion": "9.1.0",
       "reverseYBuckets": true,
       "targets": [
         {
@@ -219,7 +270,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -287,7 +338,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -359,7 +410,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -424,7 +475,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -491,7 +542,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -552,7 +603,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -617,7 +668,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -644,6 +695,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -702,7 +755,8 @@
             "last"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -899,6 +953,9 @@
             "type": "markers"
           }
         ],
+        "tooltip": {
+          "mode": "details"
+        },
         "view": {
           "id": "coords",
           "lat": 32.9483967299,
@@ -906,7 +963,7 @@
           "zoom": 11
         }
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -941,6 +998,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -997,7 +1056,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1037,7 +1097,7 @@
       "type": "timeseries"
     }
   ],
-  "schemaVersion": 36,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1045,15 +1105,15 @@
       {
         "current": {
           "selected": false,
-          "text": "001e0637371e",
-          "value": "001e0637371e"
+          "text": "472b544e00230033",
+          "value": "472b544e00230033"
         },
         "datasource": {
           "type": "influxdb",
           "uid": "influxdb-uid"
         },
         "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"location\")",
-        "hide": 2,
+        "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "device_id",
@@ -1073,8 +1133,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "K Ave Plano",
-  "uid": "KeH5i3q7z",
-  "version": 5,
+  "title": "LoRa Node Demo",
+  "uid": "lora_node_demo",
+  "version": 1,
   "weekStart": ""
 }

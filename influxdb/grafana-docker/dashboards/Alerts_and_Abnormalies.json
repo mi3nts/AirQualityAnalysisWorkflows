@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,11 +24,15 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 15,
   "links": [],
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "gridPos": {
         "h": 4,
         "w": 11,
@@ -37,17 +44,32 @@
         "content": "Grafana currently does not support exporitng unified alerts, so any alerts that are created must be attached to a dashboard. This functionality is not implemented yet because provisioning alert providers is relatively undocumented.  \n\nHowever, the dashboard still works to view abnormalities at a glance.  ",
         "mode": "markdown"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "About this Dashboard",
       "type": "text"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -103,10 +125,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -124,7 +148,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 34,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -137,7 +161,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Alerts and Abnormalities",
-  "uid": "X90iGrw7k",
+  "uid": "alerts_and_abnormalities",
   "version": 1,
   "weekStart": ""
 }

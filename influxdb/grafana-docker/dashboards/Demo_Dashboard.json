@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,13 +24,16 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1650781063335,
+  "id": 9,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "collapsed": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -36,10 +42,23 @@
       },
       "id": 30,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "MSG001",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -47,6 +66,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -81,7 +102,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -104,10 +126,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -124,6 +148,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -131,6 +159,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -165,7 +195,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -188,10 +219,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -209,6 +242,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -217,10 +254,23 @@
       },
       "id": 16,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "BME680",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -234,7 +284,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -265,7 +316,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -280,6 +331,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -294,7 +349,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -325,7 +381,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -340,6 +396,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -385,7 +445,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
@@ -401,6 +461,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -409,10 +473,23 @@
       },
       "id": 8,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "BME280",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -472,6 +549,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -531,6 +612,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -591,6 +676,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -599,6 +688,15 @@
       },
       "id": 6,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "IPS7100",
       "type": "row"
     },
@@ -612,6 +710,10 @@
         "mode": "spectrum"
       },
       "dataFormat": "tsbuckets",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "gridPos": {
         "h": 9,
@@ -710,6 +812,10 @@
       "yBucketBound": "auto"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -772,7 +878,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single"
@@ -794,16 +901,20 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 34,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "001e06305a12",
           "value": "001e06305a12"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
         },
         "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"location\")",
         "description": "device_ids",
@@ -828,7 +939,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Demo Dashboard",
-  "uid": "Nl-_gmPnz",
+  "uid": "demo_dashboard",
   "version": 1,
   "weekStart": ""
 }
