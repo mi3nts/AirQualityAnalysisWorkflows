@@ -1,0 +1,66 @@
+project:
+  type: website
+
+website:
+  title: "MINTS Air Network Analyses"
+  favicon: assets/thumbnail_MINTS.png
+  # search:
+  #   location: navbar
+  #   type: overlay
+  search: true
+  navbar:
+    background: primary
+    logo: assets/thumbnail_MINTS.png
+    right:
+      - text: "Home"
+        file: index.qmd
+      - text: "About"
+        file: about.qmd
+      - text: "Central Nodes"
+        file: central_nodes.qmd
+      - text: "LoRa Nodes"
+        file: lora_nodes.qmd
+      - text: "UTD Nodes"
+        file: utd_nodes.qmd
+
+  sidebar:
+    - title: "Central Nodes"
+      style: "docked"
+      background: light
+      search: true
+      contents:
+        - central_nodes.qmd
+        - section: "Daily"
+        - section: "Weekly"
+        - section: "Monthly"
+        - section: "Annual" 
+
+    - title: "LoRa Nodes"
+      style: "docked"
+      background: light
+      search: true
+      contents:
+        - lora_nodes.qmd
+        - section: "Daily"
+        - section: "Weekly"
+        - section: "Monthly"
+        - section: "Annual" 
+
+    - title: "UTD Nodes"
+      style: "docked"
+      background: light
+      search: true
+      contents:
+        - utd_nodes.qmd
+        - section: "Daily"
+        - section: "Weekly"
+        - section: "Monthly"
+        - section: "Annual" 
+
+format:
+  html:
+    theme: custom.scss
+
+
+reference-location: margin
+citation-location: margin
