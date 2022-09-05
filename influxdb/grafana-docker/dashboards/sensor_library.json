@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -105,7 +105,7 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMWV\")\n  |> filter(fn: (r) => r[\"_field\"] == \"windAngle\" or r[\"_field\"] == \"windSpeed\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMWV\")\n  |> filter(fn: (r) => r[\"_field\"] == \"windAngle\" or r[\"_field\"] == \"windSpeed\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -131,11 +131,12 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "gridPos": {
             "h": 14,
             "w": 12,
             "x": 0,
-            "y": 15
+            "y": 2
           },
           "id": 94,
           "pconfig": {
@@ -166,7 +167,7 @@
             },
             "mapping": {
               "color": "@index",
-              "x": "windDirectionTrue 001e0636e527",
+              "x": "windDirectionTrue {device_id=\"001e0642c3d6\", device_name=\"Central Hub 1\"}",
               "y": "windSpeedMetersPerSecond 001e0636e527"
             },
             "settings": {
@@ -193,11 +194,19 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"windDirectionTrue\" or r[\"_field\"] == \"windSpeedMetersPerSecond\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"windDirectionTrue\" or r[\"_field\"] == \"windSpeedMetersPerSecond\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
           "title": "Wind Data",
+          "transformations": [
+            {
+              "id": "seriesToColumns",
+              "options": {
+                "byField": "Time"
+              }
+            }
+          ],
           "type": "fatcloud-windrose-panel"
         },
         {
@@ -205,6 +214,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -241,7 +251,7 @@
             "h": 7,
             "w": 5,
             "x": 12,
-            "y": 15
+            "y": 2
           },
           "id": 95,
           "options": {
@@ -256,14 +266,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"airTemperature\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"airTemperature\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -275,6 +285,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -311,7 +322,7 @@
             "h": 7,
             "w": 5,
             "x": 17,
-            "y": 15
+            "y": 2
           },
           "id": 97,
           "options": {
@@ -326,14 +337,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"dewPoint\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"dewPoint\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -345,6 +356,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -377,7 +389,7 @@
             "h": 7,
             "w": 5,
             "x": 12,
-            "y": 22
+            "y": 9
           },
           "id": 96,
           "options": {
@@ -392,14 +404,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: r._value / 100.0}))\n",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: r._value / 100.0}))\n",
               "refId": "A"
             }
           ],
@@ -411,6 +423,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -443,7 +456,7 @@
             "h": 7,
             "w": 5,
             "x": 17,
-            "y": 22
+            "y": 9
           },
           "id": 98,
           "options": {
@@ -458,14 +471,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"relativeHumidity\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"relativeHumidity\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -491,6 +504,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -514,7 +528,7 @@
             "h": 7,
             "w": 4,
             "x": 0,
-            "y": 1
+            "y": 3
           },
           "id": 85,
           "options": {
@@ -529,14 +543,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"rawUVA\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"rawUVA\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -548,6 +562,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -571,7 +586,7 @@
             "h": 7,
             "w": 4,
             "x": 4,
-            "y": 1
+            "y": 3
           },
           "id": 86,
           "options": {
@@ -586,14 +601,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"rawUVB\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"rawUVB\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -605,6 +620,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -628,7 +644,7 @@
             "h": 7,
             "w": 4,
             "x": 8,
-            "y": 1
+            "y": 3
           },
           "id": 87,
           "options": {
@@ -643,14 +659,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"irCompensation\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"irCompensation\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -662,6 +678,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -685,7 +702,7 @@
             "h": 7,
             "w": 4,
             "x": 12,
-            "y": 1
+            "y": 3
           },
           "id": 88,
           "options": {
@@ -700,14 +717,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uva\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uva\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -719,6 +736,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -742,7 +760,7 @@
             "h": 7,
             "w": 4,
             "x": 16,
-            "y": 1
+            "y": 3
           },
           "id": 89,
           "options": {
@@ -757,14 +775,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uvb\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uvb\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -776,6 +794,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -799,7 +818,7 @@
             "h": 7,
             "w": 4,
             "x": 20,
-            "y": 1
+            "y": 3
           },
           "id": 90,
           "options": {
@@ -814,14 +833,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"index\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"index\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -847,6 +866,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -870,7 +890,7 @@
             "h": 7,
             "w": 4,
             "x": 0,
-            "y": 9
+            "y": 4
           },
           "id": 78,
           "options": {
@@ -885,14 +905,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"luminosity\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"luminosity\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -927,7 +947,7 @@
             "h": 7,
             "w": 4,
             "x": 4,
-            "y": 9
+            "y": 4
           },
           "id": 79,
           "options": {
@@ -942,14 +962,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ir\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ir\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -961,6 +981,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -984,7 +1005,7 @@
             "h": 7,
             "w": 4,
             "x": 8,
-            "y": 9
+            "y": 4
           },
           "id": 80,
           "options": {
@@ -999,14 +1020,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"full\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"full\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1018,6 +1039,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1041,7 +1063,7 @@
             "h": 7,
             "w": 4,
             "x": 12,
-            "y": 9
+            "y": 4
           },
           "id": 81,
           "options": {
@@ -1056,14 +1078,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"visible\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"visible\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1075,6 +1097,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1098,7 +1121,7 @@
             "h": 7,
             "w": 4,
             "x": 16,
-            "y": 9
+            "y": 4
           },
           "id": 82,
           "options": {
@@ -1113,14 +1136,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"lux\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"lux\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1146,6 +1169,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1169,7 +1193,7 @@
             "h": 7,
             "w": 5,
             "x": 0,
-            "y": 9
+            "y": 5
           },
           "id": 72,
           "options": {
@@ -1184,14 +1208,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"infraRed\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"infraRed\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1203,6 +1227,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1226,7 +1251,7 @@
             "h": 7,
             "w": 5,
             "x": 5,
-            "y": 9
+            "y": 5
           },
           "id": 73,
           "options": {
@@ -1241,14 +1266,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"red\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"red\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1260,6 +1285,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1283,7 +1309,7 @@
             "h": 7,
             "w": 5,
             "x": 10,
-            "y": 9
+            "y": 5
           },
           "id": 74,
           "options": {
@@ -1298,14 +1324,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"green\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"green\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1317,6 +1343,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1340,7 +1367,7 @@
             "h": 7,
             "w": 5,
             "x": 15,
-            "y": 9
+            "y": 5
           },
           "id": 75,
           "options": {
@@ -1355,14 +1382,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"blue\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"blue\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1395,6 +1422,8 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -1443,7 +1472,7 @@
             "h": 14,
             "w": 17,
             "x": 0,
-            "y": 9
+            "y": 6
           },
           "id": 67,
           "options": {
@@ -1466,7 +1495,7 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TB108L\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ozone\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TB108L\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ozone\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1478,6 +1507,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1514,7 +1544,7 @@
             "h": 7,
             "w": 5,
             "x": 17,
-            "y": 9
+            "y": 6
           },
           "id": 68,
           "options": {
@@ -1529,14 +1559,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TB108L\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TB108L\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1548,6 +1578,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1580,7 +1611,7 @@
             "h": 7,
             "w": 5,
             "x": 17,
-            "y": 16
+            "y": 13
           },
           "id": 69,
           "options": {
@@ -1595,14 +1626,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TB108L\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: r._value}))\n",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TB108L\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: r._value}))\n",
               "refId": "A"
             }
           ],
@@ -1628,12 +1659,15 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -1682,7 +1716,7 @@
             "h": 14,
             "w": 17,
             "x": 0,
-            "y": 16
+            "y": 7
           },
           "id": 62,
           "options": {
@@ -1705,7 +1739,7 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"co2\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c02\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1717,6 +1751,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1753,7 +1788,7 @@
             "h": 7,
             "w": 5,
             "x": 17,
-            "y": 16
+            "y": 7
           },
           "id": 63,
           "options": {
@@ -1768,14 +1803,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1787,6 +1822,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1819,7 +1855,7 @@
             "h": 7,
             "w": 5,
             "x": 17,
-            "y": 23
+            "y": 14
           },
           "id": 64,
           "options": {
@@ -1834,14 +1870,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -1874,6 +1910,8 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "Concentration",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -1918,7 +1956,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 1
+            "y": 8
           },
           "id": 39,
           "options": {
@@ -1941,7 +1979,7 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"OPCN3\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm1\" or r[\"_field\"] == \"pm10\" or r[\"_field\"] == \"pm2_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"OPCN3\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm1\" or r[\"_field\"] == \"pm10\" or r[\"_field\"] == \"pm2_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2000,6 +2038,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2027,7 +2066,7 @@
             "h": 7,
             "w": 5,
             "x": 0,
-            "y": 1
+            "y": 9
           },
           "id": 48,
           "options": {
@@ -2042,14 +2081,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ch4\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ch4\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2061,6 +2100,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2088,7 +2128,7 @@
             "h": 7,
             "w": 5,
             "x": 5,
-            "y": 1
+            "y": 9
           },
           "id": 49,
           "options": {
@@ -2103,14 +2143,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c3h8\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c3h8\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2122,6 +2162,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2145,7 +2186,7 @@
             "h": 7,
             "w": 5,
             "x": 10,
-            "y": 1
+            "y": 9
           },
           "id": 50,
           "options": {
@@ -2160,14 +2201,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c4h10\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c4h10\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2179,6 +2220,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2202,7 +2244,7 @@
             "h": 7,
             "w": 5,
             "x": 15,
-            "y": 1
+            "y": 9
           },
           "id": 51,
           "options": {
@@ -2217,14 +2259,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c2h5oh\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c2h5oh\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2236,6 +2278,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2259,7 +2302,7 @@
             "h": 7,
             "w": 5,
             "x": 0,
-            "y": 8
+            "y": 16
           },
           "id": 52,
           "options": {
@@ -2274,14 +2317,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"co\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"co\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2293,6 +2336,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2316,7 +2360,7 @@
             "h": 7,
             "w": 5,
             "x": 5,
-            "y": 8
+            "y": 16
           },
           "id": 53,
           "options": {
@@ -2331,14 +2375,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"no2\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"no2\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2374,7 +2418,7 @@
             "h": 7,
             "w": 5,
             "x": 10,
-            "y": 8
+            "y": 16
           },
           "id": 54,
           "options": {
@@ -2389,14 +2433,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"nh3\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"nh3\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2432,7 +2476,7 @@
             "h": 7,
             "w": 5,
             "x": 15,
-            "y": 8
+            "y": 16
           },
           "id": 55,
           "options": {
@@ -2447,14 +2491,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"h2\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MGS001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"h2\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2487,6 +2531,8 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -2534,7 +2580,7 @@
             "h": 12,
             "w": 15,
             "x": 0,
-            "y": 1
+            "y": 10
           },
           "id": 44,
           "options": {
@@ -2555,7 +2601,7 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"LIBRAD\")\n  |> filter(fn: (r) => r[\"_field\"] == \"radiationValue\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"LIBRAD\")\n  |> filter(fn: (r) => r[\"_field\"] == \"radiationValue\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2595,7 +2641,7 @@
             "h": 12,
             "w": 4,
             "x": 15,
-            "y": 1
+            "y": 10
           },
           "id": 45,
           "options": {
@@ -2610,14 +2656,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"LIBRAD\")\n  |> filter(fn: (r) => r[\"_field\"] == \"radiationValue\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"LIBRAD\")\n  |> filter(fn: (r) => r[\"_field\"] == \"radiationValue\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -2650,6 +2696,8 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "Concentration",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -2688,13 +2736,98 @@
               },
               "unit": "conμgm3"
             },
-            "overrides": []
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byFrameRefID",
+                  "options": "G"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "PM 10.0"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byFrameRefID",
+                  "options": "F"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "PM 5.0"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byFrameRefID",
+                  "options": "E"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "PM 2.5"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byFrameRefID",
+                  "options": "D"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "PM 1.0"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byFrameRefID",
+                  "options": "C"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "PM 0.5"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byFrameRefID",
+                  "options": "B"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "PM 0.3"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byFrameRefID",
+                  "options": "A"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "PM 0.1"
+                  }
+                ]
+              }
+            ]
           },
           "gridPos": {
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 1
+            "y": 11
           },
           "id": 36,
           "options": {
@@ -2718,7 +2851,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm10_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm10_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "G"
             },
             {
@@ -2727,7 +2860,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm5_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm5_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "F"
             },
             {
@@ -2736,7 +2869,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm2_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm2_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "E"
             },
             {
@@ -2745,7 +2878,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm1_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm1_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "D"
             },
             {
@@ -2754,7 +2887,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "C"
             },
             {
@@ -2763,7 +2896,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_3\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_3\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "B"
             },
             {
@@ -2771,45 +2904,12 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_1\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_1\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
           "title": "PM Concentration",
-          "transformations": [
-            {
-              "id": "seriesToColumns",
-              "options": {
-                "byField": "Time"
-              }
-            },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "pm0_1 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 0.1",
-                  "pm0_1 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 0.1",
-                  "pm0_3 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 0.3",
-                  "pm0_3 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 0.3",
-                  "pm0_5 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 0.5",
-                  "pm0_5 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 0.5",
-                  "pm1 {location=\"001e06318c91\", name=\"HM3301\"}": "PM 1.0",
-                  "pm10 {location=\"001e06318c91\", name=\"HM3301\"}": "PM 10.0",
-                  "pm10_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 10.0",
-                  "pm10_0 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 10.0",
-                  "pm1_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 1.0",
-                  "pm1_0 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 1.0",
-                  "pm2_5 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 2.5",
-                  "pm2_5 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 2.5",
-                  "pm2_5 {location=\"001e06318c91\", name=\"HM3301\"}": "PM 2.5",
-                  "pm5_0 {location=\"001e06303b4f\", name=\"IPS7100\"}": "PM 5.0",
-                  "pm5_0 {location=\"001e063059c1\", name=\"IPS7100\"}": "pm 5.0"
-                }
-              }
-            }
-          ],
+          "transformations": [],
           "type": "timeseries"
         },
         {
@@ -2827,11 +2927,26 @@
             "uid": "influxdb-uid"
           },
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "scaleDistribution": {
+                  "type": "linear"
+                }
+              }
+            },
+            "overrides": []
+          },
           "gridPos": {
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 13
+            "y": 23
           },
           "heatmap": {},
           "hideZeroBuckets": true,
@@ -2840,6 +2955,43 @@
           "legend": {
             "show": true
           },
+          "options": {
+            "calculate": false,
+            "calculation": {},
+            "cellGap": 2,
+            "cellValues": {},
+            "color": {
+              "exponent": 0.5,
+              "fill": "#b4ff00",
+              "mode": "scheme",
+              "scale": "exponential",
+              "scheme": "Turbo",
+              "steps": 128
+            },
+            "exemplars": {
+              "color": "rgba(255,0,255,0.7)"
+            },
+            "filterValues": {
+              "le": 1e-9
+            },
+            "legend": {
+              "show": true
+            },
+            "rowsFrame": {
+              "layout": "unknown"
+            },
+            "showValue": "never",
+            "tooltip": {
+              "show": true,
+              "yHistogram": false
+            },
+            "yAxis": {
+              "axisPlacement": "left",
+              "reverse": false,
+              "unit": "µm"
+            }
+          },
+          "pluginVersion": "9.1.1",
           "reverseYBuckets": false,
           "targets": [
             {
@@ -2847,7 +2999,7 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_1\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))\n  ",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_1\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))\n  ",
               "refId": "A"
             },
             {
@@ -2856,7 +3008,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_3\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_3\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
               "refId": "B"
             },
             {
@@ -2865,7 +3017,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
               "refId": "C"
             },
             {
@@ -2874,7 +3026,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc1_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc1_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
               "refId": "D"
             },
             {
@@ -2883,7 +3035,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc2_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc2_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
               "refId": "E"
             },
             {
@@ -2892,7 +3044,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc5_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc5_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
               "refId": "F"
             },
             {
@@ -2901,7 +3053,7 @@
                 "uid": "influxdb-uid"
               },
               "hide": false,
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc10_0\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc10_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: math.log10(x: r._value + 1.0)}))",
               "refId": "G"
             }
           ],
@@ -2988,6 +3140,8 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "Concentration",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -3032,7 +3186,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 17
+            "y": 12
           },
           "id": 58,
           "options": {
@@ -3055,7 +3209,7 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"HM3301\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm1\" or r[\"_field\"] == \"pm10\" or r[\"_field\"] == \"pm2_5\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"HM3301\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm1\" or r[\"_field\"] == \"pm10\" or r[\"_field\"] == \"pm2_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -3117,6 +3271,8 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -3165,7 +3321,7 @@
             "h": 10,
             "w": 23,
             "x": 0,
-            "y": 1
+            "y": 13
           },
           "id": 32,
           "options": {
@@ -3187,7 +3343,7 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GUV001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uvLevel\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GUV001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uvLevel\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -3213,6 +3369,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3241,7 +3398,7 @@
             "h": 12,
             "w": 21,
             "x": 0,
-            "y": 1
+            "y": 14
           },
           "id": 29,
           "options": {
@@ -3300,6 +3457,9 @@
                 "type": "markers"
               }
             ],
+            "tooltip": {
+              "mode": "details"
+            },
             "view": {
               "id": "coords",
               "lat": 32.9483,
@@ -3307,14 +3467,14 @@
               "zoom": 11
             }
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPRMC2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPRMC2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             },
             {
@@ -3355,6 +3515,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3383,7 +3544,7 @@
             "h": 12,
             "w": 21,
             "x": 0,
-            "y": 14
+            "y": 15
           },
           "id": 26,
           "options": {
@@ -3442,6 +3603,9 @@
                 "type": "markers"
               }
             ],
+            "tooltip": {
+              "mode": "details"
+            },
             "view": {
               "id": "coords",
               "lat": 32.9483,
@@ -3449,14 +3613,14 @@
               "zoom": 11
             }
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             },
             {
@@ -3516,6 +3680,8 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -3564,7 +3730,7 @@
             "h": 10,
             "w": 23,
             "x": 0,
-            "y": 9
+            "y": 17
           },
           "id": 20,
           "options": {
@@ -3586,7 +3752,7 @@
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GL001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"lightLevel\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GL001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"lightLevel\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -3612,6 +3778,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3648,7 +3815,7 @@
             "h": 7,
             "w": 5,
             "x": 0,
-            "y": 11
+            "y": 18
           },
           "id": 15,
           "options": {
@@ -3663,14 +3830,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -3682,6 +3849,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3714,7 +3882,7 @@
             "h": 7,
             "w": 5,
             "x": 5,
-            "y": 11
+            "y": 18
           },
           "id": 16,
           "options": {
@@ -3729,14 +3897,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: r._value  * 10.0}))\n",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: r._value  * 10.0}))\n",
               "refId": "A"
             }
           ],
@@ -3748,6 +3916,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3780,7 +3949,7 @@
             "h": 7,
             "w": 5,
             "x": 10,
-            "y": 11
+            "y": 18
           },
           "id": 17,
           "options": {
@@ -3795,14 +3964,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -3828,6 +3997,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3879,14 +4049,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -3898,6 +4068,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3945,14 +4116,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n  |> map(fn: (r) => ({r with _value: r._value / 100.0}))\n",
+              "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: r._value / 100.0}))\n",
               "refId": "A"
             }
           ],
@@ -3964,6 +4135,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -4011,14 +4183,14 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")",
               "refId": "A"
             }
           ],
@@ -4044,6 +4216,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -4070,7 +4243,7 @@
             "h": 12,
             "w": 6,
             "x": 0,
-            "y": 27
+            "y": 20
           },
           "id": 4,
           "options": {
@@ -4087,14 +4260,14 @@
             },
             "showUnfilled": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"AS3935\")\n  |> filter(fn: (r) => r[\"_field\"] == \"distance\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"AS3935\")\n  |> filter(fn: (r) => r[\"_field\"] == \"distance\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n",
               "refId": "A"
             }
           ],
@@ -4106,6 +4279,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -4132,7 +4306,7 @@
             "h": 12,
             "w": 6,
             "x": 6,
-            "y": 27
+            "y": 20
           },
           "id": 5,
           "options": {
@@ -4149,14 +4323,14 @@
             },
             "showUnfilled": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"AS3935\")\n  |> filter(fn: (r) => r[\"_field\"] == \"energy\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"AS3935\")\n  |> filter(fn: (r) => r[\"_field\"] == \"energy\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n",
               "refId": "A"
             }
           ],
@@ -4168,6 +4342,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -4190,7 +4365,7 @@
             "h": 12,
             "w": 6,
             "x": 12,
-            "y": 27
+            "y": 20
           },
           "id": 6,
           "options": {
@@ -4207,14 +4382,14 @@
             },
             "showUnfilled": true
           },
-          "pluginVersion": "8.5.1",
+          "pluginVersion": "9.1.1",
           "targets": [
             {
               "datasource": {
                 "type": "influxdb",
                 "uid": "influxdb-uid"
               },
-              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"AS3935\")\n  |> filter(fn: (r) => r[\"_field\"] == \"source\")\n  |> filter(fn: (r) => r[\"location\"] == \"${device_id}\")\n",
+              "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"AS3935\")\n  |> filter(fn: (r) => r[\"_field\"] == \"source\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n",
               "refId": "A"
             }
           ],
@@ -4242,13 +4417,36 @@
           "type": "influxdb",
           "uid": "influxdb-uid"
         },
-        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"location\")",
-        "hide": 0,
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_id\")",
+        "hide": 2,
         "includeAll": false,
         "multi": false,
         "name": "device_id",
         "options": [],
-        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"location\")",
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_id\")",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Central Hub 2",
+          "value": "Central Hub 2"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_name\")",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "device_name",
+        "options": [],
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_name\")",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -4265,6 +4463,6 @@
   "timezone": "",
   "title": "Sensor Library",
   "uid": "sensor-library",
-  "version": 1,
+  "version": 10,
   "weekStart": ""
 }
