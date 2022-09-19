@@ -91,6 +91,15 @@ services:
 
     restart: unless-stopped
 
+  quarto:
+    build: ./quarto-docker
+    image: mints-quarto
+    ports: 
+      - "3100:3100"
+    networks:
+      - shared
+    restart: unless-stopped
+
 
 networks:
   shared:
