@@ -96,8 +96,10 @@ services:
     image: mints-quarto
     ports: 
       - "3100:3100"
+      - "6049:6049"
     networks:
       - shared
+    tty: true
     restart: unless-stopped
 
 
