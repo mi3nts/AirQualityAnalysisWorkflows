@@ -94,9 +94,8 @@ services:
   quarto:
     build: ./quarto-docker
     image: mints-quarto
-    ports: 
-      - "3100:3100"
-      - "6049:6049"
+    ports:
+      - "3101:3101"
     networks:
       - shared
     tty: true
