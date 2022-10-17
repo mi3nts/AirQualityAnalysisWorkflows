@@ -75,8 +75,8 @@ services:
       - "3000:3000"
     networks:
       - shared
-    # env_file:
-    #   - .env
+    env_file:
+      - .env
 
     environment:
       - DOCKER_INFLUXDB_INIT_ORG=${DOCKER_INFLUXDB_INIT_ORG:?err}
