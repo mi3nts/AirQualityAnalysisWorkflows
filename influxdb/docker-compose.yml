@@ -95,10 +95,9 @@ services:
     build: ./quarto-docker
     image: mints-quarto
     ports:
-      - "3101:3101"
+      - "8080:8080"
     networks:
       - shared
-    tty: true
     restart: unless-stopped
 
 

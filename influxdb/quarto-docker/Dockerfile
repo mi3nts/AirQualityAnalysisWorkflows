@@ -1,4 +1,4 @@
-FROM docker.io/ubuntu
+FROM docker.io/ubuntu AS installQuarto
 
 #Copies Automated_Reports Folder
 COPY automated_reports /automated_reports
@@ -13,7 +13,18 @@ RUN apt-get update \
 RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb 
 RUN gdebi --non-interactive quarto-linux-amd64.deb 
 
-#Run Automated Reports
-#RUN quarto preview automated_reports
-    
+#Render Automated Reports
+RUN quarto render automated_reports
 
+#Small http server to host website
+FROM ghcr.io/openfaas/of-watchdog AS server
+
+
+FROM alpine
+
+RUN mkdir /site
+COPY --from=installQuarto /automated_reports/_site /site
+COPY --from=server /fwatchdog .
+ENV mode="static"
+ENV static_path="/site"
+CMD ["./fwatchdog"]
