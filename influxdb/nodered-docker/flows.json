@@ -165,8 +165,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 60,
+        "x": 2150,
+        "y": 860,
         "wires": [
             [
                 "594dae494bf3c3e8"
@@ -186,8 +186,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 240,
+        "x": 2150,
+        "y": 1040,
         "wires": [
             [
                 "751527d9d035d5a0"
@@ -202,8 +202,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 590,
-        "y": 240,
+        "x": 2470,
+        "y": 1040,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -223,8 +223,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 340,
+        "x": 2160,
+        "y": 1140,
         "wires": [
             [
                 "1517583cd0da58db"
@@ -239,8 +239,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 340,
+        "x": 2450,
+        "y": 1140,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -260,8 +260,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 480,
+        "x": 2160,
+        "y": 1280,
         "wires": [
             [
                 "6a2465e3421dd978"
@@ -276,8 +276,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 480,
+        "x": 2450,
+        "y": 1280,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -297,8 +297,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 620,
+        "x": 2150,
+        "y": 1420,
         "wires": [
             [
                 "1975923ab1c94b42"
@@ -313,8 +313,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 620,
+        "x": 2450,
+        "y": 1420,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -334,8 +334,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 720,
+        "x": 2160,
+        "y": 1520,
         "wires": [
             [
                 "842063d6ddb04e71"
@@ -350,8 +350,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 720,
+        "x": 2450,
+        "y": 1520,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -371,8 +371,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 290,
-        "y": 820,
+        "x": 2170,
+        "y": 1620,
         "wires": [
             [
                 "9a857b9545543182"
@@ -387,8 +387,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 820,
+        "x": 2450,
+        "y": 1620,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -408,8 +408,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 290,
-        "y": 920,
+        "x": 2170,
+        "y": 1720,
         "wires": [
             [
                 "d524e5b21132dd19"
@@ -424,8 +424,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 920,
+        "x": 2450,
+        "y": 1720,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -445,8 +445,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 1020,
+        "x": 2160,
+        "y": 1820,
         "wires": [
             [
                 "69acc655f907ce82"
@@ -461,8 +461,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1020,
+        "x": 2450,
+        "y": 1820,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -482,8 +482,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 1120,
+        "x": 2160,
+        "y": 1920,
         "wires": [
             [
                 "476c1f14d210392d"
@@ -498,8 +498,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1120,
+        "x": 2450,
+        "y": 1920,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -519,8 +519,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 1320,
+        "x": 2160,
+        "y": 2120,
         "wires": [
             [
                 "20cd3b54aef2bcfd"
@@ -535,8 +535,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1320,
+        "x": 2450,
+        "y": 2120,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -556,8 +556,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 140,
-        "y": 1520,
+        "x": 2020,
+        "y": 2320,
         "wires": [
             [
                 "918b1d52b5f6d6b1"
@@ -572,8 +572,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1520,
+        "x": 2450,
+        "y": 2320,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -593,8 +593,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 1620,
+        "x": 2150,
+        "y": 2420,
         "wires": [
             [
                 "ab0a93096b38aa81"
@@ -609,8 +609,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1620,
+        "x": 2450,
+        "y": 2420,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -630,8 +630,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 1820,
+        "x": 2150,
+        "y": 2620,
         "wires": [
             [
                 "835542919881d7d7"
@@ -646,8 +646,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1820,
+        "x": 2450,
+        "y": 2620,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -667,8 +667,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 1920,
+        "x": 2150,
+        "y": 2720,
         "wires": [
             [
                 "636b6d4815d1088a"
@@ -683,8 +683,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1920,
+        "x": 2450,
+        "y": 2720,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -704,8 +704,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 2020,
+        "x": 2160,
+        "y": 2820,
         "wires": [
             [
                 "3b89895febf5d0d9"
@@ -720,8 +720,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 2020,
+        "x": 2450,
+        "y": 2820,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -741,8 +741,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 2120,
+        "x": 2160,
+        "y": 2920,
         "wires": [
             [
                 "351eb7111d28a46e"
@@ -757,8 +757,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 2120,
+        "x": 2450,
+        "y": 2920,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -778,8 +778,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 2220,
+        "x": 2160,
+        "y": 3020,
         "wires": [
             [
                 "fc0b32863e2ca205"
@@ -794,8 +794,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 2220,
+        "x": 2450,
+        "y": 3020,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -815,8 +815,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 140,
+        "x": 2160,
+        "y": 940,
         "wires": [
             [
                 "e31d2f8c10daf91f"
@@ -831,8 +831,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 140,
+        "x": 2450,
+        "y": 940,
         "wires": [
             []
         ]
@@ -850,8 +850,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 290,
-        "y": 2380,
+        "x": 2170,
+        "y": 3180,
         "wires": [
             [
                 "f634be5859de084f"
@@ -866,8 +866,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 2380,
+        "x": 2450,
+        "y": 3180,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -887,8 +887,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 2520,
+        "x": 2150,
+        "y": 3320,
         "wires": [
             [
                 "278c5aa6feda144e"
@@ -903,8 +903,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 550,
-        "y": 2520,
+        "x": 2430,
+        "y": 3320,
         "wires": [
             [
                 "8d9af69181100715"
@@ -924,8 +924,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 2720,
+        "x": 2150,
+        "y": 3520,
         "wires": [
             [
                 "4e299df659bb1c76"
@@ -940,8 +940,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 2720,
+        "x": 2450,
+        "y": 3520,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -956,8 +956,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 60,
+        "x": 2450,
+        "y": 860,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -978,8 +978,8 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1650,
-        "y": 1520,
+        "x": 3440,
+        "y": 2320,
         "wires": []
     },
     {
@@ -995,8 +995,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 1420,
+        "x": 2160,
+        "y": 2220,
         "wires": [
             [
                 "5f3f5da85701d4f3"
@@ -1011,8 +1011,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1420,
+        "x": 2450,
+        "y": 2220,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1030,8 +1030,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 390,
-        "y": 1520,
+        "x": 2270,
+        "y": 2320,
         "wires": [
             [
                 "1a80f6e4eb3c3a0c"
@@ -1051,8 +1051,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 1720,
+        "x": 2150,
+        "y": 2520,
         "wires": [
             [
                 "56b04e9dd9472651"
@@ -1067,8 +1067,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1720,
+        "x": 2450,
+        "y": 2520,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1088,8 +1088,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 2620,
+        "x": 2160,
+        "y": 3420,
         "wires": [
             [
                 "d703562e6e74a901"
@@ -1104,8 +1104,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 2620,
+        "x": 2450,
+        "y": 3420,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1117,37 +1117,20 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "parse",
-        "func": "const mac_to_name = {\"001e06318c91\": \"Central Hub 1\",\"a84041ffff2037bc\": \"Central Hub 1\",\"00044bec2707\": \"Central Hub 1\",\"001e0642c3d6\": \"Central Hub 1\",\"001e06373724\": \"Central Hub 2\",\"a84041ffff2058a4\": \"Central Hub 2\",\"00044be6fea1\": \"Central Hub 2\",\"001e0637371e\": \"Central Hub 3\",\"a84041ffff206194\": \"Central Hub 3\",\"00044be5fc9c\": \"Central Hub 3\",\"001e06373996\": \"Central Hub 4\",\"a84041ffff205e64\": \"Central Hub 4\",\"00044be5fc9d\": \"Central Hub 4\",\"001e0643022b\": \"Central Hub 4\",\"001e063739c7\": \"Central Hub 5\",\"a84041ffff203c80\": \"Central Hub 5\",\"00044bec2ca6\": \"Central Hub 5\",\"001e0642ff0f\": \"Central Hub 5\",\"001e063739cd\": \"Central Hub 6\",\"a84041ffff206214\": \"Central Hub 6\",\"000000000001\": \"Central Hub 6\",\"001e064300d3\": \"Central Hub 6\",\"001e0636e547\": \"Central Hub 7\",\"a84041ffff203ccc\": \"Central Hub 7\",\"00e04c680001\": \"Central Hub 7\",\"001e06430225\": \"Central Hub 7\",\"001e06323a37\": \"Central Hub 8\",\"a84041ffff205984\": \"Central Hub 8\",\"00044bebddd8\": \"Central Hub 8\",\"001e06430224\": \"Central Hub 8\",\"001e0637372e\": \"Central Hub 9\",\"a84041ffff206240\": \"Central Hub 9\",\"00e04c680190\": \"Central Hub 9\",\"001e064300d0\": \"Central Hub 9\",\"001e06318c9d\": \"Central Hub 10\",\"a84041ffff205774\": \"Central Hub 10\",\"48b02d3d4f3d\": \"Central Hub 10\",\"001e0643022a\": \"Central Hub 10\",\"001e06323a12\": \"UTD Node 1\",\"001e06318cd1\": \"UTD Node 2\",\"001e06305a61\": \"UTD Node 3\",\"001e06323a05\": \"UTD Node 4\",\"001e06305a57\": \"UTD Node 5\",\"001e063059c2\": \"UTD Node 6\",\"001e06318c28\": \"UTD Node 7\",\"001e06305a6b\": \"UTD Node 8\",\"001e063239e3\": \"UTD Node 9\",\"001e06305a6c\": \"UTD Node 10\",\"001e063239e6\": \"UTD Node 11\",\"001e06305a0a\": \"UTD Node 12\",\"001e06318cee\": \"UTD Node 13\",\"001e06318cf1\": \"UTD Node 14\",\"001e063059c1\": \"UTD Node 15\",\"001e063239e4\": \"UTD Node 16\",\"001e06323952\": \"UTD Node 17\",\"001e06305a2c\": \"UTD Node 18\",\"001e06323a06\": \"UTD Node 19\",\"001e06305a12\": \"UTD Node 20\",\"001e06303b4f\": \"UTD Node 21\",\"001e06318c3c\": \"UTD Node 22\",\"475a5fe30021002d\": \"LoRa Node 002\",\"472b544e0018003c\": \"LoRa Node 003\",\"47db558000400039\": \"LoRa Node 004\",\"472b544e001b003c\": \"LoRa Node 005\",\"475a5fe30024001c\": \"LoRa Node 006\",\"47db558000410047\": \"LoRa Node 007\",\"475a5fe300340018\": \"LoRa Node 008\",\"47eb5580003c001a\": \"LoRa Node 009\",\"475a5fe3003e0023\": \"LoRa Node 010\",\"472b544e00230033\": \"LoRa Node 011\",\"472b544e00240036\": \"LoRa Node 012\",\"475a5fe3003b001b\": \"LoRa Node 013\",\"47cb5580003a001c\": \"LoRa Node 014\",\"475a5fe300440023\": \"LoRa Node 015\",\"47db558000240039\": \"LoRa Node 016\",\"475a5fe3003c0023\": \"LoRa Node 017\",\"472b544e0024002b\": \"LoRa Node 018\",\"47db558000330044\": \"LoRa Node 019\",\"47db5580001e0039\": \"LoRa Node 020\",\"8cf95720000589b5\": \"LoRa Node 021\",\"472b544e002d004b\": \"LoRa Node 022\",\"475a5fe30033001a\": \"LoRa Node 023\",\"476a5fe30022002b\": \"LoRa Node 024\",\"475a5fe300480023\": \"LoRa Node 025\",\"472b544e00250042\": \"LoRa Node 026\",\"8cf9572000059fd3\": \"LoRa Node 027\",\"47eb5580002f0019\": \"LoRa Node 028\",\"475a5fe30035001b\": \"LoRa Node 029\",\"47db5580002f0042\": \"LoRa Node 030\",\"477b41f200470032\": \"LoRa Node 031\",\"475a5fe3002e001f\": \"LoRa Node 032\",\"47db5fe300200033\": \"LoRa Node 033\",\"472b544e0024004b\": \"LoRa Node 034\",\"472b544e00270032\": \"LoRa Node 035\",\"47db5580002b0039\": \"LoRa Node 036\",\"471b41f200340049\": \"LoRa Node 037\",\"475a5fe300400022\": \"LoRa Node 038\",\"478b5fe30040004b\": \"LoRa Node 039\",\"477b41f2004c0035\": \"LoRa Node 040\",\"477b41f20048001f\": \"LoRa Node 041\",\"478b5fe3002c0019\": \"LoRa Node 042\",\"47db558000420035\": \"LoRa Node 043\",\"475a5fe3002f001b\": \"LoRa Node 044\",\"475a5fe30035001a\": \"LoRa Node 045\",\"477b41f20049002f\": \"LoRa Node 046\",\"47bb5580002d0049\": \"LoRa Node 047\",\"47fb558000450044\": \"LoRa Node 048\",\"47fb5fe30039004a\": \"LoRa Node 049\",\"475a5fe3002a001a\": \"LoRa Node 050\",\"47db558000390039\": \"LoRa Node 051\",\"475a5fe300200021\": \"LoRa Node 052\",\"47cb55800041001c\": \"LoRa Node 053\",\"472b544e0028002b\": \"LoRa Node 054\",\"471b41f20034004a\": \"LoRa Node 055\",\"47db558000340048\": \"LoRa Node 056\",\"475a5fe30031001f\": \"LoRa Node 057\",\"475a5fe300320019\": \"LoRa Node 058\",\"479b5580001a0031\": \"LoRa Node 059\",\"47db558000350047\": \"LoRa Node 060\",\"479b558000320033\": \"LoRa Node 061\",\"476a5fe300330021\": \"LoRa Node 062\",\"476a5fe3003f0021\": \"LoRa Node 063\",\"47bb5580001f0020\": \"LoRa Node 064\",\"476a5fe300420032\": \"LoRa Node 065\",\"475a5fe30038001a\": \"LoRa Node 066\",\"475b41f20037001e\": \"LoRa Node 067\",\"475a5fe3003b0022\": \"LoRa Node 068\",\"47cb558000220031\": \"LoRa Node 069\",\"476a5fe300410020\": \"LoRa Node 070\",\"8cf9572000059fd7\": \"LoRa Node 071\",\"8cf9572000058543\": \"LoRa Node 072\",\"475a5fe300300019\": \"LoRa Node 073\",\"472b544e00450034\": \"LoRa Node 074\",\"478b558000330027\": \"LoRa Node 075\",\"479b558000380033\": \"LoRa Node 076\",\"470a55800048003e\": \"LoRa Node 077\",\"475a5fe3002e0018\": \"LoRa Node 078\",\"47bb558000280041\": \"LoRa Node 079\",\"8cf957200005854f\": \"LoRa Node 080\",\"475a5fe3002d001f\": \"LoRa Node 081\",\"8cf957200005a011\": \"LoRa Node 082\",\"8cf95720000589cc\": \"LoRa Node 083\",\"8cf9572000058551\": \"LoRa Node 084\",\"8cf957200005a003\": \"LoRa Node 085\",\"8cf9572000059e85\": \"LoRa Node 086\",\"8cf9572000059fb4\": \"LoRa Node 087\",\"47db558000370043\": \"LoRa Node 088\",\"47bb5580002c0042\": \"LoRa Node 089\",\"472b544e00270044\": \"LoRa Node 090\",\"8cf957200005a0d5\": \"LoRa Node 091\",\"479b558000230033\": \"LoRa Node 092\",\"8cf9572000059ee7\": \"LoRa Node 093\",\"472b544e001a0037\": \"LoRa Node 094\",\"475a5fe300270019\": \"LoRa Node 095\",\"47bb5580002e0020\": \"LoRa Node 096\",\"477b41f20047002e\": \"LoRa Node 097\",\"475a5fe3002a0019\": \"LoRa Node 098\",\"475a5fe3002e0023\": \"LoRa Node 099\",\"475a5fe30028001f\": \"LoRa Node 100\",\"8cf9572000059e7e\": \"LoRa Node 101\",\"471a55800038004e\": \"LoRa Node 102\",\"475a5fe3002c0020\": \"LoRa Node 103\",\"475a5fe3002e0036\": \"LoRa Node 104\",\"8cf9572000059fcd\": \"LoRa Node 105\",\"477b41f2004c002a\": \"LoRa Node 106\",\"477b41f200290024\": \"LoRa Node 107\",\"475a5fe30039002a\": \"LoRa Node 108\",\"8cf95720000681e8\": \"LoRa Node 109\",\"8cf9572000065e5e\": \"LoRa Node 110\",\"8cf9572000064eb2\": \"LoRa Node 111\",\"8cf9572000064c34\": \"LoRa Node 112\",\"8cf95720000681e0\": \"LoRa Node 113\",\"8cf9572000065e87\": \"LoRa Node 114\",\"8cf9572000065f92\": \"LoRa Node 115\",\"8cf957200006462d\": \"LoRa Node 116\",\"8cf9572000065e93\": \"LoRa Node 117\",\"8cf9572000067228\": \"LoRa Node 118\",\"8cf9572000059e81\": \"LoRa Node 200\",}\n\nconst strFields = /status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID/;\nconst doNotInclude = /timestamp|dateStamp/\n\nlet fields = {}\nfor (let x in msg.payload) {\n    if (!msg.payload.hasOwnProperty(x) || doNotInclude.test(x))\n        continue;\n        \n    // Parse dateTime\n    if (x == 'dateTime') {\n        fields['time'] = Date.parse(msg.payload[x] + \" UTC\")\n        continue;\n    }\n        \n    // Include string fields as-is\n    if (strFields.test(x)) {\n        fields[x] = msg.payload[x];\n        continue;\n    }\n    \n    // Try to parse float fields\n    const val = parseFloat(msg.payload[x])\n    // Only include if fload field is not NaN. \n    // Otherwise, InfluxDB will reject the whole datapoint. \n    if(!isNaN(val))\n        fields[x] = val\n}\n\nconst tags = { \n    device_id: msg.topic.split(\"/\")[0],\n    device_name: mac_to_name[msg.topic.split(\"/\")[0]]\n    \n}\n\nmsg.payload = [fields, tags];\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
+        "func": "//const mac_to_name = {\"001e06318c91\": \"Central Hub 1\",\"a84041ffff2037bc\": \"Central Hub 1\",\"00044bec2707\": \"Central Hub 1\",\"001e0642c3d6\": \"Central Hub 1\",\"001e06373724\": \"Central Hub 2\",\"a84041ffff2058a4\": \"Central Hub 2\",\"00044be6fea1\": \"Central Hub 2\",\"001e0637371e\": \"Central Hub 3\",\"a84041ffff206194\": \"Central Hub 3\",\"00044be5fc9c\": \"Central Hub 3\",\"001e06373996\": \"Central Hub 4\",\"a84041ffff205e64\": \"Central Hub 4\",\"00044be5fc9d\": \"Central Hub 4\",\"001e0643022b\": \"Central Hub 4\",\"001e063739c7\": \"Central Hub 5\",\"a84041ffff203c80\": \"Central Hub 5\",\"00044bec2ca6\": \"Central Hub 5\",\"001e0642ff0f\": \"Central Hub 5\",\"001e063739cd\": \"Central Hub 6\",\"a84041ffff206214\": \"Central Hub 6\",\"000000000001\": \"Central Hub 6\",\"001e064300d3\": \"Central Hub 6\",\"001e0636e547\": \"Central Hub 7\",\"a84041ffff203ccc\": \"Central Hub 7\",\"00e04c680001\": \"Central Hub 7\",\"001e06430225\": \"Central Hub 7\",\"001e06323a37\": \"Central Hub 8\",\"a84041ffff205984\": \"Central Hub 8\",\"00044bebddd8\": \"Central Hub 8\",\"001e06430224\": \"Central Hub 8\",\"001e0637372e\": \"Central Hub 9\",\"a84041ffff206240\": \"Central Hub 9\",\"00e04c680190\": \"Central Hub 9\",\"001e064300d0\": \"Central Hub 9\",\"001e06318c9d\": \"Central Hub 10\",\"a84041ffff205774\": \"Central Hub 10\",\"48b02d3d4f3d\": \"Central Hub 10\",\"001e0643022a\": \"Central Hub 10\",\"001e06323a12\": \"UTD Node 1\",\"001e06318cd1\": \"UTD Node 2\",\"001e06305a61\": \"UTD Node 3\",\"001e06323a05\": \"UTD Node 4\",\"001e06305a57\": \"UTD Node 5\",\"001e063059c2\": \"UTD Node 6\",\"001e06318c28\": \"UTD Node 7\",\"001e06305a6b\": \"UTD Node 8\",\"001e063239e3\": \"UTD Node 9\",\"001e06305a6c\": \"UTD Node 10\",\"001e063239e6\": \"UTD Node 11\",\"001e06305a0a\": \"UTD Node 12\",\"001e06318cee\": \"UTD Node 13\",\"001e06318cf1\": \"UTD Node 14\",\"001e063059c1\": \"UTD Node 15\",\"001e063239e4\": \"UTD Node 16\",\"001e06323952\": \"UTD Node 17\",\"001e06305a2c\": \"UTD Node 18\",\"001e06323a06\": \"UTD Node 19\",\"001e06305a12\": \"UTD Node 20\",\"001e06303b4f\": \"UTD Node 21\",\"001e06318c3c\": \"UTD Node 22\",\"475a5fe30021002d\": \"LoRa Node 002\",\"472b544e0018003c\": \"LoRa Node 003\",\"47db558000400039\": \"LoRa Node 004\",\"472b544e001b003c\": \"LoRa Node 005\",\"475a5fe30024001c\": \"LoRa Node 006\",\"47db558000410047\": \"LoRa Node 007\",\"475a5fe300340018\": \"LoRa Node 008\",\"47eb5580003c001a\": \"LoRa Node 009\",\"475a5fe3003e0023\": \"LoRa Node 010\",\"472b544e00230033\": \"LoRa Node 011\",\"472b544e00240036\": \"LoRa Node 012\",\"475a5fe3003b001b\": \"LoRa Node 013\",\"47cb5580003a001c\": \"LoRa Node 014\",\"475a5fe300440023\": \"LoRa Node 015\",\"47db558000240039\": \"LoRa Node 016\",\"475a5fe3003c0023\": \"LoRa Node 017\",\"472b544e0024002b\": \"LoRa Node 018\",\"47db558000330044\": \"LoRa Node 019\",\"47db5580001e0039\": \"LoRa Node 020\",\"8cf95720000589b5\": \"LoRa Node 021\",\"472b544e002d004b\": \"LoRa Node 022\",\"475a5fe30033001a\": \"LoRa Node 023\",\"476a5fe30022002b\": \"LoRa Node 024\",\"475a5fe300480023\": \"LoRa Node 025\",\"472b544e00250042\": \"LoRa Node 026\",\"8cf9572000059fd3\": \"LoRa Node 027\",\"47eb5580002f0019\": \"LoRa Node 028\",\"475a5fe30035001b\": \"LoRa Node 029\",\"47db5580002f0042\": \"LoRa Node 030\",\"477b41f200470032\": \"LoRa Node 031\",\"475a5fe3002e001f\": \"LoRa Node 032\",\"47db5fe300200033\": \"LoRa Node 033\",\"472b544e0024004b\": \"LoRa Node 034\",\"472b544e00270032\": \"LoRa Node 035\",\"47db5580002b0039\": \"LoRa Node 036\",\"471b41f200340049\": \"LoRa Node 037\",\"475a5fe300400022\": \"LoRa Node 038\",\"478b5fe30040004b\": \"LoRa Node 039\",\"477b41f2004c0035\": \"LoRa Node 040\",\"477b41f20048001f\": \"LoRa Node 041\",\"478b5fe3002c0019\": \"LoRa Node 042\",\"47db558000420035\": \"LoRa Node 043\",\"475a5fe3002f001b\": \"LoRa Node 044\",\"475a5fe30035001a\": \"LoRa Node 045\",\"477b41f20049002f\": \"LoRa Node 046\",\"47bb5580002d0049\": \"LoRa Node 047\",\"47fb558000450044\": \"LoRa Node 048\",\"47fb5fe30039004a\": \"LoRa Node 049\",\"475a5fe3002a001a\": \"LoRa Node 050\",\"47db558000390039\": \"LoRa Node 051\",\"475a5fe300200021\": \"LoRa Node 052\",\"47cb55800041001c\": \"LoRa Node 053\",\"472b544e0028002b\": \"LoRa Node 054\",\"471b41f20034004a\": \"LoRa Node 055\",\"47db558000340048\": \"LoRa Node 056\",\"475a5fe30031001f\": \"LoRa Node 057\",\"475a5fe300320019\": \"LoRa Node 058\",\"479b5580001a0031\": \"LoRa Node 059\",\"47db558000350047\": \"LoRa Node 060\",\"479b558000320033\": \"LoRa Node 061\",\"476a5fe300330021\": \"LoRa Node 062\",\"476a5fe3003f0021\": \"LoRa Node 063\",\"47bb5580001f0020\": \"LoRa Node 064\",\"476a5fe300420032\": \"LoRa Node 065\",\"475a5fe30038001a\": \"LoRa Node 066\",\"475b41f20037001e\": \"LoRa Node 067\",\"475a5fe3003b0022\": \"LoRa Node 068\",\"47cb558000220031\": \"LoRa Node 069\",\"476a5fe300410020\": \"LoRa Node 070\",\"8cf9572000059fd7\": \"LoRa Node 071\",\"8cf9572000058543\": \"LoRa Node 072\",\"475a5fe300300019\": \"LoRa Node 073\",\"472b544e00450034\": \"LoRa Node 074\",\"478b558000330027\": \"LoRa Node 075\",\"479b558000380033\": \"LoRa Node 076\",\"470a55800048003e\": \"LoRa Node 077\",\"475a5fe3002e0018\": \"LoRa Node 078\",\"47bb558000280041\": \"LoRa Node 079\",\"8cf957200005854f\": \"LoRa Node 080\",\"475a5fe3002d001f\": \"LoRa Node 081\",\"8cf957200005a011\": \"LoRa Node 082\",\"8cf95720000589cc\": \"LoRa Node 083\",\"8cf9572000058551\": \"LoRa Node 084\",\"8cf957200005a003\": \"LoRa Node 085\",\"8cf9572000059e85\": \"LoRa Node 086\",\"8cf9572000059fb4\": \"LoRa Node 087\",\"47db558000370043\": \"LoRa Node 088\",\"47bb5580002c0042\": \"LoRa Node 089\",\"472b544e00270044\": \"LoRa Node 090\",\"8cf957200005a0d5\": \"LoRa Node 091\",\"479b558000230033\": \"LoRa Node 092\",\"8cf9572000059ee7\": \"LoRa Node 093\",\"472b544e001a0037\": \"LoRa Node 094\",\"475a5fe300270019\": \"LoRa Node 095\",\"47bb5580002e0020\": \"LoRa Node 096\",\"477b41f20047002e\": \"LoRa Node 097\",\"475a5fe3002a0019\": \"LoRa Node 098\",\"475a5fe3002e0023\": \"LoRa Node 099\",\"475a5fe30028001f\": \"LoRa Node 100\",\"8cf9572000059e7e\": \"LoRa Node 101\",\"471a55800038004e\": \"LoRa Node 102\",\"475a5fe3002c0020\": \"LoRa Node 103\",\"475a5fe3002e0036\": \"LoRa Node 104\",\"8cf9572000059fcd\": \"LoRa Node 105\",\"477b41f2004c002a\": \"LoRa Node 106\",\"477b41f200290024\": \"LoRa Node 107\",\"475a5fe30039002a\": \"LoRa Node 108\",\"8cf95720000681e8\": \"LoRa Node 109\",\"8cf9572000065e5e\": \"LoRa Node 110\",\"8cf9572000064eb2\": \"LoRa Node 111\",\"8cf9572000064c34\": \"LoRa Node 112\",\"8cf95720000681e0\": \"LoRa Node 113\",\"8cf9572000065e87\": \"LoRa Node 114\",\"8cf9572000065f92\": \"LoRa Node 115\",\"8cf957200006462d\": \"LoRa Node 116\",\"8cf9572000065e93\": \"LoRa Node 117\",\"8cf9572000067228\": \"LoRa Node 118\",\"8cf9572000059e81\": \"LoRa Node 200\",}\nconst id_lookup = global.get(\"mac_to_name\");\n\n\nconst strFields = /status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID/;\nconst doNotInclude = /timestamp|dateStamp/\n\nlet fields = {}\nfor (let x in msg.payload) {\n    if (!msg.payload.hasOwnProperty(x) || doNotInclude.test(x))\n        continue;\n        \n    // Parse dateTime\n    if (x == 'dateTime') {\n        fields['time'] = Date.parse(msg.payload[x] + \" UTC\")\n        continue;\n    }\n        \n    // Include string fields as-is\n    if (strFields.test(x)) {\n        fields[x] = msg.payload[x];\n        continue;\n    }\n    \n    // Try to parse float fields\n    const val = parseFloat(msg.payload[x])\n    // Only include if fload field is not NaN. \n    // Otherwise, InfluxDB will reject the whole datapoint. \n    if(!isNaN(val))\n        fields[x] = val\n}\n\nconst tags = { \n    device_id: msg.topic.split(\"/\")[0],\n    device_name: id_lookup[msg.topic.split(\"/\")[0]]\n    \n}\n\nmsg.payload = [fields, tags];\nmsg.measurement = msg.topic.split(\"/\")[1];\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1210,
-        "y": 1520,
+        "x": 2990,
+        "y": 2320,
         "wires": [
             [
-                "69cd5528a453d312",
-                "ad8869086132eb9b"
+                "2063a5a03a32230e",
+                "69cd5528a453d312"
             ]
         ]
-    },
-    {
-        "id": "ad8869086132eb9b",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1370,
-        "y": 1460,
-        "wires": []
     },
     {
         "id": "8d9af69181100715",
@@ -1160,8 +1143,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 720,
-        "y": 2520,
+        "x": 2600,
+        "y": 3320,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1181,8 +1164,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 1220,
+        "x": 2150,
+        "y": 2020,
         "wires": [
             [
                 "bd67ac553177977c"
@@ -1197,8 +1180,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 1220,
+        "x": 2450,
+        "y": 2020,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1218,8 +1201,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 2300,
+        "x": 2160,
+        "y": 3100,
         "wires": [
             []
         ]
@@ -1232,8 +1215,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 2300,
+        "x": 2450,
+        "y": 3100,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1253,8 +1236,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 290,
-        "y": 2820,
+        "x": 2170,
+        "y": 3620,
         "wires": [
             [
                 "13685bb0d08ecd8b"
@@ -1269,8 +1252,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 2820,
+        "x": 2450,
+        "y": 3620,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1290,8 +1273,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 290,
-        "y": 2460,
+        "x": 2170,
+        "y": 3260,
         "wires": [
             [
                 "205dbe5e97a12a74"
@@ -1306,8 +1289,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 2460,
+        "x": 2450,
+        "y": 3260,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1327,8 +1310,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 2920,
+        "x": 2150,
+        "y": 3720,
         "wires": [
             [
                 "d7b72bd247129e11"
@@ -1343,8 +1326,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 570,
-        "y": 2920,
+        "x": 2450,
+        "y": 3720,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1364,8 +1347,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 250,
-        "y": 3020,
+        "x": 2130,
+        "y": 3820,
         "wires": [
             [
                 "d292d35c514eb7ae"
@@ -1380,8 +1363,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 550,
-        "y": 3020,
+        "x": 2430,
+        "y": 3820,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1401,8 +1384,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 1180,
-        "y": 1900,
+        "x": 2140,
+        "y": 3920,
         "wires": [
             [
                 "b876e919a08b38f8"
@@ -1417,8 +1400,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 1350,
-        "y": 1900,
+        "x": 2310,
+        "y": 3920,
         "wires": [
             [
                 "4580469327b1425c"
@@ -1437,8 +1420,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1750,
-        "y": 1900,
+        "x": 2710,
+        "y": 3920,
         "wires": []
     },
     {
@@ -1452,14 +1435,155 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1550,
-        "y": 1900,
+        "x": 2510,
+        "y": 3920,
         "wires": [
             [
                 "441152fd425484b7",
                 "304ca8d3d559712f"
             ]
         ]
+    },
+    {
+        "id": "4a74e411df163c6c",
+        "type": "csv",
+        "z": "f6f2187d.f17ca8",
+        "name": "To CSV",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": "",
+        "x": 1240,
+        "y": 2140,
+        "wires": [
+            [
+                "90a2314a45fa4786"
+            ]
+        ]
+    },
+    {
+        "id": "6738980ff019862f",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "Read ID Lookup Table",
+        "filename": "/data/id_lookup.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 1040,
+        "y": 2140,
+        "wires": [
+            [
+                "4a74e411df163c6c"
+            ]
+        ]
+    },
+    {
+        "id": "d12bd416b66b1ae0",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 850,
+        "y": 2140,
+        "wires": [
+            [
+                "6738980ff019862f"
+            ]
+        ]
+    },
+    {
+        "id": "90a2314a45fa4786",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "//msg.topic=\"mac_to_name\";\nvar mac_to_name  = {}\n\nfor (var i = 0; i < msg.payload.length; i++) {\n    mac_to_name[msg.payload[i].mac_address] = msg.payload[i].name;\n}\n\nglobal.set(\"mac_to_name\",mac_to_name)\n\n//msg.payload = mac_to_name; \n//return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1400,
+        "y": 2140,
+        "wires": [
+            [
+                "c71e9d5a1cb20c1c"
+            ]
+        ]
+    },
+    {
+        "id": "c71e9d5a1cb20c1c",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "mac_to_name",
+                "pt": "global",
+                "to": "payload.mac_to_name",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 2140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2063a5a03a32230e",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3170,
+        "y": 2220,
+        "wires": []
+    },
+    {
+        "id": "c78a82574f0f5ede",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Read ID Lookup Table",
+        "info": "",
+        "x": 840,
+        "y": 2060,
+        "wires": []
     },
     {
         "id": "9c8cb7de31fcbeef",
