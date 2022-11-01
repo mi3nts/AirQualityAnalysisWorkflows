@@ -1347,7 +1347,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 2130,
+        "x": 2150,
         "y": 3820,
         "wires": [
             [
@@ -1363,7 +1363,7 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 2430,
+        "x": 2450,
         "y": 3820,
         "wires": [
             [
@@ -1520,7 +1520,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "",
-        "func": "//msg.topic=\"mac_to_name\";\nvar mac_to_name  = {}\n\nfor (var i = 0; i < msg.payload.length; i++) {\n    mac_to_name[msg.payload[i].mac_address] = msg.payload[i].name;\n}\n\nglobal.set(\"mac_to_name\",mac_to_name)\n\n//msg.payload = mac_to_name; \n//return msg;",
+        "func": "//msg.topic=\"mac_to_name\";\nvar mac_to_name  = {}\n\nfor (var i = 0; i < msg.payload.length; i++) {\n    if (msg.payload[i].in_use == 1) {\n        mac_to_name[msg.payload[i].mac_address] = msg.payload[i].name;\n    }\n}\n\nglobal.set(\"mac_to_name\",mac_to_name)\n\n//msg.payload = mac_to_name; \n//return msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
