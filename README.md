@@ -14,3 +14,7 @@
 2. In the root of the directory run `quarto render automated_reports`
 3. View the output in `/automated_reports/_site`. 
 4. While developing, use `quarto preview automated_reports` to see the pages update live in your browser as you work on the source files. 
+
+
+# Import Notes for Deployment on MDASH 
+See [this thread](https://stackoverflow.com/questions/42529211/how-to-rebuild-and-update-a-container-without-downtime-with-docker-compose) for updating the containers. **DO NOT** do `podman-compose down` as this will remove the volumes for influxdb. Instead, simply running `podman-compose up -d` should rebuild any containers whose configuration files have changed. 
