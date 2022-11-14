@@ -21,7 +21,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "9.2.3"
+      "version": "9.2.4"
     },
     {
       "type": "datasource",
@@ -94,9 +94,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 29,
-        "w": 24,
-        "x": 0,
+        "h": 20,
+        "w": 16,
+        "x": 4,
         "y": 0
       },
       "id": 2,
@@ -124,7 +124,7 @@
                 "color": {
                   "fixed": "dark-green"
                 },
-                "opacity": 0.8,
+                "opacity": 0.5,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -159,7 +159,48 @@
               "longitude": "longitudeCoordinate",
               "mode": "coords"
             },
-            "name": "Layer 1",
+            "name": "Central/UTD Nodes",
+            "tooltip": true,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "dark-blue"
+                },
+                "opacity": 0.5,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 8,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "latitude": "latitude",
+              "longitude": "longitude",
+              "mode": "coords"
+            },
+            "name": "LoRa Nodes",
             "tooltip": true,
             "type": "markers"
           }
@@ -170,19 +211,19 @@
         "view": {
           "allLayers": true,
           "id": "coords",
-          "lat": 32.926222,
-          "lon": -97.126335,
-          "zoom": 9.06
+          "lat": 32.838484,
+          "lon": -96.733496,
+          "zoom": 9.57
         }
       },
-      "pluginVersion": "9.2.3",
+      "pluginVersion": "9.2.4",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"Central Hub 2\")\n  |> last()",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> last()",
           "refId": "A"
         },
         {
@@ -191,110 +232,11 @@
             "uid": "influxdb-uid"
           },
           "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"Central Hub 3\")\n  |> last()",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGALR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\n  |> last()",
           "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"Central Hub 4\")\n  |> last()",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"Central Hub 5\")\n  |> last()",
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"Central Hub 7\")\n  |> last()",
-          "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"Central Hub 8\")\n  |> last()",
-          "refId": "F"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"Central Hub 9\")\n  |> last()",
-          "refId": "G"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"UTD Node 1\")\n  |> last()",
-          "refId": "H"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"UTD Node 13\")\n  |> last()",
-          "refId": "I"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"UTD Node 14\")\n  |> last()",
-          "refId": "J"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"UTD Node 20\")\n  |> last()",
-          "refId": "K"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"UTD Node 4\")\n  |> last()",
-          "refId": "L"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"UTD Node 9\")\n  |> last()",
-          "refId": "M"
         }
       ],
-      "title": "test",
+      "title": "Sensor Location",
       "transformations": [
         {
           "id": "merge",
@@ -356,8 +298,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "New dashboard",
+  "title": "Homepage",
   "uid": "48VYFvD4z",
-  "version": 3,
+  "version": 5,
   "weekStart": ""
 }
