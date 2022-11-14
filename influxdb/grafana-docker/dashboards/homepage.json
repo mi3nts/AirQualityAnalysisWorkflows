@@ -102,11 +102,9 @@
       "id": 2,
       "options": {
         "basemap": {
-          "config": {
-            "server": "streets"
-          },
+          "config": {},
           "name": "Layer 0",
-          "type": "esri-xyz"
+          "type": "osm-standard"
         },
         "controls": {
           "mouseWheelZoom": true,
@@ -223,7 +221,7 @@
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\")\n  |> last()",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\" or r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\" or r[\"_field\"] == \"${pm_value}\")\n  |> last()",
           "refId": "A"
         },
         {
@@ -232,7 +230,7 @@
             "uid": "influxdb-uid"
           },
           "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGALR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\n  |> last()",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGALR\" or r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"${pm_value}\")\n  |> last()",
           "refId": "B"
         }
       ],
@@ -254,38 +252,15 @@
     "list": [
       {
         "current": {},
-        "datasource": {
-          "type": "influxdb",
-          "uid": "influxdb-uid"
-        },
-        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_id\")",
-        "hide": 2,
-        "includeAll": false,
-        "multi": false,
-        "name": "device_id",
-        "options": [],
-        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_id\")",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "current": {},
-        "datasource": {
-          "type": "influxdb",
-          "uid": "influxdb-uid"
-        },
-        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_name\")",
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"_field\")",
         "hide": 0,
         "includeAll": false,
         "multi": false,
-        "name": "device_name",
+        "name": "pm_value",
         "options": [],
-        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_name\")",
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"_field\")",
         "refresh": 1,
-        "regex": "",
+        "regex": "[p][m][a-zA-z0-9]*",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
@@ -300,6 +275,6 @@
   "timezone": "",
   "title": "Homepage",
   "uid": "48VYFvD4z",
-  "version": 5,
+  "version": 4,
   "weekStart": ""
 }
