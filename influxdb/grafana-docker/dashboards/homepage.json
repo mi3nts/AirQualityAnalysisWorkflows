@@ -21,7 +21,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "9.2.4"
+      "version": "9.3.1"
     },
     {
       "type": "datasource",
@@ -81,15 +81,28 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#ffffff",
                 "value": null
               },
               {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 3
+              },
+              {
+                "color": "orange",
+                "value": 6
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 9
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
@@ -120,9 +133,52 @@
               "showLegend": true,
               "style": {
                 "color": {
-                  "fixed": "dark-green"
+                  "field": "PM",
+                  "fixed": "dark-blue"
                 },
                 "opacity": 0.5,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 8,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "latitude": "latitude",
+              "longitude": "longitude",
+              "mode": "coords"
+            },
+            "name": "LoRa Nodes",
+            "tooltip": true,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "PM",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.7,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -160,47 +216,6 @@
             "name": "Central/UTD Nodes",
             "tooltip": true,
             "type": "markers"
-          },
-          {
-            "config": {
-              "showLegend": true,
-              "style": {
-                "color": {
-                  "fixed": "dark-blue"
-                },
-                "opacity": 0.5,
-                "rotation": {
-                  "fixed": 0,
-                  "max": 360,
-                  "min": -360,
-                  "mode": "mod"
-                },
-                "size": {
-                  "fixed": 8,
-                  "max": 15,
-                  "min": 2
-                },
-                "symbol": {
-                  "fixed": "img/icons/marker/circle.svg",
-                  "mode": "fixed"
-                },
-                "textConfig": {
-                  "fontSize": 12,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "textAlign": "center",
-                  "textBaseline": "middle"
-                }
-              }
-            },
-            "location": {
-              "latitude": "latitude",
-              "longitude": "longitude",
-              "mode": "coords"
-            },
-            "name": "LoRa Nodes",
-            "tooltip": true,
-            "type": "markers"
           }
         ],
         "tooltip": {
@@ -214,14 +229,15 @@
           "zoom": 9.57
         }
       },
-      "pluginVersion": "9.2.4",
+      "pluginVersion": "9.3.1",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\" or r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\" or r[\"_field\"] == \"${pm_value}\")\n  |> last()",
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\" or r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\" or r[\"_field\"] == \"${pm_value}\")\n  |> aggregateWindow(every: 1h, fn: last)\n  |> last()\n",
           "refId": "A"
         },
         {
@@ -230,15 +246,31 @@
             "uid": "influxdb-uid"
           },
           "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGALR\" or r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"${pm_value}\")\n  |> last()",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGALR\" or r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"${pm_value}\")\n  |> aggregateWindow(every: 1h, fn: last)\n  |> last()\n",
           "refId": "B"
         }
       ],
       "title": "Sensor Location",
       "transformations": [
         {
+          "id": "labelsToFields",
+          "options": {
+            "keepLabels": [
+              "device_name"
+            ],
+            "mode": "columns"
+          }
+        },
+        {
           "id": "merge",
           "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "[p][m][0-9]*_[0-9]",
+            "renamePattern": "PM"
+          }
         }
       ],
       "type": "geomap"
@@ -252,6 +284,10 @@
     "list": [
       {
         "current": {},
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
         "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"_field\")",
         "hide": 0,
         "includeAll": false,
@@ -260,7 +296,7 @@
         "options": [],
         "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"_field\")",
         "refresh": 1,
-        "regex": "[p][m][a-zA-z0-9]*",
+        "regex": "[p][m][0-9]*_[0-9]",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
@@ -275,6 +311,6 @@
   "timezone": "",
   "title": "Homepage",
   "uid": "48VYFvD4z",
-  "version": 4,
+  "version": 7,
   "weekStart": ""
 }
