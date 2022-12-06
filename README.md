@@ -20,3 +20,12 @@
 See [this thread](https://stackoverflow.com/questions/42529211/how-to-rebuild-and-update-a-container-without-downtime-with-docker-compose) for updating the containers. **DO NOT** do `podman-compose down` as this will remove the volumes for influxdb. Instead, simply running `podman-compose up -d` should rebuild any containers whose configuration files have changed. 
 
 Also, [this link](https://linuxhandbook.com/update-docker-container-zero-downtime/)
+
+```bash
+podman container ls 
+podman stop 3398e22269ba
+podman rm 3398e22269ba
+podman stop 45364f8f8a64
+podman rm 45364f8f8a64
+podman-compose up --build -d 
+```
