@@ -1,3 +1,4 @@
 /data
+/bind-mounts
 influxdb-config
 influxdb-data
