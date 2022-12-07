@@ -1,0 +1,21 @@
+# config file version
+apiVersion: 1
+
+# List of templates to import or update
+templates:
+  - orgID: 1
+    name: slackTitle
+    template: Outstanding {{(index .Alerts 0).Labels.type}} Alerts
+
+  - orgID: 1
+    name: slackBody
+    template: |
+      {{ define "slackBody" }}
+       {{ len .Alerts.Firing }} Alerts Firing, {{ len .Alerts.Resolved }} Alerts Resolved
+       {{ range .Alerts -}}
+        {{ .Labels.alertname }} {{"\n"}}
+        {{"\t"}} Status: {{"  \t"}} {{ .Status }} {{"\n"}}
+        {{"\t"}} Reason: {{"\t"}} {{ .Annotations.grafana_state_reason }} {{"\n"}}
+       {{ end }} 
+      {{ end }}
+              

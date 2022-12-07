@@ -17,6 +17,23 @@ environment variable. The format is a comma-separated list of identifiers.
 Here, Grafana is configured with ENV variables rather than providing a complete configuration.ini file. This way, we
 know we're using default values if not specified.
 
+## Provisioned Alerts
+
+Grafana lets you easily develop alerts on the localhost website, but there is no way to easily download the file it generates as of writing.
+Thus, in order to easily modify and provision the alerts via the .yaml file, it is necessary to somehow find and read this generated file during execution.
+
+One such way is as follows:
+Develop the alert rule as normal in Grafana, then (in chrome) opening up the devtools via pressing F12
+Navigate to the Network tab
+Click save and exit on the Grafana page
+Some fetch requests should show up on the network manager. Select a request with "rules" in the name and then hit preview.
+Gather the necessary information to provision your alert through the information displayed
+
+## Slack Alert App
+
+In order to change where the slack app posts alerts, simply generate an app via Slack's website, enable webhooks for it, then copy its webhook
+and paste it in the url attribute in the file contactpoints.yaml.
+
 ## External Docs
 
 - [Docker configuration](https://grafana.com/docs/grafana/latest/administration/configure-docker/)

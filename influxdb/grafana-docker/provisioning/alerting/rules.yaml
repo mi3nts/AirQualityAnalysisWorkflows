@@ -1,0 +1,515 @@
+apiVersion: 1
+
+# List of rule groups to import or update
+groups:
+  - name: TemperatureRuleGroup
+    folder: temperatureRuleGroup
+    interval: 300s
+    rules:
+      - uid: 0
+        title: WIMDA Temperature Alert
+        condition: B
+        data:
+          - refId: A
+            queryType: 
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: 'influxdb-uid'
+            model:
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              query: "from(bucket: \"SharedAirDFW\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> group(columns: [\"_measurement\"])\r\n  |> mean()\r\n  |> group()\r\n  |> mean()"
+              refId: A
+          - refId: B
+            queryType: 
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: '-100'
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 3
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: '-100'
+              expression: "$A < 0 || $A > 43.3"
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: "B"
+              type: "math"
+        noDataState: Alerting
+        for: 60s
+        annotations:
+          __alertId__: 1
+          summary: "Averages the temperature values for a certain expected sensor and then reports if the value is extreme or not."
+        labels:
+          grafana_folder: "temperatureRuleGroup"
+          severity: "Warning"
+          type: "Temperature"
+          sensor: "WIMDA"
+
+      - uid: 1
+        title: TB108L Temperature Alert
+        condition: B
+        data:
+          - refId: A
+            queryType: 
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: 'influxdb-uid'
+            model:
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              query: "from(bucket: \"SharedAirDFW\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TB108L\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> group(columns: [\"_measurement\"])\r\n  |> mean()\r\n  |> group()\r\n  |> mean()"
+              refId: A
+          - refId: B
+            queryType: 
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: '-100'
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 3
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: '-100'
+              expression: "$A < 0 || $A > 43.3"
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: "B"
+              type: "math"
+        noDataState: Alerting
+        for: 60s
+        annotations:
+          __alertId__: 1
+          summary: "Averages the temperature values for a certain expected sensor and then reports if the value is extreme or not."
+        labels:
+          grafana_folder: "temperatureRuleGroup"
+          severity: "Warning"
+          type: "Temperature"
+          sensor: "TB108L"
+
+      - uid: 2
+        title: SCD30 Temperature Alert
+        condition: B
+        data:
+          - refId: A
+            queryType: 
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: 'influxdb-uid'
+            model:
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              query: "from(bucket: \"SharedAirDFW\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> group(columns: [\"_measurement\"])\r\n  |> mean()\r\n  |> group()\r\n  |> mean()"
+              refId: A
+          - refId: B
+            queryType: 
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: '-100'
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 3
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: '-100'
+              expression: "$A < 0 || $A > 43.3"
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: "B"
+              type: "math"
+        noDataState: Alerting
+        for: 60s
+        annotations:
+          __alertId__: 1
+          summary: "Averages the temperature values for a certain expected sensor and then reports if the value is extreme or not."
+        labels:
+          grafana_folder: "temperatureRuleGroup"
+          severity: "Warning"
+          type: "Temperature"
+          sensor: "SCD30"
+
+      - uid: 3
+        title: BME680 Temperature Alert
+        condition: B
+        data:
+          - refId: A
+            queryType: 
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: 'influxdb-uid'
+            model:
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              query: "from(bucket: \"SharedAirDFW\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> group(columns: [\"_measurement\"])\r\n  |> mean()\r\n  |> group()\r\n  |> mean()"
+              refId: A
+          - refId: B
+            queryType: 
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: '-100'
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 3
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: '-100'
+              expression: "$A < 0 || $A > 43.3"
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: "B"
+              type: "math"
+        noDataState: Alerting
+        for: 60s
+        annotations:
+          __alertId__: 1
+          summary: "Averages the temperature values for a certain expected sensor and then reports if the value is extreme or not."
+        labels:
+          grafana_folder: "temperatureRuleGroup"
+          severity: "Warning"
+          type: "Temperature"
+          sensor: "BME680"
+
+      - uid: 4
+        title: BME280 Temperature Alert
+        condition: B
+        data:
+          - refId: A
+            queryType: 
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: 'influxdb-uid'
+            model:
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              query: "from(bucket: \"SharedAirDFW\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> group(columns: [\"_measurement\"])\r\n  |> mean()\r\n  |> group()\r\n  |> mean()"
+              refId: A
+          - refId: B
+            queryType: 
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: '-100'
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 3
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: '-100'
+              expression: "$A < 0 || $A > 43.3"
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: "B"
+              type: "math"
+        noDataState: Alerting
+        for: 60s
+        annotations:
+          __alertId__: 1
+          summary: "Averages the temperature values for a certain expected sensor and then reports if the value is extreme or not."
+        labels:
+          grafana_folder: "temperatureRuleGroup"
+          severity: "Warning"
+          type: "Temperature"
+          sensor: "BME280"
+
+  - name: DewpointRuleGroup
+    folder: dewpointRuleGroup
+    interval: 300s
+    rules:
+    - uid: 10
+      title: WIMDA Dewpoint Alert
+      condition: B
+      data:
+        - refId: A
+          queryType: 
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: 'influxdb-uid'
+          model:
+            hide: false
+            intervalMs: 1000
+            maxDataPoints: 43200
+            query: "import \"math\"\r\nfrom(bucket: \"SharedAirDFW\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\" or r[\"_field\"] == \"temperature\")\r\n  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  //TODO: Filter after this comment is here due to suspected faulty sensor values for humidity. Look into.\r\n  |> filter(fn: (r) => r.humidity != 100, onEmpty: \"keep\")\r\n  |> map(fn: (r) => ({r with dewpoint: (1.0 / (((math.log(x: 100.0) - math.log(x: r.humidity)) / 5423.0) + (1.0 / (r.temperature + 273.15)))) - 273.15}))\r\n  |> group(columns: [\"_measurement\"])\r\n  |> map(fn: (r) => ({r with _value: math.abs(x: (math.abs(x: r.temperature) - math.abs(x: r.dewpoint)))}))\r\n  |> mean()\r\n"
+            refId: A
+        - refId: B
+          queryType: 
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: '-100'
+          model:
+            conditions:
+              - evaluator:
+                  params:
+                    - 3
+                  type: gt
+                operator:
+                  type: and
+                query:
+                  params:
+                    - A
+                reducer:
+                  type: last
+                type: query
+            datasource:
+              type: __expr__
+              uid: '-100'
+            expression: "$A < 5"
+            hide: false
+            intervalMs: 1000
+            maxDataPoints: 43200
+            refId: "B"
+            type: "math"
+      noDataState: Alerting
+      for: 60s
+      annotations:
+        __alertId__: 1
+        summary: "Calculates the dewpoint and then averages the temperature and dewpoint for a certain sensor. Fires if their difference is less than 5."
+      labels:
+        grafana_folder: "dewpointRuleGroup"
+        severity: "Warning"
+        type: "Dewpoint"
+        sensor: "WIMDA"
+
+    - uid: 11
+      title: SCD30 Dewpoint Alert
+      condition: B
+      data:
+        - refId: A
+          queryType: 
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: 'influxdb-uid'
+          model:
+            hide: false
+            intervalMs: 1000
+            maxDataPoints: 43200
+            query: "import \"math\"\r\nfrom(bucket: \"SharedAirDFW\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\" or r[\"_field\"] == \"temperature\")\r\n  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  //TODO: Filter after this comment is here due to suspected faulty sensor values for humidity. Look into.\r\n  |> filter(fn: (r) => r.humidity != 100, onEmpty: \"keep\")\r\n  |> map(fn: (r) => ({r with dewpoint: (1.0 / (((math.log(x: 100.0) - math.log(x: r.humidity)) / 5423.0) + (1.0 / (r.temperature + 273.15)))) - 273.15}))\r\n  |> group(columns: [\"_measurement\"])\r\n  |> map(fn: (r) => ({r with _value: math.abs(x: (math.abs(x: r.temperature) - math.abs(x: r.dewpoint)))}))\r\n  |> mean()\r\n"
+            refId: A
+        - refId: B
+          queryType: 
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: '-100'
+          model:
+            conditions:
+              - evaluator:
+                  params:
+                    - 3
+                  type: gt
+                operator:
+                  type: and
+                query:
+                  params:
+                    - A
+                reducer:
+                  type: last
+                type: query
+            datasource:
+              type: __expr__
+              uid: '-100'
+            expression: "$A < 5"
+            hide: false
+            intervalMs: 1000
+            maxDataPoints: 43200
+            refId: "B"
+            type: "math"
+      noDataState: Alerting
+      for: 60s
+      annotations:
+        __alertId__: 1
+        summary: "Calculates the dewpoint and then averages the temperature and dewpoint for a certain sensor. Fires if their difference is less than 5."
+      labels:
+        grafana_folder: "dewpointRuleGroup"
+        severity: "Warning"
+        type: "Dewpoint"
+        sensor: "SCD30"
+
+    - uid: 12
+      title: BME680 Dewpoint Alert
+      condition: B
+      data:
+        - refId: A
+          queryType: 
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: 'influxdb-uid'
+          model:
+            hide: false
+            intervalMs: 1000
+            maxDataPoints: 43200
+            query: "import \"math\"\r\nfrom(bucket: \"SharedAirDFW\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\" or r[\"_field\"] == \"temperature\")\r\n  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  //TODO: Filter after this comment is here due to suspected faulty sensor values for humidity. Look into.\r\n  |> filter(fn: (r) => r.humidity != 100, onEmpty: \"keep\")\r\n  |> map(fn: (r) => ({r with dewpoint: (1.0 / (((math.log(x: 100.0) - math.log(x: r.humidity)) / 5423.0) + (1.0 / (r.temperature + 273.15)))) - 273.15}))\r\n  |> group(columns: [\"_measurement\"])\r\n  |> map(fn: (r) => ({r with _value: math.abs(x: (math.abs(x: r.temperature) - math.abs(x: r.dewpoint)))}))\r\n  |> mean()\r\n"
+            refId: A
+        - refId: B
+          queryType: 
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: '-100'
+          model:
+            conditions:
+              - evaluator:
+                  params:
+                    - 3
+                  type: gt
+                operator:
+                  type: and
+                query:
+                  params:
+                    - A
+                reducer:
+                  type: last
+                type: query
+            datasource:
+              type: __expr__
+              uid: '-100'
+            expression: "$A < 5"
+            hide: false
+            intervalMs: 1000
+            maxDataPoints: 43200
+            refId: "B"
+            type: "math"
+      noDataState: Alerting
+      for: 60s
+      annotations:
+        __alertId__: 1
+        summary: "Calculates the dewpoint and then averages the temperature and dewpoint for a certain sensor. Fires if their difference is less than 5."
+      labels:
+        grafana_folder: "dewpointRuleGroup"
+        severity: "Warning"
+        type: "Dewpoint"
+        sensor: "BME680"
+
+    - uid: 13
+      title: BME280 Dewpoint Alert
+      condition: B
+      data:
+        - refId: A
+          queryType: 
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: 'influxdb-uid'
+          model:
+            hide: false
+            intervalMs: 1000
+            maxDataPoints: 43200
+            query: "import \"math\"\r\nfrom(bucket: \"SharedAirDFW\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\" or r[\"_field\"] == \"temperature\")\r\n  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  //TODO: Filter after this comment is here due to suspected faulty sensor values for humidity. Look into.\r\n  |> filter(fn: (r) => r.humidity != 100, onEmpty: \"keep\")\r\n  |> map(fn: (r) => ({r with dewpoint: (1.0 / (((math.log(x: 100.0) - math.log(x: r.humidity)) / 5423.0) + (1.0 / (r.temperature + 273.15)))) - 273.15}))\r\n  |> group(columns: [\"_measurement\"])\r\n  |> map(fn: (r) => ({r with _value: math.abs(x: (math.abs(x: r.temperature) - math.abs(x: r.dewpoint)))}))\r\n  |> mean()\r\n"
+            refId: A
+        - refId: B
+          queryType: 
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: '-100'
+          model:
+            conditions:
+              - evaluator:
+                  params:
+                    - 3
+                  type: gt
+                operator:
+                  type: and
+                query:
+                  params:
+                    - A
+                reducer:
+                  type: last
+                type: query
+            datasource:
+              type: __expr__
+              uid: '-100'
+            expression: "$A < 5"
+            hide: false
+            intervalMs: 1000
+            maxDataPoints: 43200
+            refId: "B"
+            type: "math"
+      noDataState: Alerting
+      for: 60s
+      annotations:
+        __alertId__: 1
+        summary: "Calculates the dewpoint and then averages the temperature and dewpoint for a certain sensor. Fires if their difference is less than 5."
+      labels:
+        grafana_folder: "dewpointRuleGroup"
+        severity: "Warning"
+        type: "Dewpoint"
+        sensor: "BME280"

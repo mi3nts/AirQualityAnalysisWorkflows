@@ -1,0 +1,27 @@
+apiVersion: 1
+
+# List of contact points to import or update
+contactPoints:
+  - orgId: 1
+    name: SlackContact
+    receivers:
+      - uid: 1
+        type: prometheus-alertmanager
+        type: slack
+        settings:
+          recipient: alerting-dev
+          username: grafana_bot
+          icon_emoji: heart
+          icon_url: https://icon_url
+          mentionUsers: 
+          mentionGroups: 
+          mentionChannel: here
+          # Provide a Slack incoming webhook URL for sending messages. In this case a token isn't necessary
+          url: https://hooks.slack.com/services/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
+          endpointUrl: https://custom_url/api/chat.postMessage
+
+          #Define which templates the message will be made out of. The templates are defined in templates.yaml.
+          title: |
+            {{ template "slackTitle" . }}
+          text: |
+            {{ template "slackBody" . }}
