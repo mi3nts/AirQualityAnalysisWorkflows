@@ -43,33 +43,3 @@ clean-quarto:
 	docker compose --env-file .env -f ./quarto/docker-compose.yml down --rmi all -v
 
 clean: clean-dashboards clean-quarto
-
-
-
-# Perform sample query:
-# ```{python}
-
-# client = InfluxDBClient(url='http://localhost:8086',
-#                         org='MINTS',
-#                         token='teamlarytoken')
-
-# query_api = client.query_api()
-
-# bucket = 'SharedAirDFW'
-
-# query = (
-#     f'from(bucket:"{bucket}") '
-#     f'|> range(start: -10m) '
-#     f'|> filter(fn: (r) => r["_measurement"] == "IPS7100") '
-#     f'|> filter(fn: (r) => r["_field"] == "pm2_5") '
-#     f'|> filter(fn: (r) => r["device_name"] == "Central Hub 9") '
-#     f'|> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value") '
-# )
-
-# data_frame = query_api.query_data_frame(query=query)
-
-
-# print(data_frame.to_string())
-# ```
-
-
