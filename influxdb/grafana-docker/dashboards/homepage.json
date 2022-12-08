@@ -85,20 +85,24 @@
                 "value": null
               },
               {
-                "color": "green",
+                "color": "semi-dark-green",
                 "value": 0
               },
               {
-                "color": "#EAB839",
-                "value": 3
+                "color": "semi-dark-yellow",
+                "value": 20
               },
               {
-                "color": "orange",
-                "value": 6
+                "color": "semi-dark-orange",
+                "value": 40
               },
               {
-                "color": "red",
-                "value": 9
+                "color": "semi-dark-red",
+                "value": 60
+              },
+              {
+                "color": "#8e1321",
+                "value": 80
               }
             ]
           },
@@ -310,7 +314,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Homepage",
-  "uid": "48VYFvD4z",
-  "version": 7,
+  "uid": "58VYFvD4a",
+  "version": 2,
   "weekStart": ""
 }
