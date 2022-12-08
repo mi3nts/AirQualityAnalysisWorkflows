@@ -1,0 +1,51 @@
+---
+title: "Central Nodes"
+---
+
+Lorem Ipsum
+
+
+Load in the relevant packages:
+```{python}
+
+from influxdb_client import InfluxDBClient
+import pandas as pd
+import os
+from dotenv import load_dotenv, dotenv_values
+
+print(os.environ)
+```
+
+Load in environment variables file
+```{python}
+config = dotenv_values('env_file')
+print(config)
+```
+
+Perform sample query:
+```{python}
+
+client = InfluxDBClient(url='http://172.17.0.1:8086',
+                        org=config['DOCKER_INFLUXDB_INIT_ORG'],
+                        token=config['DOCKER_INFLUXDB_INIT_ADMIN_TOKEN'])
+
+query_api = client.query_api()
+
+bucket = config['DOCKER_INFLUXDB_INIT_BUCKET']
+
+query = (
+    f'from(bucket:"{bucket}") '
+    f'|> range(start: -10m) '
+    f'|> filter(fn: (r) => r["_measurement"] == "IPS7100") '
+    f'|> filter(fn: (r) => r["_field"] == "pm2_5") '
+    f'|> filter(fn: (r) => r["device_name"] == "Central Hub 9") '
+    f'|> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value") '
+)
+
+data_frame = query_api.query_data_frame(query=query)
+
+
+print(data_frame.to_string())
+
+
+```

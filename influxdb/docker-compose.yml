@@ -18,9 +18,6 @@ services:
 
     ports:
       - '8086:8086'
-    # env_file:
-    #   - .env
-
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=${DOCKER_INFLUXDB_INIT_MODE:?err}
       - DOCKER_INFLUXDB_INIT_USERNAME=${DOCKER_INFLUXDB_INIT_USERNAME:?err}
@@ -30,17 +27,17 @@ services:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN:?err}
     
   
-  ofelia:
-    image: docker.io/mcuadros/ofelia:latest
-    depends_on:
-      - influxdb
-    volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock:consistent
-      - ./ofelia.ini:/etc/ofelia/config.ini:consistent
-    networks:
-      - shared
+#   ofelia:
+#     image: docker.io/mcuadros/ofelia:latest
+#     depends_on:
+#       - influxdb
+#     volumes:
+# #      - /var/run/docker.sock:/var/run/docker.sock:consistent
+#       - ./ofelia.ini:/etc/ofelia/config.ini:consistent
+#     networks:
+#       - shared
 
-    restart: unless-stopped
+#     restart: unless-stopped
 
 
 
@@ -51,9 +48,6 @@ services:
       - "1880:1880"
     networks:
       - shared
-    # env_file:
-    #   - .env
-
     environment:
       - DOCKER_INFLUXDB_INIT_ORG=${DOCKER_INFLUXDB_INIT_ORG:?err}
       - DOCKER_INFLUXDB_INIT_BUCKET=${DOCKER_INFLUXDB_INIT_BUCKET:?err}
@@ -75,9 +69,6 @@ services:
       - "3000:3000"
     networks:
       - shared
-    env_file:
-      - .env
-
     environment:
       - DOCKER_INFLUXDB_INIT_ORG=${DOCKER_INFLUXDB_INIT_ORG:?err}
       - DOCKER_INFLUXDB_INIT_BUCKET=${DOCKER_INFLUXDB_INIT_BUCKET:?err}
@@ -90,16 +81,6 @@ services:
       - influxdb
 
     restart: unless-stopped
-
-  quarto:
-    build: ./quarto-docker
-    image: mints-quarto
-    ports:
-      - "8080:8080"
-    networks:
-      - shared
-    restart: unless-stopped
-
 
 networks:
   shared:

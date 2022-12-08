@@ -1,0 +1,23 @@
+# docker-compose.yml
+# note: we can add restart:always to make the container run on reboot
+version: '3'
+services: 
+  quarto:
+    build: .
+    image: mints-quarto
+    volumes:
+      - ./automated_reports:/automated_reports
+
+  automated_reports:
+    build: ./website
+    image: mints-automated-reports
+    volumes:
+      - ./automated_reports/_site:/site
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+
+# networks:
+#   default:
+#     external: true
