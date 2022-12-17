@@ -1,3 +1,182 @@
 ---
 title: "LoRa Nodes"
 ---
+```{python}
+import pandas as pd
+import numpy as np
+from datetime import datetime,timedelta
+import matplotlib.pyplot as plt
+#from influxdb import InfluxDBClient
+from influxdb_client import InfluxDBClient
+
+
+my_token ="secretadmintoken"
+my_org = "MINTS"
+#client = InfluxDBClient("localhost", 8086, 'admin', 'password')
+client = InfluxDBClient(url="http://localhost:8086", token=my_token, org=my_org)
+query_api = client.query_api()
+
+def splittime(time):
+    timeList=[]
+    for value in time:
+        dateStr=value.split(' ')[0]
+        timeList.append(dateStr)
+    timeSer=pd.Series(timeList)
+    return timeSer
+
+#directly read from csv file
+# df = pd.read_csv("53.csv")
+# df1 = df.copy()
+# df1.columns = ['Time','PM 10.0','PM 5.0','PM 2.5','PM 1.0','PM 0.5','PM 0.3','PM 0.1']
+# df1['PM 10.0'] = df1['PM 10.0'].apply(lambda x:x[:-6])
+# df1['PM 10.0'] = df1['PM 10.0'].astype('float64')
+# df1['PM 5.0'] = df1['PM 5.0'].apply(lambda x:x[:-6])
+# df1['PM 5.0'] = df1['PM 5.0'].astype('float64')
+# df1['PM 2.5'] = df1['PM 2.5'].apply(lambda x:x[:-6])
+# df1['PM 2.5'] = df1['PM 2.5'].astype('float64')
+# df1['PM 1.0'] = df1['PM 1.0'].apply(lambda x:x[:-6])
+# df1['PM 1.0'] = df1['PM 1.0'].astype('float64')
+# df1['PM 0.5'] = df1['PM 0.5'].apply(lambda x:x[:-6])
+# df1['PM 0.5'] = df1['PM 0.5'].astype('float64')
+# df1['PM 0.3'] = df1['PM 0.3'].apply(lambda x:x[:-6])
+# df1['PM 0.3'] = df1['PM 0.3'].astype('float64')
+# df1['PM 0.1'] = df1['PM 0.1'].apply(lambda x:x[:-6])
+# df1['PM 0.1'] = df1['PM 0.1'].astype('float64')
+# df1.loc[:,'Time']=splittime(df1.loc[:,'Time'])
+# df1.loc[:,'Time']=pd.to_datetime(df1.loc[:,'Time'], format='%m/%d/%Y', errors='coerce')
+# df2 = df1.groupby('Time').mean()
+# print(df2.head())
+# df_W = df2.copy()
+# df_W = df_W.resample('W').mean()
+# print(df_W.head())
+# df_M = df2.copy()
+# df_M = df_M.resample('M').mean()
+# print(df_M.head())
+
+
+# query to get PM value
+query_53 = 'from(bucket: "SharedAirDFW")\
+  |> range(start: 0, stop: now())\
+  |> filter(fn: (r) => r["_measurement"] == "IPS7100")\
+  |> filter(fn: (r) => r["_field"] == "pm10_0" or r["_field"] == "pm5_0" or r["_field"] == "pm1_0" or r["_field"] == "pm0_5" or r["_field"] == "pm0_3" or r["_field"] == "pm0_1")\
+  |> filter(fn: (r) => r["device_name"] == "LoRa Node 053")\
+  |> drop(columns: ["_start", "_stop", "_measurement", "device_id", "device_name"])\
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")'
+
+query_54 = 'from(bucket: "SharedAirDFW")\
+  |> range(start: 0, stop: now())\
+  |> filter(fn: (r) => r["_measurement"] == "IPS7100")\
+  |> filter(fn: (r) => r["_field"] == "pm10_0" or r["_field"] == "pm5_0" or r["_field"] == "pm1_0" or r["_field"] == "pm0_5" or r["_field"] == "pm0_3" or r["_field"] == "pm0_1")\
+  |> filter(fn: (r) => r["device_name"] == "LoRa Node 054")\
+  |> drop(columns: ["_start", "_stop", "_measurement", "device_id", "device_name"])\
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")'
+
+query_59 = 'from(bucket: "SharedAirDFW")\
+  |> range(start: 0, stop: now())\
+  |> filter(fn: (r) => r["_measurement"] == "IPS7100")\
+  |> filter(fn: (r) => r["_field"] == "pm10_0" or r["_field"] == "pm5_0" or r["_field"] == "pm1_0" or r["_field"] == "pm0_5" or r["_field"] == "pm0_3" or r["_field"] == "pm0_1")\
+  |> filter(fn: (r) => r["device_name"] == "LoRa Node 059")\
+  |> drop(columns: ["_start", "_stop", "_measurement", "device_id", "device_name"])\
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")'
+
+query_77 = 'from(bucket: "SharedAirDFW")\
+  |> range(start: 0, stop: now())\
+  |> filter(fn: (r) => r["_measurement"] == "IPS7100")\
+  |> filter(fn: (r) => r["_field"] == "pm10_0" or r["_field"] == "pm5_0" or r["_field"] == "pm1_0" or r["_field"] == "pm0_5" or r["_field"] == "pm0_3" or r["_field"] == "pm0_1")\
+  |> filter(fn: (r) => r["device_name"] == "LoRa Node 077")\
+  |> drop(columns: ["_start", "_stop", "_measurement", "device_id", "device_name"])\
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")'
+
+query_85 = 'from(bucket: "SharedAirDFW")\
+  |> range(start: 0, stop: now())\
+  |> filter(fn: (r) => r["_measurement"] == "IPS7100")\
+  |> filter(fn: (r) => r["_field"] == "pm10_0" or r["_field"] == "pm5_0" or r["_field"] == "pm1_0" or r["_field"] == "pm0_5" or r["_field"] == "pm0_3" or r["_field"] == "pm0_1")\
+  |> filter(fn: (r) => r["device_name"] == "LoRa Node 085")\
+  |> drop(columns: ["_start", "_stop", "_measurement", "device_id", "device_name"])\
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")'
+
+# Query using Pandas DataFrame
+#53
+df_53_1 = query_api.query_data_frame(query = query_53)
+df_53 = pd.DataFrame(df_53_1)
+df_53 = df_53[['_time', 'pm0_1', 'pm0_3', 'pm0_5', 'pm10_0', 'pm1_0', 'pm5_0',]]
+
+df_53['_time'] = pd.DatetimeIndex(df_53['_time']).date
+df_53['_time'] = pd.to_datetime(df_53['_time'])
+df_53 = df_53[['_time', 'pm10_0', 'pm5_0', 'pm1_0', 'pm0_5', 'pm0_3', 'pm0_1']]
+
+df_53_D = df_53.groupby('_time').mean()
+df_53_W = df_53_D.resample('W').mean()
+df_53_M = df_53_D.resample('M').mean()
+print(df_53_D, '\t')
+print(df_53_W, '\t')
+print(df_53_M, '\t')
+
+#54
+df_54_1 = query_api.query_data_frame(query = query_54)
+df_54 = pd.DataFrame(df_54_1)
+df_54 = df_54[['_time', 'pm0_1', 'pm0_3', 'pm0_5', 'pm10_0', 'pm1_0', 'pm5_0',]]
+
+df_54['_time'] = pd.DatetimeIndex(df_54['_time']).date
+df_54['_time'] = pd.to_datetime(df_54['_time'])
+df_54 = df_54[['_time', 'pm10_0', 'pm5_0', 'pm1_0', 'pm0_5', 'pm0_3', 'pm0_1']]
+
+df_54_D = df_54.groupby('_time').mean()
+df_54_W = df_54_D.resample('W').mean()
+df_54_M = df_54_D.resample('M').mean()
+print(df_54_D, '\t')
+print(df_54_W, '\t')
+print(df_54_M, '\t')
+
+#59
+df_59_1 = query_api.query_data_frame(query = query_59)
+df_59 = pd.DataFrame(df_59_1)
+df_59 = df_59[['_time', 'pm0_1', 'pm0_3', 'pm0_5', 'pm10_0', 'pm1_0', 'pm5_0',]]
+
+df_59['_time'] = pd.DatetimeIndex(df_59['_time']).date
+df_59['_time'] = pd.to_datetime(df_59['_time'])
+df_59 = df_59[['_time', 'pm10_0', 'pm5_0', 'pm1_0', 'pm0_5', 'pm0_3', 'pm0_1']]
+
+df_59_D = df_59.groupby('_time').mean()
+df_59_W = df_59_D.resample('W').mean()
+df_59_M = df_59_D.resample('M').mean()
+print(df_59_D, '\t')
+print(df_59_W, '\t')
+print(df_59_M, '\t')
+
+#77
+df_77_1 = query_api.query_data_frame(query = query_77)
+df_77 = pd.DataFrame(df_77_1)
+df_77 = df_77[['_time', 'pm0_1', 'pm0_3', 'pm0_5', 'pm10_0', 'pm1_0', 'pm5_0',]]
+
+df_77['_time'] = pd.DatetimeIndex(df_77['_time']).date
+df_77['_time'] = pd.to_datetime(df_77['_time'])
+df_77 = df_77[['_time', 'pm10_0', 'pm5_0', 'pm1_0', 'pm0_5', 'pm0_3', 'pm0_1']]
+
+df_77_D = df_77.groupby('_time').mean()
+df_77_W = df_77_D.resample('W').mean()
+df_77_M = df_77_D.resample('M').mean()
+print(df_77_D, '\t')
+print(df_77_W, '\t')
+print(df_77_M, '\t')
+
+#85
+df_85_1 = query_api.query_data_frame(query = query_85)
+df_85 = pd.DataFrame(df_85_1)
+df_85 = df_85[['_time', 'pm0_1', 'pm0_3', 'pm0_5', 'pm10_0', 'pm1_0', 'pm5_0',]]
+
+df_85['_time'] = pd.DatetimeIndex(df_85['_time']).date
+df_85['_time'] = pd.to_datetime(df_85['_time'])
+df_85 = df_85[['_time', 'pm10_0', 'pm5_0', 'pm1_0', 'pm0_5', 'pm0_3', 'pm0_1']]
+
+df_85_D = df_85.groupby('_time').mean()
+df_85_W = df_85_D.resample('W').mean()
+df_85_M = df_85_D.resample('M').mean()
+print(df_85_D, '\t')
+print(df_85_W, '\t')
+print(df_85_M, '\t')
+
+
+
+
+```
