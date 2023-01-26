@@ -26,21 +26,6 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=${DOCKER_INFLUXDB_INIT_BUCKET:?err}
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN:?err}
     
-  
-#   ofelia:
-#     image: docker.io/mcuadros/ofelia:latest
-#     depends_on:
-#       - influxdb
-#     volumes:
-# #      - /var/run/docker.sock:/var/run/docker.sock:consistent
-#       - ./ofelia.ini:/etc/ofelia/config.ini:consistent
-#     networks:
-#       - shared
-
-#     restart: unless-stopped
-
-
-
   nodered:
     build: ./nodered-docker
     image: mints-nodered
