@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
+  "id": 7,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -46,8 +46,6 @@
             }
           },
           "mappings": [],
-          "max": 50,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -58,22 +56,6 @@
               {
                 "color": "semi-dark-green",
                 "value": 0
-              },
-              {
-                "color": "semi-dark-yellow",
-                "value": 20
-              },
-              {
-                "color": "semi-dark-orange",
-                "value": 40
-              },
-              {
-                "color": "semi-dark-red",
-                "value": 60
-              },
-              {
-                "color": "#8e1321",
-                "value": 80
               }
             ]
           },
@@ -204,7 +186,7 @@
           "zoom": 9.57
         }
       },
-      "pluginVersion": "9.3.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -260,8 +242,8 @@
       {
         "current": {
           "selected": false,
-          "text": "pm0_1",
-          "value": "pm0_1"
+          "text": "pm10_0",
+          "value": "pm10_0"
         },
         "datasource": {
           "type": "influxdb",
@@ -277,19 +259,19 @@
         "refresh": 1,
         "regex": "[p][m][0-9]*_[0-9]",
         "skipUrlSync": false,
-        "sort": 0,
+        "sort": 4,
         "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Homepage",
   "uid": "58VYFvD4a",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }

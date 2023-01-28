@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 6,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -313,6 +313,7 @@
           "exponent": 0.5,
           "fill": "#b4ff00",
           "mode": "scheme",
+          "reverse": false,
           "scale": "exponential",
           "scheme": "Turbo",
           "steps": 128
@@ -341,7 +342,7 @@
           "unit": "µm"
         }
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "reverseYBuckets": true,
       "targets": [
         {
@@ -421,17 +422,28 @@
           }
         },
         {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
           "id": "organize",
           "options": {
             "excludeByName": {},
             "indexByName": {},
             "renameByName": {
+              "pc0_1": "0.1",
               "pc0_1 {device_id=\"001e06323a37\", device_name=\"Central Hub 8\", name=\"IPS7100\"}": "0.1",
+              "pc0_3": "0.3",
               "pc0_3 {device_id=\"001e06323a37\", device_name=\"Central Hub 8\", name=\"IPS7100\"}": "0.3",
+              "pc0_5": "0.5",
               "pc0_5 {device_id=\"001e06323a37\", device_name=\"Central Hub 8\", name=\"IPS7100\"}": "0.5",
+              "pc10_0": "10.0",
               "pc10_0 {device_id=\"001e06323a37\", device_name=\"Central Hub 8\", name=\"IPS7100\"}": "10.0",
+              "pc1_0": "1.0",
               "pc1_0 {device_id=\"001e06323a37\", device_name=\"Central Hub 8\", name=\"IPS7100\"}": "1.0",
+              "pc2_5": "2.5",
               "pc2_5 {device_id=\"001e06323a37\", device_name=\"Central Hub 8\", name=\"IPS7100\"}": "2.5",
+              "pc5_0": "5.0",
               "pc5_0 {device_id=\"001e06323a37\", device_name=\"Central Hub 8\", name=\"IPS7100\"}": "5.0"
             }
           }
@@ -489,8 +501,8 @@
         },
         "mapping": {
           "color": "@index",
-          "x": "windDirectionMagnetic {device_id=\"001e06430224\", device_name=\"Central Hub 8\"}",
-          "y": "windSpeedMetersPerSecond {device_id=\"001e06430224\", device_name=\"Central Hub 8\"}"
+          "x": "windDirectionMagnetic {device_id=\"001e0642ff0f\", device_name=\"Central Hub 5\"}",
+          "y": "windSpeedMetersPerSecond {device_id=\"001e0642ff0f\", device_name=\"Central Hub 5\"}"
         },
         "settings": {
           "color_option": "ramp",
@@ -588,7 +600,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -657,7 +669,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -726,7 +738,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -791,7 +803,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -850,7 +862,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -875,7 +887,20 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "from": -10000000,
+                "result": {
+                  "index": 0,
+                  "text": "Not Available"
+                },
+                "to": -0.1
+              },
+              "type": "range"
+            }
+          ],
+          "noValue": "N/A",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -910,16 +935,17 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
             "uid": "influxdb-uid"
           },
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TB108L\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ozone\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TB108L\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ozone\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")\n",
           "refId": "A"
         }
       ],
@@ -1071,7 +1097,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -1139,6 +1165,7 @@
           "mouseWheelZoom": true,
           "showAttribution": true,
           "showDebug": false,
+          "showMeasure": false,
           "showScale": false,
           "showZoom": true
         },
@@ -1189,13 +1216,14 @@
           "mode": "details"
         },
         "view": {
+          "allLayers": true,
           "id": "coords",
           "lat": 32.9483967299,
           "lon": -96.7299,
           "zoom": 11
         }
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -1225,8 +1253,8 @@
       {
         "current": {
           "selected": false,
-          "text": "001e06323a37",
-          "value": "001e06323a37"
+          "text": "00044be6fea1",
+          "value": "00044be6fea1"
         },
         "datasource": {
           "type": "influxdb",
@@ -1247,9 +1275,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "Central Hub 8",
-          "value": "Central Hub 8"
+          "selected": true,
+          "text": "Central Hub 5",
+          "value": "Central Hub 5"
         },
         "datasource": {
           "type": "influxdb",
@@ -1278,6 +1306,6 @@
   "timezone": "",
   "title": "Central Node Demo",
   "uid": "central_node_demo",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }
