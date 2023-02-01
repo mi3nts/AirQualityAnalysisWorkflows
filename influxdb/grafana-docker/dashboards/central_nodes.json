@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
+  "id": 5,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1276,8 +1276,8 @@
       {
         "current": {
           "selected": true,
-          "text": "Central Hub 5",
-          "value": "Central Hub 5"
+          "text": "Central Hub 7",
+          "value": "Central Hub 7"
         },
         "datasource": {
           "type": "influxdb",
@@ -1291,7 +1291,7 @@
         "options": [],
         "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_name\")",
         "refresh": 1,
-        "regex": "",
+        "regex": "^.*Central Hub.*$",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
@@ -1306,6 +1306,6 @@
   "timezone": "",
   "title": "Central Node Demo",
   "uid": "central_node_demo",
-  "version": 4,
+  "version": 2,
   "weekStart": ""
 }
