@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
+  "id": 8,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -80,6 +80,7 @@
           "exponent": 0.5,
           "fill": "#b4ff00",
           "mode": "scheme",
+          "reverse": false,
           "scale": "exponential",
           "scheme": "Turbo",
           "steps": 128
@@ -108,7 +109,7 @@
           "unit": "µm"
         }
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "reverseYBuckets": true,
       "targets": [
         {
@@ -279,7 +280,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -351,7 +352,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -423,7 +424,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -491,7 +492,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -557,7 +558,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -624,7 +625,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -689,7 +690,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -750,7 +751,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -1052,6 +1053,7 @@
           "mouseWheelZoom": true,
           "showAttribution": true,
           "showDebug": false,
+          "showMeasure": false,
           "showScale": false,
           "showZoom": true
         },
@@ -1102,13 +1104,14 @@
           "mode": "details"
         },
         "view": {
+          "allLayers": true,
           "id": "coords",
           "lat": 32.9483967299,
           "lon": -96.7299,
           "zoom": 11
         }
       },
-      "pluginVersion": "9.1.1",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -1266,8 +1269,8 @@
       {
         "current": {
           "selected": false,
-          "text": "00044be5fc9c",
-          "value": "00044be5fc9c"
+          "text": "00044be6fea1",
+          "value": "00044be6fea1"
         },
         "datasource": {
           "type": "influxdb",
@@ -1289,8 +1292,8 @@
       {
         "current": {
           "selected": true,
-          "text": "LoRa Node 014",
-          "value": "LoRa Node 014"
+          "text": "LoRa Node 006",
+          "value": "LoRa Node 006"
         },
         "datasource": {
           "type": "influxdb",
@@ -1304,7 +1307,7 @@
         "options": [],
         "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_name\")",
         "refresh": 1,
-        "regex": "",
+        "regex": "^.*LoRa Node.*$",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
@@ -1319,6 +1322,6 @@
   "timezone": "",
   "title": "LoRa Node Demo",
   "uid": "lora_node_demo",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
