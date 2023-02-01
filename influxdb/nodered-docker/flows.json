@@ -1967,7 +1967,7 @@
         "type": "influxdb out",
         "z": "b44edfff80da0ecb",
         "influxdb": "6d81027f06ed63bd",
-        "name": "IPS7100 Write",
+        "name": "InfluxDB Write",
         "measurement": "",
         "precision": "n",
         "retentionPolicy": "",
@@ -1976,8 +1976,8 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1660,
-        "y": 120,
+        "x": 1880,
+        "y": 560,
         "wires": []
     },
     {
@@ -1996,27 +1996,9 @@
         "wires": [
             [
                 "f751c36d276bdcf7",
-                "01c6127270dc2da4"
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "01c6127270dc2da4",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "BME280 Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1660,
-        "y": 180,
-        "wires": []
     },
     {
         "id": "2e760f3050c884c4",
@@ -2034,27 +2016,9 @@
         "wires": [
             [
                 "5483187b79041271",
-                "fc51bf7a65b8881b"
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "fc51bf7a65b8881b",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "SCD30 Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1650,
-        "y": 240,
-        "wires": []
     },
     {
         "id": "d78d7389e9eb0dc5",
@@ -2072,27 +2036,9 @@
         "wires": [
             [
                 "2259b78610cbfb38",
-                "14c9c2585fdf7f29"
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "14c9c2585fdf7f29",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "INA219Duo Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1670,
-        "y": 300,
-        "wires": []
     },
     {
         "id": "208ea1244486b359",
@@ -2109,28 +2055,10 @@
         "y": 360,
         "wires": [
             [
-                "e91959272228d707",
-                "2f6c19eaa27aa369"
+                "2f6c19eaa27aa369",
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "e91959272228d707",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "MGS001 Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1660,
-        "y": 360,
-        "wires": []
     },
     {
         "id": "2677e065208970cf",
@@ -2148,27 +2076,9 @@
         "wires": [
             [
                 "323c60badb4cc0d1",
-                "7e64c5e26e3dac86"
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "7e64c5e26e3dac86",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "PM Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1640,
-        "y": 420,
-        "wires": []
     },
     {
         "id": "565ba56ef806b401",
@@ -2185,28 +2095,10 @@
         "y": 480,
         "wires": [
             [
-                "1d899f263a84644d",
-                "3080e9d1dd0f8118"
+                "3080e9d1dd0f8118",
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "1d899f263a84644d",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "GPGGALR Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1670,
-        "y": 480,
-        "wires": []
     },
     {
         "id": "0fbad8a9bc13f0d3",
@@ -2240,27 +2132,9 @@
         "wires": [
             [
                 "0fbad8a9bc13f0d3",
-                "1dc1459fe8e6d4a3"
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "1dc1459fe8e6d4a3",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "BME688CNR Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1670,
-        "y": 560,
-        "wires": []
     },
     {
         "id": "c1d0d99c5c9f2b38",
@@ -2295,27 +2169,9 @@
         "wires": [
             [
                 "c1d0d99c5c9f2b38",
-                "fd0af16085ab455d"
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "fd0af16085ab455d",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "IPS7100CNR Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1650,
-        "y": 620,
-        "wires": []
     },
     {
         "id": "6d15dab30a92249c",
@@ -2348,28 +2204,10 @@
         "y": 700,
         "wires": [
             [
-                "d97310caf84032ec",
-                "6d15dab30a92249c"
+                "6d15dab30a92249c",
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "d97310caf84032ec",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "GPGGA Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1640,
-        "y": 700,
-        "wires": []
     },
     {
         "id": "1c119074800f886e",
@@ -2402,28 +2240,10 @@
         "y": 780,
         "wires": [
             [
-                "c76042036b451b75",
-                "1c119074800f886e"
+                "1c119074800f886e",
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "c76042036b451b75",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "GPRMC Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1640,
-        "y": 780,
-        "wires": []
     },
     {
         "id": "4cc0834a8e36f55e",
@@ -2456,28 +2276,10 @@
         "y": 880,
         "wires": [
             [
-                "7f0de959ef0394f3",
-                "4cc0834a8e36f55e"
+                "4cc0834a8e36f55e",
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "7f0de959ef0394f3",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "AS7265X Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1640,
-        "y": 880,
-        "wires": []
     },
     {
         "id": "dfcc5b89c8321b9f",
@@ -2511,27 +2313,9 @@
         "wires": [
             [
                 "dfcc5b89c8321b9f",
-                "6193dfe094a8cad5"
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "6193dfe094a8cad5",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "MBCLR001 Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1650,
-        "y": 960,
-        "wires": []
     },
     {
         "id": "59391c8fdd9f3a7c",
@@ -2564,28 +2348,10 @@
         "y": 1040,
         "wires": [
             [
-                "f7b76808a556fa12",
-                "59391c8fdd9f3a7c"
+                "59391c8fdd9f3a7c",
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "f7b76808a556fa12",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "PMPoLo Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1660,
-        "y": 1040,
-        "wires": []
     },
     {
         "id": "49e9cb88bacb2a9f",
@@ -2618,28 +2384,10 @@
         "y": 1120,
         "wires": [
             [
-                "9dcaf1cc28297807",
-                "49e9cb88bacb2a9f"
+                "49e9cb88bacb2a9f",
+                "5760de8d057cac8a"
             ]
         ]
-    },
-    {
-        "id": "9dcaf1cc28297807",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "MacAD Write",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 1650,
-        "y": 1120,
-        "wires": []
     },
     {
         "id": "5bfc7c9d04aa043e",
