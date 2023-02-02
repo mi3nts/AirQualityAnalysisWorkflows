@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 7,
+  "id": 9,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -33,6 +33,7 @@
         "type": "influxdb",
         "uid": "influxdb-uid"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -123,7 +124,7 @@
               "longitude": "longitude",
               "mode": "coords"
             },
-            "name": "LoRa Nodes",
+            "name": "LoRa / PoLo Nodes",
             "tooltip": true,
             "type": "markers"
           },
@@ -205,6 +206,15 @@
           "hide": false,
           "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGALR\" or r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"${pm_value}\")\n  |> aggregateWindow(every: 1h, fn: last)\n  |> last()\n",
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGA\" or r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\" or r[\"_field\"] == \"${pm_value}\")\n  |> aggregateWindow(every: 1h, fn: last)\n  |> last()\n",
+          "refId": "C"
         }
       ],
       "title": "Sensor Location",
@@ -241,9 +251,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "pm10_0",
-          "value": "pm10_0"
+          "selected": true,
+          "text": "pm0_1",
+          "value": "pm0_1"
         },
         "datasource": {
           "type": "influxdb",
@@ -272,6 +282,6 @@
   "timezone": "",
   "title": "Homepage",
   "uid": "58VYFvD4a",
-  "version": 4,
+  "version": 2,
   "weekStart": ""
 }
