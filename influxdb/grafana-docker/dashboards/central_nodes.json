@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 8,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -501,8 +501,8 @@
         },
         "mapping": {
           "color": "@index",
-          "x": "windDirectionMagnetic {device_id=\"001e0642ff0f\", device_name=\"Central Hub 5\"}",
-          "y": "windSpeedMetersPerSecond {device_id=\"001e0642ff0f\", device_name=\"Central Hub 5\"}"
+          "x": "windDirectionMagnetic {device_id=\"001e06430225\", device_name=\"Central Hub 7\"}",
+          "y": "windSpeedMetersPerSecond {device_id=\"001e06430225\", device_name=\"Central Hub 7\"}"
         },
         "settings": {
           "color_option": "ramp",
@@ -543,6 +543,7 @@
         }
       ],
       "title": "Wind",
+      "transformations": [],
       "type": "fatcloud-windrose-panel"
     },
     {
@@ -1275,7 +1276,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "Central Hub 7",
           "value": "Central Hub 7"
         },
@@ -1306,6 +1307,6 @@
   "timezone": "",
   "title": "Central Node Demo",
   "uid": "central_node_demo",
-  "version": 2,
+  "version": 5,
   "weekStart": ""
 }
