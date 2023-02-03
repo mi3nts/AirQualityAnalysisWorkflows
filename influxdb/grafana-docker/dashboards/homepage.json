@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 9,
+  "id": 11,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -248,50 +248,6 @@
         "uid": "influxdb-uid"
       },
       "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "blue",
-            "mode": "continuous-GrYlRd",
-            "seriesBy": "last"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineWidth": 1,
-            "pointSize": {
-              "fixed": 1
-            },
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "show": "points"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
       "gridPos": {
         "h": 20,
         "w": 8,
@@ -300,35 +256,51 @@
       },
       "id": 4,
       "options": {
-        "dims": {
-          "x": "Temperature"
+        "config": {
+          "displayModeBar": false
         },
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
-        },
-        "series": [
+        "data": [
           {
-            "pointColor": {
-              "field": "PM",
-              "fixed": "dark-green"
-            },
-            "pointSize": {
-              "fixed": 10,
-              "max": 50,
-              "min": 1
-            },
-            "x": "Temperature",
-            "y": "Hummidity"
+            "mode": "markers",
+            "type": "scatter"
           }
         ],
-        "seriesMapping": "manual",
-        "tooltip": {
-          "mode": "single",
-          "sort": "desc"
-        }
+        "layout": {
+          "margin": {
+            "b": 40,
+            "l": 20,
+            "r": 20,
+            "t": 5
+          },
+          "paper_bgcolor": "rgba(0,0,0,0)",
+          "plot_bgcolor": "rgba(0,0,0,0)",
+          "xaxis": {
+            "autorange": true,
+            "range": [
+              -1.963529386649527,
+              32.48352908445398
+            ],
+            "title": {
+              "text": "Temperature [°C]"
+            },
+            "type": "linear"
+          },
+          "yaxis": {
+            "automargin": true,
+            "autorange": true,
+            "range": [
+              8.467958088158408,
+              105.79204214072342
+            ],
+            "title": {
+              "text": "Humidity [%]"
+            },
+            "type": "linear"
+          }
+        },
+        "onclick": "// console.log(data);\n// window.updateVariables({query:{'var-project':'test'}, partial: true})",
+        "script": "let humidity = data.series[0].fields[1].values.buffer;\nlet temperature = data.series[0].fields[6].values.buffer;\nlet PM_data = data.series[0].fields[4].values.buffer;\n\n\nvar trace1 = {\n  x: temperature, \n  y: humidity,\n  mode: 'markers',\n  marker: {\n    size: 10,\n    color: PM_data,\n    colorbar: {\n      title: \"PM [μg/m^3]\"\n    }\n  }\n};\n\nreturn { data: [trace1,] };",
+        "yaml_mode": true
       },
       "targets": [
         {
@@ -340,7 +312,7 @@
           "refId": "A"
         }
       ],
-      "title": "Panel Title",
+      "title": "Air Quality Overview",
       "transformations": [
         {
           "id": "labelsToFields",
@@ -408,7 +380,7 @@
           }
         }
       ],
-      "type": "xychart"
+      "type": "nline-plotlyjs-panel"
     }
   ],
   "refresh": "5s",
@@ -419,7 +391,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "pm10_0",
           "value": "pm10_0"
         },
@@ -443,7 +415,7 @@
     ]
   },
   "time": {
-    "from": "now-5d",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
