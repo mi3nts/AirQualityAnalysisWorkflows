@@ -1663,7 +1663,7 @@
         "type": "function",
         "z": "b44edfff80da0ecb",
         "name": "LoRaSummaryWrite",
-        "func": "portIDs = {\n    11: \"OPCN2\",\n    13: \"OPCN3\",\n    15: \"IPS7100\",\n    23: \"BME680\",\n    21: \"BME280\",\n    33: \"SCD30\",\n    31: \"MGS001\",\n    5: \"GPGGALR\",\n    3: \"INA219Duo\",\n    2: \"PM\",\n    1: \"LoRaDefault\",\n    17: \"IPS7100CNR\",\n    25: \"BME688CNR\",\n    6: \"GPGGA\",\n    7: \"GPRMC\",\n    51: \"AS7265X\",\n    42: \"MBCLR001\",\n    4: \"PMPoLo\",\n    8: \"MacAD\"\n};\n\n\nmsg.payload =\n    {\n        sensorID: portIDs[msg.payload.fPort],\n        framePort: msg.payload.fPort,\n        //base16data: Buffer.from(msg.payload.data).toString('base64').toString('hex'),\n        base16data: Buffer.from(msg.payload.data, 'base64').toString('hex'),\n\n        //gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID).toString('base64').toString('hex'),\n        gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID, 'base64').toString('hex'),\n        \n        nodeID: msg.topic.split(\"/\")[5],\n        \n        //time: Date.parse(msg.payload.publishedAt + \" UTC\")\n        time: Date.parse(msg.payload.publishedAt)\n    };\n\n\n\n\nreturn msg;",
+        "func": "portIDs = {\n    11: \"OPCN2\",\n    13: \"OPCN3\",\n    15: \"IPS7100\",\n    23: \"BME680\",\n    21: \"BME280\",\n    33: \"SCD30\",\n    31: \"MGS001\",\n    5: \"GPGGALR\",\n    3: \"INA219Duo\",\n    2: \"PM\",\n    1: \"LoRaDefault\",\n    17: \"IPS7100CNR\",\n    25: \"BME688CNR\",\n    6: \"GPGGA\",\n    7: \"GPRMC\",\n    106: \"GPGGAPL\",\n    107: \"GPRMCPL\",\n    51: \"AS7265X\",\n    42: \"MBCLR001\",\n    4: \"PMPoLo\",\n    8: \"MacAD\"\n};\n\n\nmsg.payload =\n    {\n        sensorID: portIDs[msg.payload.fPort],\n        framePort: msg.payload.fPort,\n        //base16data: Buffer.from(msg.payload.data).toString('base64').toString('hex'),\n        base16data: Buffer.from(msg.payload.data, 'base64').toString('hex'),\n\n        //gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID).toString('base64').toString('hex'),\n        gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID, 'base64').toString('hex'),\n        \n        nodeID: msg.topic.split(\"/\")[5],\n        \n        //time: Date.parse(msg.payload.publishedAt + \" UTC\")\n        time: Date.parse(msg.payload.publishedAt)\n    };\n\n\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1777,11 +1777,21 @@
                 "t": "eq",
                 "v": "MacAD",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "GPGGAPL",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "GPRMCPL",
+                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 15,
+        "outputs": 17,
         "x": 980,
         "y": 320,
         "wires": [
@@ -1829,6 +1839,12 @@
             ],
             [
                 "5a836f48d6fbbf21"
+            ],
+            [
+                "bf35389d207ff254"
+            ],
+            [
+                "fb5414ea19869cf2"
             ]
         ]
     },
@@ -2388,6 +2404,79 @@
         "wires": [
             [
                 "49e9cb88bacb2a9f",
+                "5760de8d057cac8a"
+            ]
+        ]
+    },
+    {
+        "id": "68dab29d9ca3d1e5",
+        "type": "debug",
+        "z": "b44edfff80da0ecb",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "bf35389d207ff254",
+        "type": "function",
+        "z": "b44edfff80da0ecb",
+        "name": "GPGGAPL Unpack",
+        "func": "const id_lookup = global.get(\"mac_to_name\");\n\nrawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload = [\n    {\n        time: msg.payload.time,\n        hour: Buffer.from(rawdata.slice(0,2), 'hex').readUInt8(),\n        minute: Buffer.from(rawdata.slice(2,4), 'hex').readUInt8(),\n        second: Buffer.from(rawdata.slice(4,6), 'hex').readUInt8(),\n        latitudeCoordinate: Buffer.from(rawdata.slice(6, 22), 'hex').readDoubleLE(),\n        longitudeCoordinate: Buffer.from(rawdata.slice(22, 38), 'hex').readDoubleLE(),\n        gpsQuality: Buffer.from(rawdata.slice(38,40), 'hex').readUInt8(),\n        numberOfSatellites: Buffer.from(rawdata.slice(40,42), 'hex').readUInt8(),\n        horizontalDilution: Buffer.from(rawdata.slice(42, 50), 'hex').readFloatLE(),\n        altitude: Buffer.from(rawdata.slice(50, 58), 'hex').readFloatLE(),\n        undulation: Buffer.from(rawdata.slice(58, 66), 'hex').readFloatLE(),\n    },\n    {\n        device_id: msg.payload.nodeID,\n        device_name: id_lookup[msg.payload.nodeID]\n    },\n];\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 1180,
+        "wires": [
+            [
+                "68dab29d9ca3d1e5",
+                "5760de8d057cac8a"
+            ]
+        ]
+    },
+    {
+        "id": "b6873c21a553aa02",
+        "type": "debug",
+        "z": "b44edfff80da0ecb",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "fb5414ea19869cf2",
+        "type": "function",
+        "z": "b44edfff80da0ecb",
+        "name": "GPRMCPL Unpack",
+        "func": "const id_lookup = global.get(\"mac_to_name\");\n\nrawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload = [\n    {\n        time: msg.payload.time,\n        year: Buffer.from(rawdata.slice(0,4), 'hex').readUInt16LE(),\n        month: Buffer.from(rawdata.slice(4,6), 'hex').readUInt8(),\n        day: Buffer.from(rawdata.slice(6,8), 'hex').readUInt8(),\n        hour: Buffer.from(rawdata.slice(8,10), 'hex').readUInt8(),\n        minute: Buffer.from(rawdata.slice(10,12), 'hex').readUInt8(),\n        second: Buffer.from(rawdata.slice(12,14), 'hex').readUInt8(),\n        latitudeCoordinate: Buffer.from(rawdata.slice(14, 30), 'hex').readDoubleLE(),\n        longitudeCoordinate: Buffer.from(rawdata.slice(30, 46), 'hex').readDoubleLE(),\n        speedOverGround: Buffer.from(rawdata.slice(46, 54), 'hex').readFloatLE(),\n    },\n    {\n        device_id: msg.payload.nodeID,\n        device_name: id_lookup[msg.payload.nodeID]\n    },\n];\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 1260,
+        "wires": [
+            [
+                "b6873c21a553aa02",
                 "5760de8d057cac8a"
             ]
         ]
