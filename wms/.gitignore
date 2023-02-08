@@ -1,0 +1,11 @@
+.vscode
+build/
+dist/
+__pycache__/
+*.egg-info/
+meta.xml
+*.pyc
+*&*
+venv/
+.venv/
+skinnywms/testdata/*/*
