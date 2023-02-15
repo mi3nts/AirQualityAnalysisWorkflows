@@ -4,7 +4,7 @@ services:
   skinnywms:
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: wms-docker/Dockerfile
       args:
         - PYTHON_IMAGE=python:3.8-slim-buster
         - http_proxy
@@ -13,6 +13,8 @@ services:
     volumes:
       - '.:/app/skinnywms:ro'
       - './skinnywms/testdata:/data:ro'
+    networks:
+      - shared
     # override the default command to run flask app without uwgsi
     # to make use of automatic reload on code changes for development purposes
     command: 
@@ -29,3 +31,26 @@ services:
     #   - SKINNYWMS_HOST=${SKINNYWMS_HOST}
     #   - SKINNYWMS_PORT=${SKINNYWMS_PORT}
     #   - FLASK_ENV=${FLASK_ENV}
+
+  nodered:
+    build: ./nodered-docker
+    image: mints-nodered
+    ports:
+      - "1880:1880"
+    networks:
+      - shared
+    environment:
+      - DOCKER_WMS_INIT_ORG=${DOCKER_WMS_INIT_ORG:?err}
+      - DOCKER_WMS_INIT_BUCKET=${DOCKER_WMS_INIT_BUCKET:?err}
+      - DOCKER_WMS_INIT_ADMIN_TOKEN=${DOCKER_WMS_INIT_ADMIN_TOKEN:?err}
+      - MQTT_CENTRAL_NODES_USERNAME=${MQTT_CENTRAL_NODES_USERNAME:?err}
+      - MQTT_CENTRAL_NODES_PASSWORD=${MQTT_CENTRAL_NODES_PASSWORD:?err}
+      - MQTT_LORA_NODES_USERNAME=${MQTT_LORA_NODES_USERNAME:?err}
+      - MQTT_LORA_NODES_PASSWORD=${MQTT_LORA_NODES_PASSWORD:?err}
+
+    depends_on:
+      - skinnywms
+    restart: unless-stopped
+
+networks:
+  shared:

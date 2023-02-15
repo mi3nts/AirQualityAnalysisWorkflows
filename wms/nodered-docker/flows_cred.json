@@ -1,0 +1,14 @@
+{
+    "6d81027f06ed63bd": {
+        "token": "${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}"
+    },
+    "eeac082b50da81c5": {
+        "user": "${MQTT_CENTRAL_NODES_USERNAME}",
+        "password": "${MQTT_CENTRAL_NODES_PASSWORD}"
+    },
+    "13a2a6da2720468e": {
+        "user": "${MQTT_LORA_NODES_USERNAME}",
+        "password": "${MQTT_LORA_NODES_PASSWORD}"
+    },
+    "a262c54bb2fd3604": {}
+}
