@@ -23,6 +23,14 @@
         "env": []
     },
     {
+        "id": "470b972821a59bdd",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "eeac082b50da81c5",
         "type": "mqtt-broker",
         "name": "Central Nodes Reader",
@@ -1145,7 +1153,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1880,
+        "x": 2100,
         "y": 2520,
         "wires": [
             [
@@ -1386,8 +1394,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 1420,
-        "y": 3120,
+        "x": 1440,
+        "y": 3220,
         "wires": [
             [
                 "b876e919a08b38f8"
@@ -1402,8 +1410,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 1590,
-        "y": 3120,
+        "x": 1610,
+        "y": 3220,
         "wires": [
             [
                 "4580469327b1425c"
@@ -1419,11 +1427,12 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1990,
-        "y": 3120,
+        "x": 2010,
+        "y": 3220,
         "wires": []
     },
     {
@@ -1437,8 +1446,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1790,
-        "y": 3120,
+        "x": 1810,
+        "y": 3220,
         "wires": [
             [
                 "441152fd425484b7",
@@ -1570,7 +1579,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 2450,
@@ -1586,6 +1596,43 @@
         "x": 120,
         "y": 1260,
         "wires": []
+    },
+    {
+        "id": "845747c6938b73e9",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "RG15",
+        "topic": "+/RG15",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1430,
+        "y": 3120,
+        "wires": [
+            [
+                "972fd529d85470f3"
+            ]
+        ]
+    },
+    {
+        "id": "972fd529d85470f3",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3120,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
     },
     {
         "id": "9c8cb7de31fcbeef",
@@ -2978,6 +3025,121 @@
             [
                 "df35767ebe3191d1"
             ]
+        ]
+    },
+    {
+        "id": "fd530b9e9a89e137",
+        "type": "inject",
+        "z": "470b972821a59bdd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 280,
+        "y": 400,
+        "wires": [
+            [
+                "fccc63b958bd3a0a"
+            ]
+        ]
+    },
+    {
+        "id": "fccc63b958bd3a0a",
+        "type": "file in",
+        "z": "470b972821a59bdd",
+        "name": "Read ID Lookup Table",
+        "filename": "/data/id_lookup.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 500,
+        "y": 400,
+        "wires": [
+            [
+                "6b74f19e6b9ca665"
+            ]
+        ]
+    },
+    {
+        "id": "6b74f19e6b9ca665",
+        "type": "csv",
+        "z": "470b972821a59bdd",
+        "name": "To CSV",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 720,
+        "y": 400,
+        "wires": [
+            [
+                "2e4e75cb9e0abf1e"
+            ]
+        ]
+    },
+    {
+        "id": "2e4e75cb9e0abf1e",
+        "type": "function",
+        "z": "470b972821a59bdd",
+        "name": "",
+        "func": "\n//msg.topic=\"mac_to_name\";\nvar mac_to_name  = {}\n\nfor (var i = 0; i < msg.payload.length; i++) {\n    if (msg.payload[i].in_use == 1) {\n        mac_to_name[msg.payload[i].mac_address] = msg.payload[i].name;\n    }\n}\n\nglobal.set(\"mac_to_name\",mac_to_name)\n\n//msg.payload = mac_to_name; \n//return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 400,
+        "wires": [
+            [
+                "92548b9929175784"
+            ]
+        ]
+    },
+    {
+        "id": "92548b9929175784",
+        "type": "change",
+        "z": "470b972821a59bdd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "mac_to_name",
+                "pt": "global",
+                "to": "payload.mac_to_name",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1150,
+        "y": 400,
+        "wires": [
+            []
         ]
     }
 ]
