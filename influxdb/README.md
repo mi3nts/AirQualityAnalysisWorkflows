@@ -32,7 +32,7 @@ in `credentials.yml` and `loRacredentials.yml`, for in the mqttSubscribers repos
 
 ### Start Docker Services
 
-For your first time running the services, Docker will build our custom influxdb image.
+For your first time running the services, Docker will build our custom InfluxDB image.
 
 ```shell
 docker-compose up --build
@@ -76,7 +76,7 @@ bottom panel) surrounds the data you want to graph, and hit `Submit`.
 You may want to use a custom, 1-minute mean aggregate function to view the trends in more detail. Configure this on the
 right side, under the `Submit` button.
 
-Example:  
+Example:
 ![Example showing custom aggregate function](doc-img/Screen%20Shot%202022-04-08%20at%204.12.52%20PM.png)
 
 ## Other Useful Knowledge
@@ -118,7 +118,7 @@ the
 NodeRED is plug-and-play, *with no data persisted*. Read more about this choice below. It, too, reads environment
 variables on build to be used in the imported flows.
 
-`nodered-docker/Dokerfile` copies `package.json`, with InfluxDB support included, to the container. It then installs
+`nodered-docker/Dockerfile` copies `package.json`, with InfluxDB support included, to the container. It then installs
 InfluxDB support. The dockerfile also copies flows, credentials, and settings to the container. The settings are
 configured to read/store credentials in plaintext. This is not an issue because the plaintext "credentials" should refer
 to environment variables only.
@@ -130,7 +130,7 @@ settings will not change regularly). **To persist any changes, export them from 
 
 ### Grafana
 
-Grafana is *not* plug-and-play. This is a todo item.  
+Grafana is *not* plug-and-play. This is a todo item.
 
 ## External Resources
 
