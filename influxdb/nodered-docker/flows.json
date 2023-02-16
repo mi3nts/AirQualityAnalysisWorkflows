@@ -23,6 +23,22 @@
         "env": []
     },
     {
+        "id": "1928dabe10828d1e",
+        "type": "tab",
+        "label": "OpenAQ to InfluxDB",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6647dd547c9914c5",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "eeac082b50da81c5",
         "type": "mqtt-broker",
         "name": "Central Nodes Reader",
@@ -1570,7 +1586,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 2450,
@@ -2977,6 +2994,122 @@
         "wires": [
             [
                 "df35767ebe3191d1"
+            ]
+        ]
+    },
+    {
+        "id": "728348a915c1dd88",
+        "type": "openaq-latest",
+        "z": "1928dabe10828d1e",
+        "aqconfig": "",
+        "location": "",
+        "city": "",
+        "country": "US",
+        "latitude": "",
+        "longitude": "",
+        "radius": 2500,
+        "orderby_location": true,
+        "sort_location": "asc",
+        "orderby_city": false,
+        "sort_city": null,
+        "orderby_country": false,
+        "sort_country": null,
+        "orderby_distance": false,
+        "sort_distance": null,
+        "parameter": "",
+        "hasGeo": true,
+        "limit": 100,
+        "page": 1,
+        "name": "",
+        "x": 570,
+        "y": 400,
+        "wires": [
+            [
+                "b89f02b199fbb9b0"
+            ]
+        ]
+    },
+    {
+        "id": "3aabad1db3a4e514",
+        "type": "influxdb out",
+        "z": "1928dabe10828d1e",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "InfluxDB Write",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
+        "bucket": "OpenAQ",
+        "x": 1080,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "2ff0b126844bb693",
+        "type": "inject",
+        "z": "1928dabe10828d1e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "7",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 350,
+        "y": 400,
+        "wires": [
+            [
+                "728348a915c1dd88"
+            ]
+        ]
+    },
+    {
+        "id": "d547aeae716816b9",
+        "type": "debug",
+        "z": "1928dabe10828d1e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "b89f02b199fbb9b0",
+        "type": "function",
+        "z": "1928dabe10828d1e",
+        "name": "",
+        "func": "divide_results = (result) => result.measurements.map(\n    (measurement) => ([\n        {//values\n            time: Date.parse(measurement.lastUpdated),\n            value: measurement.value,\n        },\n        {//tags\n            ...result.coordinates, //how should coordinates be stored?\n            parameter: measurement.parameter,\n            country: result.country,\n            city: result.city,\n            location: result.location,\n            unit: measurement.unit,\n        }\n    ])\n)\n\nmsg.payload = msg.payload.results\n    .filter(res => res.coordinates !== null && res.coordinates.longitude !== null && res.coordinates.latitude !== null)\n    .map(divide_results)\n    .flat()\nmsg.measurement = \"OpenAQ\"\n    \nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 400,
+        "wires": [
+            [
+                "d547aeae716816b9",
+                "3aabad1db3a4e514"
             ]
         ]
     }
