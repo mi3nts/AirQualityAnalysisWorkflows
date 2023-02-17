@@ -11,8 +11,11 @@ services:
         - https_proxy
         - no_proxy
     volumes:
-      - '.:/app/skinnywms:ro'
-      - './skinnywms/testdata:/data:ro'
+      - type: bind
+        source: ${DOCKER_WMS_DATA_BM:?err}
+        target: ${SKINNYWMS_DATA_PATH:?err}
+      # - '.:/app/skinnywms:ro'
+      # - './skinnywms/testdata:/data:ro'
     networks:
       - shared
     # override the default command to run flask app without uwgsi
