@@ -23,7 +23,7 @@
         "env": []
     },
     {
-        "id": "1928dabe10828d1e",
+        "id": "e288222e4422b317",
         "type": "tab",
         "label": "OpenAQ to InfluxDB",
         "disabled": false,
@@ -2998,9 +2998,9 @@
         ]
     },
     {
-        "id": "728348a915c1dd88",
+        "id": "f77bd105ba5952e2",
         "type": "openaq-latest",
-        "z": "1928dabe10828d1e",
+        "z": "e288222e4422b317",
         "aqconfig": "",
         "location": "",
         "city": "",
@@ -3018,21 +3018,21 @@
         "sort_distance": null,
         "parameter": "",
         "hasGeo": true,
-        "limit": 100,
+        "limit": "2000",
         "page": 1,
         "name": "",
-        "x": 570,
+        "x": 670,
         "y": 400,
         "wires": [
             [
-                "b89f02b199fbb9b0"
+                "cdb886e3c7b908b0"
             ]
         ]
     },
     {
-        "id": "3aabad1db3a4e514",
+        "id": "22c8f3cd63933993",
         "type": "influxdb out",
-        "z": "1928dabe10828d1e",
+        "z": "e288222e4422b317",
         "influxdb": "6d81027f06ed63bd",
         "name": "InfluxDB Write",
         "measurement": "",
@@ -3043,14 +3043,14 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "OpenAQ",
-        "x": 1080,
-        "y": 280,
+        "x": 1320,
+        "y": 400,
         "wires": []
     },
     {
-        "id": "2ff0b126844bb693",
+        "id": "48c5102b6acf496f",
         "type": "inject",
-        "z": "1928dabe10828d1e",
+        "z": "e288222e4422b317",
         "name": "",
         "props": [
             {
@@ -3061,25 +3061,25 @@
                 "vt": "str"
             }
         ],
-        "repeat": "7",
+        "repeat": "2700",
         "crontab": "",
         "once": true,
-        "onceDelay": 0.1,
+        "onceDelay": "10",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 350,
+        "x": 110,
         "y": 400,
         "wires": [
             [
-                "728348a915c1dd88"
+                "701f5ece9c09f9ac"
             ]
         ]
     },
     {
-        "id": "d547aeae716816b9",
+        "id": "bfcee38d5e7676a2",
         "type": "debug",
-        "z": "1928dabe10828d1e",
+        "z": "e288222e4422b317",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -3089,28 +3089,289 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1050,
-        "y": 400,
+        "x": 1310,
+        "y": 460,
         "wires": []
     },
     {
-        "id": "b89f02b199fbb9b0",
+        "id": "cdb886e3c7b908b0",
         "type": "function",
-        "z": "1928dabe10828d1e",
-        "name": "",
-        "func": "divide_results = (result) => result.measurements.map(\n    (measurement) => ([\n        {//values\n            time: Date.parse(measurement.lastUpdated),\n            value: measurement.value,\n        },\n        {//tags\n            ...result.coordinates, //how should coordinates be stored?\n            parameter: measurement.parameter,\n            country: result.country,\n            city: result.city,\n            location: result.location,\n            unit: measurement.unit,\n        }\n    ])\n)\n\nmsg.payload = msg.payload.results\n    .filter(res => res.coordinates !== null && res.coordinates.longitude !== null && res.coordinates.latitude !== null)\n    .map(divide_results)\n    .flat()\nmsg.measurement = \"OpenAQ\"\n    \nreturn msg",
+        "z": "e288222e4422b317",
+        "name": "Parse Data",
+        "func": "divide_results = (result) => result.measurements.map(\n    (measurement) => ([\n        {//values\n            time: Date.parse(measurement.lastUpdated),\n            value: measurement.value,\n        },\n        {//tags\n            ...result.coordinates, //how should coordinates be stored?\n            parameter: measurement.parameter,\n            country: result.country,\n            city: result.city,\n            location: result.location,\n            unit: measurement.unit,\n        }\n    ])\n)\n\nmsg.payload = msg.payload.results\n    .filter(res => res.coordinates !== null && res.coordinates.longitude !== null && res.coordinates.latitude !== null)\n    .map(divide_results)\n    .flat()\n//msg.measurement = \"OpenAQ\"\n//return msg\nvar msgs = [];\nwhile(msg.payload.length) {\n    var temp = {payload:(msg.payload).splice(0, 500), measurement:\"OpenAQ\"};\n    msgs.push(temp);\n}\n\nreturn [ msgs ];",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
+        "x": 850,
         "y": 400,
         "wires": [
             [
-                "d547aeae716816b9",
-                "3aabad1db3a4e514"
+                "657575e9644235d3"
             ]
+        ]
+    },
+    {
+        "id": "701f5ece9c09f9ac",
+        "type": "function",
+        "z": "e288222e4422b317",
+        "name": "Partition Calls",
+        "func": "var SensorAmount = flow.get('SensorAmount');\nvar AmountPerCall = flow.get('AmountPerCall');\nvar msgs = [];\n\nfor(var i = 4; i <= (SensorAmount / AmountPerCall); ++i) {\n    var temp = {page:i, limit:AmountPerCall };\n    msgs.push(temp);\n}\nreturn [ msgs ];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 400,
+        "wires": [
+            [
+                "d56d68d4ce316e9f"
+            ]
+        ]
+    },
+    {
+        "id": "d56d68d4ce316e9f",
+        "type": "delay",
+        "z": "e288222e4422b317",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 480,
+        "y": 400,
+        "wires": [
+            [
+                "f77bd105ba5952e2"
+            ]
+        ]
+    },
+    {
+        "id": "0fc681f15f4c0a3c",
+        "type": "inject",
+        "z": "e288222e4422b317",
+        "name": "Daily Refresh",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 12 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 560,
+        "wires": [
+            [
+                "ecfd076922de93b2"
+            ]
+        ]
+    },
+    {
+        "id": "8437fe30c4e851ed",
+        "type": "inject",
+        "z": "e288222e4422b317",
+        "name": "Initial",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 620,
+        "wires": [
+            [
+                "ecfd076922de93b2"
+            ]
+        ]
+    },
+    {
+        "id": "ecfd076922de93b2",
+        "type": "openaq-latest",
+        "z": "e288222e4422b317",
+        "aqconfig": "",
+        "location": "",
+        "city": "",
+        "country": "US",
+        "latitude": "",
+        "longitude": "",
+        "radius": 2500,
+        "orderby_location": true,
+        "sort_location": "asc",
+        "orderby_city": false,
+        "sort_city": null,
+        "orderby_country": false,
+        "sort_country": null,
+        "orderby_distance": false,
+        "sort_distance": null,
+        "parameter": "",
+        "hasGeo": true,
+        "limit": "1",
+        "page": 1,
+        "name": "",
+        "x": 330,
+        "y": 560,
+        "wires": [
+            [
+                "4f58c021c6dd7360"
+            ]
+        ]
+    },
+    {
+        "id": "4f58c021c6dd7360",
+        "type": "function",
+        "z": "e288222e4422b317",
+        "name": "Round Up",
+        "func": "var AmountPerCall = 2000;\nflow.set('AmountPerCall', AmountPerCall);\nflow.set('SensorAmount', (Math.ceil(msg.payload.meta.found / AmountPerCall) + 1) * AmountPerCall);\nmsg.payload = \"Updated: Sensor Amount = \" + flow.get('SensorAmount');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 560,
+        "wires": [
+            [
+                "175d53dcf4423bdb"
+            ]
+        ]
+    },
+    {
+        "id": "3d1adce86714e5c3",
+        "type": "comment",
+        "z": "e288222e4422b317",
+        "name": "Updates the number of Sensors",
+        "info": "",
+        "x": 170,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "1558bbd775617803",
+        "type": "comment",
+        "z": "e288222e4422b317",
+        "name": "AmountPerCall set here",
+        "info": "",
+        "x": 520,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "176e30bef9fd6048",
+        "type": "comment",
+        "z": "e288222e4422b317",
+        "name": "Start the update every 45 minutes",
+        "info": "",
+        "x": 170,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "657575e9644235d3",
+        "type": "delay",
+        "z": "e288222e4422b317",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "8",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1040,
+        "y": 400,
+        "wires": [
+            [
+                "22c8f3cd63933993"
+            ]
+        ]
+    },
+    {
+        "id": "175d53dcf4423bdb",
+        "type": "debug",
+        "z": "e288222e4422b317",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "9cd0bac27ed582f7",
+        "type": "comment",
+        "z": "e288222e4422b317",
+        "name": "Get all the OpenAQ data",
+        "info": "",
+        "x": 730,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "4a407cfd26e58c6b",
+        "type": "comment",
+        "z": "e288222e4422b317",
+        "name": "Time in seconds",
+        "info": "",
+        "x": 1320,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "bc6f02e7669e32cf",
+        "type": "function",
+        "z": "e288222e4422b317",
+        "name": "Get Size of Packet",
+        "func": "var str = JSON.stringify(msg);\nmsg.payload = str.length\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 540,
+        "wires": [
+            []
         ]
     }
 ]
