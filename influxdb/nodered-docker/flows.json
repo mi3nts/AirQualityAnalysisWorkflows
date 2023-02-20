@@ -3098,7 +3098,7 @@
         "type": "function",
         "z": "e288222e4422b317",
         "name": "Parse Data",
-        "func": "divide_results = (result) => result.measurements.map(\n    (measurement) => ([\n        {//values\n            time: Date.parse(measurement.lastUpdated),\n            value: measurement.value,\n        },\n        {//tags\n            ...result.coordinates, //how should coordinates be stored?\n            parameter: measurement.parameter,\n            country: result.country,\n            city: result.city,\n            location: result.location,\n            unit: measurement.unit,\n        }\n    ])\n)\n\nmsg.payload = msg.payload.results\n    .filter(res => res.coordinates !== null && res.coordinates.longitude !== null && res.coordinates.latitude !== null)\n    .map(divide_results)\n    .flat()\n//msg.measurement = \"OpenAQ\"\n//return msg\nvar msgs = [];\nwhile(msg.payload.length) {\n    var temp = {payload:(msg.payload).splice(0, 500), measurement:\"OpenAQ\"};\n    msgs.push(temp);\n}\n\nreturn [ msgs ];",
+        "func": "divide_results = (result) => result.measurements.map(\n    (measurement) => ([\n        {//values\n            time: Date.parse(measurement.lastUpdated),\n            value: measurement.value,\n        },\n        {//tags\n            ...result.coordinates, //how should coordinates be stored?\n            parameter: measurement.parameter,\n            country: result.country,\n            city: result.city,\n            location: result.location,\n            unit: measurement.unit,\n        }\n    ])\n)\n\nmsg.payload = msg.payload.results\n    .filter(res => res.coordinates !== null && res.coordinates.longitude !== null && res.coordinates.latitude !== null)\n    .map(divide_results)\n    .flat()\n\nvar msgs = [];\nwhile(msg.payload.length) {\n    var temp = {payload:(msg.payload).splice(0, 500), measurement:\"OpenAQ\"};\n    msgs.push(temp);\n}\n\nreturn [ msgs ];",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3117,7 +3117,7 @@
         "type": "function",
         "z": "e288222e4422b317",
         "name": "Partition Calls",
-        "func": "var SensorAmount = flow.get('SensorAmount');\nvar AmountPerCall = flow.get('AmountPerCall');\nvar msgs = [];\n\nfor(var i = 4; i <= (SensorAmount / AmountPerCall); ++i) {\n    var temp = {page:i, limit:AmountPerCall };\n    msgs.push(temp);\n}\nreturn [ msgs ];",
+        "func": "var SensorAmount = flow.get('SensorAmount');\nvar AmountPerCall = flow.get('AmountPerCall');\nvar msgs = [];\n\nfor(var i = 1; i <= (SensorAmount / AmountPerCall); ++i) {\n    var temp = {page:i, limit:AmountPerCall };\n    msgs.push(temp);\n}\nreturn [ msgs ];",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3148,7 +3148,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 480,
+        "x": 500,
         "y": 400,
         "wires": [
             [
