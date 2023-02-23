@@ -3021,7 +3021,7 @@
         "limit": "2000",
         "page": 1,
         "name": "",
-        "x": 670,
+        "x": 1610,
         "y": 400,
         "wires": [
             [
@@ -3043,7 +3043,7 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "OpenAQ",
-        "x": 1320,
+        "x": 2660,
         "y": 400,
         "wires": []
     },
@@ -3061,7 +3061,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "2700",
+        "repeat": "1800",
         "crontab": "",
         "once": true,
         "onceDelay": "10",
@@ -3072,39 +3072,22 @@
         "y": 400,
         "wires": [
             [
-                "701f5ece9c09f9ac"
+                "6e92378c31878e33"
             ]
         ]
-    },
-    {
-        "id": "bfcee38d5e7676a2",
-        "type": "debug",
-        "z": "e288222e4422b317",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1310,
-        "y": 460,
-        "wires": []
     },
     {
         "id": "cdb886e3c7b908b0",
         "type": "function",
         "z": "e288222e4422b317",
-        "name": "Parse Data",
-        "func": "divide_results = (result) => result.measurements.map(\n    (measurement) => ([\n        {//values\n            time: Date.parse(measurement.lastUpdated),\n            value: measurement.value,\n        },\n        {//tags\n            ...result.coordinates, //how should coordinates be stored?\n            parameter: measurement.parameter,\n            country: result.country,\n            city: result.city,\n            location: result.location,\n            unit: measurement.unit,\n        }\n    ])\n)\n\nmsg.payload = msg.payload.results\n    .filter(res => res.coordinates !== null && res.coordinates.longitude !== null && res.coordinates.latitude !== null)\n    .map(divide_results)\n    .flat()\n\nvar msgs = [];\nwhile(msg.payload.length) {\n    var temp = {payload:(msg.payload).splice(0, 500), measurement:\"OpenAQ\"};\n    msgs.push(temp);\n}\n\nreturn [ msgs ];",
+        "name": "Parse Data Into Packets For Influxdb",
+        "func": "divide_results = (result) => result.measurements.map(\n    (measurement) => ([\n        {//values\n            time: Date.parse(measurement.lastUpdated),\n            value: measurement.value,\n        },\n        {//tags\n            ...result.coordinates, //how should coordinates be stored?\n            parameter: measurement.parameter,\n            country: result.country,\n            city: result.city,\n            location: result.location,\n            unit: measurement.unit,\n        }\n    ])\n)\n\nmsg.payload = msg.payload.results\n    .filter(res => res.coordinates !== null && res.coordinates.longitude !== null && res.coordinates.latitude !== null)\n    .map(divide_results)\n    .flat()\n\nvar msgs = [];\nwhile(msg.payload.length) {\n    var temp = {payload:(msg.payload).splice(0, 500), measurement:\"OpenAQ\"};\n    msgs.push(temp);\n}\n\nflow.set(\"QueueSize\", flow.get(\"QueueSize\") + msgs.length);\n\nreturn [ msgs ];",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 850,
+        "x": 1830,
         "y": 400,
         "wires": [
             [
@@ -3116,14 +3099,14 @@
         "id": "701f5ece9c09f9ac",
         "type": "function",
         "z": "e288222e4422b317",
-        "name": "Partition Calls",
-        "func": "var SensorAmount = flow.get('SensorAmount');\nvar AmountPerCall = flow.get('AmountPerCall');\nvar msgs = [];\n\nfor(var i = 1; i <= (SensorAmount / AmountPerCall); ++i) {\n    var temp = {page:i, limit:AmountPerCall };\n    msgs.push(temp);\n}\nreturn [ msgs ];",
+        "name": "Partition Calls To OpenAQ",
+        "func": "var SensorAmount = flow.get('SensorAmount');\nvar AmountPerCall = flow.get('AmountPerCall');\nvar i = flow.get(\"PageNum\");\n\nif(flow.get(\"QueueSize\") <= 3 && i <= (SensorAmount / AmountPerCall)) {\n    msg.page = i;\n    msg.limit = AmountPerCall;\n    flow.set(\"PageNum\", i + 1);\n    return msg;\n}\nreturn null;\n\n\n\n\n\n/*var SensorAmount = flow.get('SensorAmount');\nvar AmountPerCall = flow.get('AmountPerCall');\nvar msgs = [];\n\nfor(var i = 1; i <= (SensorAmount / AmountPerCall); ++i) {\n    var temp = {page:i, limit:AmountPerCall };\n    msgs.push(temp);\n}\nreturn [ msgs ];*/",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
+        "x": 1230,
         "y": 400,
         "wires": [
             [
@@ -3140,7 +3123,7 @@
         "timeout": "10",
         "timeoutUnits": "seconds",
         "rate": "1",
-        "nbRateUnits": "5",
+        "nbRateUnits": "1.1",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
@@ -3148,13 +3131,14 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 500,
+        "x": 1440,
         "y": 400,
         "wires": [
             [
                 "f77bd105ba5952e2"
             ]
-        ]
+        ],
+        "info": "Make sure not to overdo calls to OpenAQ, which will kick you out."
     },
     {
         "id": "0fc681f15f4c0a3c",
@@ -3279,9 +3263,9 @@
         "id": "1558bbd775617803",
         "type": "comment",
         "z": "e288222e4422b317",
-        "name": "AmountPerCall set here",
+        "name": "AmountPerCall for OpenAQ Query set here",
         "info": "",
-        "x": 520,
+        "x": 580,
         "y": 520,
         "wires": []
     },
@@ -3289,7 +3273,7 @@
         "id": "176e30bef9fd6048",
         "type": "comment",
         "z": "e288222e4422b317",
-        "name": "Start the update every 45 minutes",
+        "name": "Start the update every 30 minutes",
         "info": "",
         "x": 170,
         "y": 360,
@@ -3312,11 +3296,11 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1040,
+        "x": 2200,
         "y": 400,
         "wires": [
             [
-                "22c8f3cd63933993"
+                "8846764ccbc9ca54"
             ]
         ]
     },
@@ -3341,9 +3325,9 @@
         "id": "9cd0bac27ed582f7",
         "type": "comment",
         "z": "e288222e4422b317",
-        "name": "Get all the OpenAQ data",
+        "name": "Get the OpenAQ data",
         "info": "",
-        "x": 730,
+        "x": 1660,
         "y": 360,
         "wires": []
     },
@@ -3353,25 +3337,122 @@
         "z": "e288222e4422b317",
         "name": "Time in seconds",
         "info": "",
-        "x": 1320,
+        "x": 2660,
         "y": 360,
         "wires": []
     },
     {
-        "id": "bc6f02e7669e32cf",
+        "id": "8846764ccbc9ca54",
         "type": "function",
         "z": "e288222e4422b317",
-        "name": "Get Size of Packet",
-        "func": "var str = JSON.stringify(msg);\nmsg.payload = str.length\nreturn msg;",
+        "name": "Decrease Queue Count",
+        "func": "flow.set(\"QueueSize\", flow.get(\"QueueSize\") - 1);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1090,
-        "y": 540,
+        "x": 2410,
+        "y": 400,
         "wires": [
-            []
+            [
+                "701f5ece9c09f9ac",
+                "22c8f3cd63933993"
+            ]
+        ]
+    },
+    {
+        "id": "67d3d72d44cbfa9f",
+        "type": "function",
+        "z": "e288222e4422b317",
+        "name": "If Yes, Allow Update To Runthrough Again",
+        "func": "flow.set(\"PageNum\", 1);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 400,
+        "wires": [
+            [
+                "701f5ece9c09f9ac"
+            ]
+        ]
+    },
+    {
+        "id": "8fb11ac6040540be",
+        "type": "switch",
+        "z": "e288222e4422b317",
+        "name": "Is last loop finished?",
+        "property": "end",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "PageNum",
+                "vt": "flow"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 460,
+        "y": 400,
+        "wires": [
+            [
+                "b07bdeb51c863d40"
+            ],
+            [
+                "67d3d72d44cbfa9f"
+            ]
+        ]
+    },
+    {
+        "id": "6e92378c31878e33",
+        "type": "function",
+        "z": "e288222e4422b317",
+        "name": "Prep",
+        "func": "msg.end = (flow.get('SensorAmount') / flow.get('AmountPerCall'));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nflow.set(\"PageNum\", (flow.get('SensorAmount') / flow.get('AmountPerCall')) + 1);\nflow.set(\"QueueSize\", 0);",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 400,
+        "wires": [
+            [
+                "8fb11ac6040540be"
+            ]
+        ]
+    },
+    {
+        "id": "b07bdeb51c863d40",
+        "type": "trigger",
+        "z": "e288222e4422b317",
+        "name": "If No, Check Again After Pause",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "15",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "topic",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 470,
+        "y": 320,
+        "wires": [
+            [
+                "8fb11ac6040540be"
+            ]
         ]
     }
 ]
