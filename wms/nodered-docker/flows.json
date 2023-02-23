@@ -8,136 +8,6 @@
         "env": []
     },
     {
-        "id": "eeac082b50da81c5",
-        "type": "mqtt-broker",
-        "name": "Central Nodes Reader",
-        "broker": "mqtt.circ.utdallas.edu",
-        "port": "8883",
-        "tls": "a262c54bb2fd3604",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": true,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "sessionExpiry": ""
-    },
-    {
-        "id": "a262c54bb2fd3604",
-        "type": "tls-config",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "",
-        "certname": "",
-        "keyname": "",
-        "caname": "ca-certificates.crt",
-        "servername": "",
-        "verifyservercert": true,
-        "alpnprotocol": ""
-    },
-    {
-        "id": "13a2a6da2720468e",
-        "type": "mqtt-broker",
-        "name": "Lora Nodes Reader",
-        "broker": "mqtt.lora.trecis.cloud",
-        "port": "1883",
-        "tls": "910f682d4a225c76",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "sessionExpiry": ""
-    },
-    {
-        "id": "910f682d4a225c76",
-        "type": "tls-config",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "",
-        "certname": "",
-        "keyname": "",
-        "caname": "ca-certificates.crt",
-        "servername": "",
-        "verifyservercert": true,
-        "alpnprotocol": ""
-    },
-    {
-        "id": "6d81027f06ed63bd",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "database",
-        "name": "InfluxDB",
-        "usetls": false,
-        "tls": "a262c54bb2fd3604",
-        "influxdbVersion": "2.0",
-        "url": "http://influxdb:8086",
-        "rejectUnauthorized": true
-    },
-    {
-        "id": "5c3a4e27.a99f9",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "192.168.0.203",
-        "port": "1883",
-        "clientid": "",
-        "usetls": false,
-        "compatmode": true,
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": ""
-    },
-    {
-        "id": "d50d0c9f.31e858",
-        "type": "tls-config",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "",
-        "certname": "",
-        "keyname": "",
-        "caname": "",
-        "servername": "",
-        "verifyservercert": false
-    },
-    {
         "id": "bb0cdc88eda0b26d",
         "type": "inject",
         "z": "abe7cd58d86f0bc8",
@@ -158,55 +28,12 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 70,
-        "y": 260,
+        "x": 130,
+        "y": 180,
         "wires": [
             [
-                "5b5c8bf1afb33545",
-                "8f08df45252865fb",
-                "e49e8252613c426c",
-                "f7192a0c09b896c3",
-                "38a2899145328480",
-                "e72532f1d2ce08f7"
+                "8f08df45252865fb"
             ]
-        ]
-    },
-    {
-        "id": "98668d42ec6d78bf",
-        "type": "debug",
-        "z": "abe7cd58d86f0bc8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1450,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "5b5c8bf1afb33545",
-        "type": "exec",
-        "z": "abe7cd58d86f0bc8",
-        "command": "wget -P /data/ecmwf-data/ https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/enkfgdas.20230221/00/atmos/mem001/",
-        "addpay": "",
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "",
-        "x": 860,
-        "y": 180,
-        "wires": [
-            [],
-            [
-                "98668d42ec6d78bf"
-            ],
-            []
         ]
     },
     {
@@ -214,159 +41,76 @@
         "type": "function",
         "z": "abe7cd58d86f0bc8",
         "name": "",
-        "func": "var d = new Date(msg.payload);\nvar day=d.getDate();  //day as a number 1 -31\nvar month=d.getMonth(); // month as a number 0-11\nvar year=String(d.getFullYear()); //year as a four digit number (yyyy)\nvar hours=d.getHours(); //the hour (0-23)\nvar stringDay;\nvar stringMonth;\nvar stringHours;\n//Making the date a valid format\nif(day < 10)\n{\n    stringDay = String(\"0\"+day);\n}\nelse\n{\n    stringDay = String(day);\n}\n\n//Making the month a valid format\nif(month < 10)\n{\n    stringMonth = String(\"0\"+month);\n}\nelse\n{\n    stringMonth = String(month);\n}\n\n//Finding out what time of day to download the data\nvar modHours = Math.floor(hours / 6);\n/*if(modHours == 0)\n    stringHours = \"00\";\nelse if(modHours == 1)\n    stringHours == \"06\";\nelse if(modHours == 2)\n    stringHours == \"12\";\nelse if(modHours == 3)\n    stringHours == \"18\";*/ \n//[modHours, day, month, year]\nvar payload = String(\"\")\nmsg.payload = String(\"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/enkfgdas.20230216/18/atmos/mem001/gdas.t18z.sfcf003.nc data/ecmwf-data/test2.nc\");\nreturn msg;",
-        "outputs": 1,
+        "func": "var d = new Date(msg.payload);\nd.setHours(d.getHours() - 6); //need to set the hours behind by 6 (since update frequency is 6 hours behind UTC)\nvar day=d.getDate();  //day as a number 1 -31\nvar month=d.getMonth(); // month as a number 0-11\nvar year=String(d.getFullYear()); //year as a four digit number (yyyy)\nvar hours=d.getHours(); //the hour (0-23)\n\n\n//Making the date a valid format\nnewPayload = String(\"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/enkfgdas.\"); //the payload for the download command\nnewPayload += year; //add the year\n\n//month formatting\nif(month < 10)\n{\n    newPayload  += String(\"0\"+(month+1));\n}\nelse\n{\n    newPayload += String(month+1);\n}\n\n//day formatting\nif(day < 10)\n{\n    newPayload += String(\"0\"+day);\n}\nelse\n{\n    newPayload += String(day);\n}\n\n//Finding out what time of day to download the data\nvar modHours = Math.floor(hours / 6);\nvar hold = \"\"; //holds the formatted hours (quarter of day)\nif(modHours < 2){   //00 06\n    hold = String(\"0\" + modHours*6);\n}\nelse{               //12 18\n    hold = String(modHours*6);\n}\n\n//adds to the command format\nnewPayload += String(\"/\" + hold + \"/atmos/mem\");\n\nvar dirMsg = []; //directory creation array\nvar downMsg = []; //download command array\n\nfor(let i=1; i <= 80; i++){ //run for each of the folders of data (80 times)\n    if(i<10){ //formatting of folders < 10\n        dirMsg.push({payload:String(\"/data/ecmwf-data/mem00\" + i)});\n        //the 3 commands for downloading\n        for(let j=1; j<=3; j++){\n            downMsg.push({payload:String(\"-P /data/ecmwf-data/mem00\" + i + \"/ \" + newPayload + \"00\" + i + \"/gdas.t\" + hold + \"z.sfcf00\" + j*3 + \".nc\")});\n        }\n    }\n    else{\n        dirMsg.push({payload:String(\"/data/ecmwf-data/mem0\" + i)});\n        //the 3 commands for downloading\n        for(let j=1; j<=3; j++){\n            downMsg.push({payload:String(\"-P /data/ecmwf-data/mem0\" + i + \"/ \" + newPayload + \"0\" + i + \"/gdas.t\" + hold + \"z.sfcf00\" + j*3 + \".nc\")});\n        }\n    }\n}\n\n//output1 = array of commands to make directory; output2 = array of commands to download each of the netCDF data files\nreturn [dirMsg, downMsg];",
+        "outputs": 2,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
-        "y": 480,
+        "x": 360,
+        "y": 180,
         "wires": [
             [
-                "1d7b5decbfdc2744"
-            ]
-        ]
-    },
-    {
-        "id": "1d7b5decbfdc2744",
-        "type": "switch",
-        "z": "abe7cd58d86f0bc8",
-        "name": "",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "cont",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "cont",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "t": "cont",
-                "v": "2",
-                "vt": "num"
-            },
-            {
-                "t": "cont",
-                "v": "3",
-                "vt": "num"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 4,
-        "x": 450,
-        "y": 480,
-        "wires": [
-            [
-                "e49e8252613c426c"
+                "d18b604d0eedd0c5"
             ],
             [
-                "f7192a0c09b896c3"
+                "f7d0c94641c98af7"
+            ]
+        ]
+    },
+    {
+        "id": "45cf630c80acc01a",
+        "type": "debug",
+        "z": "abe7cd58d86f0bc8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "5f5a5dcad368ef09",
+        "type": "exec",
+        "z": "abe7cd58d86f0bc8",
+        "command": "wget ",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 850,
+        "y": 200,
+        "wires": [
+            [],
+            [
+                "45cf630c80acc01a"
             ],
-            [
-                "38a2899145328480"
-            ],
-            [
-                "e72532f1d2ce08f7"
-            ]
+            []
         ]
     },
     {
-        "id": "210590750226a508",
-        "type": "function",
-        "z": "abe7cd58d86f0bc8",
-        "name": "",
-        "func": "\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 900,
-        "y": 240,
-        "wires": [
-            [
-                "6a19968b8552ceb9"
-            ]
-        ]
-    },
-    {
-        "id": "65204e74860b8b26",
-        "type": "function",
-        "z": "abe7cd58d86f0bc8",
-        "name": "",
-        "func": "\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 900,
-        "y": 320,
-        "wires": [
-            [
-                "c89997de42af753c"
-            ]
-        ]
-    },
-    {
-        "id": "9912b5407928fb2f",
-        "type": "function",
-        "z": "abe7cd58d86f0bc8",
-        "name": "",
-        "func": "\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 900,
-        "y": 400,
-        "wires": [
-            [
-                "f36919b0fb17c67c"
-            ]
-        ]
-    },
-    {
-        "id": "9db90b6b1738920d",
-        "type": "function",
-        "z": "abe7cd58d86f0bc8",
-        "name": "",
-        "func": "\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 900,
-        "y": 480,
-        "wires": [
-            [
-                "f2591ec3b34d89bb"
-            ]
-        ]
-    },
-    {
-        "id": "6a19968b8552ceb9",
+        "id": "d18b604d0eedd0c5",
         "type": "exec",
         "z": "abe7cd58d86f0bc8",
-        "command": "",
-        "addpay": "",
+        "command": "mkdir -p ",
+        "addpay": "payload",
         "append": "",
         "useSpawn": "false",
         "timer": "",
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 1110,
-        "y": 240,
+        "x": 660,
+        "y": 120,
         "wires": [
             [],
             [],
@@ -374,162 +118,27 @@
         ]
     },
     {
-        "id": "c89997de42af753c",
-        "type": "exec",
-        "z": "abe7cd58d86f0bc8",
-        "command": "",
-        "addpay": "",
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "",
-        "x": 1110,
-        "y": 320,
-        "wires": [
-            [],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "f36919b0fb17c67c",
-        "type": "exec",
-        "z": "abe7cd58d86f0bc8",
-        "command": "",
-        "addpay": "",
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "",
-        "x": 1110,
-        "y": 400,
-        "wires": [
-            [],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "f2591ec3b34d89bb",
-        "type": "exec",
-        "z": "abe7cd58d86f0bc8",
-        "command": "",
-        "addpay": "",
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "",
-        "x": 1110,
-        "y": 480,
-        "wires": [
-            [],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "e49e8252613c426c",
-        "type": "join",
+        "id": "f7d0c94641c98af7",
+        "type": "delay",
         "z": "abe7cd58d86f0bc8",
         "name": "",
-        "mode": "auto",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "accumulate": true,
-        "timeout": "",
-        "count": "",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 730,
-        "y": 240,
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 660,
+        "y": 200,
         "wires": [
             [
-                "210590750226a508"
-            ]
-        ]
-    },
-    {
-        "id": "f7192a0c09b896c3",
-        "type": "join",
-        "z": "abe7cd58d86f0bc8",
-        "name": "",
-        "mode": "auto",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "accumulate": "false",
-        "timeout": "",
-        "count": "",
-        "reduceRight": false,
-        "x": 730,
-        "y": 320,
-        "wires": [
-            [
-                "65204e74860b8b26"
-            ]
-        ]
-    },
-    {
-        "id": "38a2899145328480",
-        "type": "join",
-        "z": "abe7cd58d86f0bc8",
-        "name": "",
-        "mode": "auto",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "accumulate": "false",
-        "timeout": "",
-        "count": "",
-        "reduceRight": false,
-        "x": 730,
-        "y": 400,
-        "wires": [
-            [
-                "9912b5407928fb2f"
-            ]
-        ]
-    },
-    {
-        "id": "e72532f1d2ce08f7",
-        "type": "join",
-        "z": "abe7cd58d86f0bc8",
-        "name": "",
-        "mode": "auto",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "accumulate": "false",
-        "timeout": "",
-        "count": "",
-        "reduceRight": false,
-        "x": 730,
-        "y": 480,
-        "wires": [
-            [
-                "9db90b6b1738920d"
+                "5f5a5dcad368ef09"
             ]
         ]
     }
