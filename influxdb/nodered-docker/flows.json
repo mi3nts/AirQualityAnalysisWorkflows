@@ -3021,7 +3021,7 @@
         "limit": "2000",
         "page": 1,
         "name": "",
-        "x": 1610,
+        "x": 1830,
         "y": 400,
         "wires": [
             [
@@ -3043,7 +3043,7 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "OpenAQ",
-        "x": 2660,
+        "x": 2860,
         "y": 400,
         "wires": []
     },
@@ -3072,7 +3072,7 @@
         "y": 400,
         "wires": [
             [
-                "6e92378c31878e33"
+                "ecfd076922de93b2"
             ]
         ]
     },
@@ -3081,13 +3081,13 @@
         "type": "function",
         "z": "e288222e4422b317",
         "name": "Parse Data Into Packets For Influxdb",
-        "func": "divide_results = (result) => result.measurements.map(\n    (measurement) => ([\n        {//values\n            time: Date.parse(measurement.lastUpdated),\n            value: measurement.value,\n        },\n        {//tags\n            ...result.coordinates, //how should coordinates be stored?\n            parameter: measurement.parameter,\n            country: result.country,\n            city: result.city,\n            location: result.location,\n            unit: measurement.unit,\n        }\n    ])\n)\n\nis_cached = ([values, tags]) =>\n    values.time\n    !== cache.put(tags.location, tags.parameter, values.time)\n\n// could drop the != null, but then it would fail for the coordinates (0,0)\nhas_coordinates = ({coordinates}) =>\n    coordinates?.longitude != null && coordinates?.latitude != null\n\nmsg.payload = msg.payload.results\n    .filter(has_coordinates)\n    .map(divide_results)\n    .flat()\n    .filter(is_cached)\n\n\nvar msgs = [];\nwhile(msg.payload.length) {\n    var temp = {payload:(msg.payload).splice(0, 500), measurement:\"OpenAQ\"}\n    msgs.push(temp)\n}\n\nflow.set(\"QueueSize\", flow.get(\"QueueSize\") + msgs.length)\n\nreturn [ msgs ]",
+        "func": "divide_results = (result) => result.measurements.map(\n    (measurement) => ([\n        {//values\n            time: Date.parse(measurement.lastUpdated),\n            value: measurement.value,\n        },\n        {//tags\n            ...result.coordinates, //how should coordinates be stored?\n            parameter: measurement.parameter,\n            country: result.country,\n            city: result.city,\n            location: result.location,\n            unit: measurement.unit,\n        }\n    ])\n)\n\nis_cached = ([values, tags]) =>\n    values.time\n    !== cache.put(tags.location, tags.parameter, values.time)\n\n// could drop the != null, but then it would fail for the coordinates (0,0)\nhas_coordinates = ({coordinates}) =>\n    coordinates?.longitude != null && coordinates?.latitude != null\n\nmsg.payload = msg.payload.results\n    .filter(has_coordinates)\n    .map(divide_results)\n    .flat()\n    .filter(is_cached)\n\n\nvar msgs = [];\nwhile(msg.payload.length) {\n    var temp = {payload:(msg.payload).splice(0, 500), measurement:\"OpenAQ\"}\n    msgs.push(temp)\n}\n\n\nif(msgs.length !== 0 || flow.get(\"QueueSize\") != 0) {\n    flow.set(\"QueueSize\", flow.get(\"QueueSize\") + msgs.length)\n    return [ msgs ];\n} else {\n    // check to make sure that the queue does not have nothing in it.\n    // If nothing ever goes through it, then no new calls to OpenAQ will be made\n    msg.payload = \"nothing\"\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\nclass Cache {\n    constructor() {\n        this.cache = {}\n    }\n    \n    put(location, parameter, time) {\n        const old = this.cache.location?.parameter\n        if (this.cache.location === undefined) {\n            this.cache.location = {}\n        }\n        this.cache.location.parameter = time\n        return old\n    }\n}\ncache = new Cache()",
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nclass Cache {\n    constructor() {\n        this.cache = {}\n    }\n    \n    put(location, parameter, time) {\n        const old = this.cache[location + \",\" + parameter]\n        this.cache[location + \",\" + parameter] = time\n        return old\n    }\n}\ncache = new Cache()",
         "finalize": "",
         "libs": [],
-        "x": 1830,
+        "x": 2090,
         "y": 400,
         "wires": [
             [
@@ -3100,13 +3100,13 @@
         "type": "function",
         "z": "e288222e4422b317",
         "name": "Partition Calls To OpenAQ",
-        "func": "var SensorAmount = flow.get('SensorAmount');\nvar AmountPerCall = flow.get('AmountPerCall');\nvar i = flow.get(\"PageNum\");\n\nif(flow.get(\"QueueSize\") <= 3 && i <= (SensorAmount / AmountPerCall)) {\n    msg.page = i;\n    msg.limit = AmountPerCall;\n    flow.set(\"PageNum\", i + 1);\n    return msg;\n}\nreturn null;\n\n\n\n\n\n/*var SensorAmount = flow.get('SensorAmount');\nvar AmountPerCall = flow.get('AmountPerCall');\nvar msgs = [];\n\nfor(var i = 1; i <= (SensorAmount / AmountPerCall); ++i) {\n    var temp = {page:i, limit:AmountPerCall };\n    msgs.push(temp);\n}\nreturn [ msgs ];*/",
+        "func": "var SensorAmount = flow.get('SensorAmount');\nvar AmountPerCall = flow.get('AmountPerCall');\nvar i = flow.get(\"PageNum\");\n\nif(flow.get(\"QueueSize\") <= 3 && i <= (SensorAmount / AmountPerCall)) {\n    msg.page = i;\n    msg.limit = AmountPerCall;\n    flow.set(\"PageNum\", i + 1);\n    return msg;\n}\nreturn null;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1230,
+        "x": 1430,
         "y": 400,
         "wires": [
             [
@@ -3131,7 +3131,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1440,
+        "x": 1660,
         "y": 400,
         "wires": [
             [
@@ -3139,64 +3139,6 @@
             ]
         ],
         "info": "Make sure not to overdo calls to OpenAQ, which will kick you out."
-    },
-    {
-        "id": "0fc681f15f4c0a3c",
-        "type": "inject",
-        "z": "e288222e4422b317",
-        "name": "Daily Refresh",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "00 12 * * *",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 120,
-        "y": 560,
-        "wires": [
-            [
-                "ecfd076922de93b2"
-            ]
-        ]
-    },
-    {
-        "id": "8437fe30c4e851ed",
-        "type": "inject",
-        "z": "e288222e4422b317",
-        "name": "Initial",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 90,
-        "y": 620,
-        "wires": [
-            [
-                "ecfd076922de93b2"
-            ]
-        ]
     },
     {
         "id": "ecfd076922de93b2",
@@ -3223,29 +3165,10 @@
         "page": 1,
         "name": "",
         "x": 330,
-        "y": 560,
+        "y": 400,
         "wires": [
             [
-                "4f58c021c6dd7360"
-            ]
-        ]
-    },
-    {
-        "id": "4f58c021c6dd7360",
-        "type": "function",
-        "z": "e288222e4422b317",
-        "name": "Round Up",
-        "func": "var AmountPerCall = 2000;\nflow.set('AmountPerCall', AmountPerCall);\nflow.set('SensorAmount', (Math.ceil(msg.payload.meta.found / AmountPerCall) + 1) * AmountPerCall);\nmsg.payload = \"Updated: Sensor Amount = \" + flow.get('SensorAmount');\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 560,
-        "wires": [
-            [
-                "175d53dcf4423bdb"
+                "6e92378c31878e33"
             ]
         ]
     },
@@ -3255,8 +3178,8 @@
         "z": "e288222e4422b317",
         "name": "Updates the number of Sensors",
         "info": "",
-        "x": 170,
-        "y": 520,
+        "x": 330,
+        "y": 460,
         "wires": []
     },
     {
@@ -3266,7 +3189,7 @@
         "name": "AmountPerCall for OpenAQ Query set here",
         "info": "",
         "x": 580,
-        "y": 520,
+        "y": 500,
         "wires": []
     },
     {
@@ -3296,7 +3219,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 2200,
+        "x": 2420,
         "y": 400,
         "wires": [
             [
@@ -3305,29 +3228,12 @@
         ]
     },
     {
-        "id": "175d53dcf4423bdb",
-        "type": "debug",
-        "z": "e288222e4422b317",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 670,
-        "y": 560,
-        "wires": []
-    },
-    {
         "id": "9cd0bac27ed582f7",
         "type": "comment",
         "z": "e288222e4422b317",
         "name": "Get the OpenAQ data",
         "info": "",
-        "x": 1660,
+        "x": 1880,
         "y": 360,
         "wires": []
     },
@@ -3337,7 +3243,7 @@
         "z": "e288222e4422b317",
         "name": "Time in seconds",
         "info": "",
-        "x": 2660,
+        "x": 2840,
         "y": 360,
         "wires": []
     },
@@ -3352,7 +3258,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2410,
+        "x": 2630,
         "y": 400,
         "wires": [
             [
@@ -3372,7 +3278,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 760,
+        "x": 1000,
         "y": 400,
         "wires": [
             [
@@ -3400,7 +3306,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 460,
+        "x": 680,
         "y": 400,
         "wires": [
             [
@@ -3416,13 +3322,13 @@
         "type": "function",
         "z": "e288222e4422b317",
         "name": "Prep",
-        "func": "msg.end = (flow.get('SensorAmount') / flow.get('AmountPerCall'));\nreturn msg;",
+        "func": "var AmountPerCall = 2000;\nflow.set('AmountPerCall', AmountPerCall);\nflow.set('SensorAmount', (Math.ceil(msg.payload.meta.found / AmountPerCall) + 1) * AmountPerCall);\n\n\nmsg.end = (flow.get('SensorAmount') / flow.get('AmountPerCall'));\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "// Code added here will be run once\n// whenever the node is started.\n\nflow.set(\"PageNum\", (flow.get('SensorAmount') / flow.get('AmountPerCall')) + 1);\nflow.set(\"QueueSize\", 0);",
         "finalize": "",
         "libs": [],
-        "x": 250,
+        "x": 470,
         "y": 400,
         "wires": [
             [
@@ -3447,7 +3353,7 @@
         "bytopic": "topic",
         "topic": "topic",
         "outputs": 1,
-        "x": 470,
+        "x": 690,
         "y": 320,
         "wires": [
             [
