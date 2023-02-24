@@ -12,10 +12,12 @@ services:
       - type: bind
         source: ${DOCKER_INFLUXDB_CONFIG_BM:?err}
         target: /etc/influxdb2
+      - ./influxdb-docker/scripts:/docker-entrypoint-initdb.d
+
     networks:
       - shared
     restart: unless-stopped
-
+    
     ports:
       - '8086:8086'
     environment:
