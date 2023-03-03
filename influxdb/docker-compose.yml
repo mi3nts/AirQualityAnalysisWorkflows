@@ -10,9 +10,12 @@ services:
         source: ${DOCKER_INFLUXDB_DATA_BM:?err}
         target: /var/lib/influxdb2
       - type: bind
-        source: ${DOCKER_INFLUXDB_CONFIG_BM:?err}
-        target: /etc/influxdb2
-      - ./influxdb-docker/scripts:/docker-entrypoint-initdb.d
+        source: ./influxdb-docker/scripts
+        target: /scripts
+#      - type: bind
+#        source: ${DOCKER_INFLUXDB_CONFIG_BM:?err}
+#        target: /etc/influxdb2
+#      - ./influxdb-docker/scripts:/docker-entrypoint-initdb.d
 
     networks:
       - shared

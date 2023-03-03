@@ -1,10 +1,14 @@
-setup: build up
+setup: build up update-buckets
 
 build-nodered: nodered-docker/Dockerfile .env
 	docker compose build nodered
 
 build-influxdb: influxdb-docker/Dockerfile .env
 	docker compose build influxdb
+
+update-buckets: influxdb-docker/Dockerfile .env
+	sleep 2
+	docker compose exec influxdb bash /scripts/update_buckets.sh
 
 build-grafana: grafana-docker/Dockerfile .env
 	docker compose build grafana
