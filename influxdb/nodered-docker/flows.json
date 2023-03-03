@@ -1153,7 +1153,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2100,
+        "x": 1940,
         "y": 2520,
         "wires": [
             [
@@ -1397,7 +1397,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1440,
-        "y": 3220,
+        "y": 3420,
         "wires": [
             [
                 "b876e919a08b38f8"
@@ -1413,7 +1413,7 @@
         "action": "",
         "pretty": false,
         "x": 1610,
-        "y": 3220,
+        "y": 3420,
         "wires": [
             [
                 "4580469327b1425c"
@@ -1434,7 +1434,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 2010,
-        "y": 3220,
+        "y": 3420,
         "wires": []
     },
     {
@@ -1449,7 +1449,7 @@
         "finalize": "",
         "libs": [],
         "x": 1810,
-        "y": 3220,
+        "y": 3420,
         "wires": [
             [
                 "441152fd425484b7",
@@ -1630,6 +1630,80 @@
         "pretty": false,
         "x": 1730,
         "y": 3120,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "539acf77c7f823e4",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "IPS7100CNR",
+        "topic": "+/IPS7100CNR",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1450,
+        "y": 3200,
+        "wires": [
+            [
+                "df355e7be9a74e7b"
+            ]
+        ]
+    },
+    {
+        "id": "df355e7be9a74e7b",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3200,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "2ad07dace2580777",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BME688CNR",
+        "topic": "+/BME688CNR",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1450,
+        "y": 3280,
+        "wires": [
+            [
+                "f74ecc2fbd8763e3"
+            ]
+        ]
+    },
+    {
+        "id": "f74ecc2fbd8763e3",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3280,
         "wires": [
             [
                 "304ca8d3d559712f"
