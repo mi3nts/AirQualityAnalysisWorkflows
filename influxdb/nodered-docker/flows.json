@@ -3042,7 +3042,7 @@
         "precisionV18FluxV20": "ms",
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "OpenAQ",
+        "bucket": "open-aq",
         "x": 2860,
         "y": 400,
         "wires": []
