@@ -898,7 +898,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1430,
-        "y": 2520,
+        "y": 2540,
         "wires": [
             [
                 "278c5aa6feda144e"
@@ -913,8 +913,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 1710,
-        "y": 2520,
+        "x": 1730,
+        "y": 2540,
         "wires": [
             [
                 "8d9af69181100715"
@@ -935,7 +935,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1430,
-        "y": 2720,
+        "y": 2700,
         "wires": [
             [
                 "4e299df659bb1c76"
@@ -951,7 +951,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 2720,
+        "y": 2700,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1098,7 +1098,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 1440,
+        "x": 1430,
         "y": 2620,
         "wires": [
             [
@@ -1133,8 +1133,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2270,
-        "y": 1520,
+        "x": 2330,
+        "y": 1540,
         "wires": [
             [
                 "2063a5a03a32230e",
@@ -1153,8 +1153,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1940,
-        "y": 2520,
+        "x": 2100,
+        "y": 2540,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1249,7 +1249,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1450,
-        "y": 2820,
+        "y": 2780,
         "wires": [
             [
                 "13685bb0d08ecd8b"
@@ -1265,7 +1265,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 2820,
+        "y": 2780,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1323,7 +1323,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1430,
-        "y": 2920,
+        "y": 2880,
         "wires": [
             [
                 "d7b72bd247129e11"
@@ -1339,7 +1339,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 2920,
+        "y": 2880,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1360,7 +1360,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1430,
-        "y": 3020,
+        "y": 2980,
         "wires": [
             [
                 "d292d35c514eb7ae"
@@ -1376,7 +1376,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 3020,
+        "y": 2980,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1397,7 +1397,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1440,
-        "y": 3420,
+        "y": 3540,
         "wires": [
             [
                 "b876e919a08b38f8"
@@ -1413,7 +1413,7 @@
         "action": "",
         "pretty": false,
         "x": 1610,
-        "y": 3420,
+        "y": 3540,
         "wires": [
             [
                 "4580469327b1425c"
@@ -1434,7 +1434,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 2010,
-        "y": 3420,
+        "y": 3540,
         "wires": []
     },
     {
@@ -1449,7 +1449,7 @@
         "finalize": "",
         "libs": [],
         "x": 1810,
-        "y": 3420,
+        "y": 3540,
         "wires": [
             [
                 "441152fd425484b7",
@@ -1585,8 +1585,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2450,
-        "y": 1420,
+        "x": 2690,
+        "y": 1460,
         "wires": []
     },
     {
@@ -1613,7 +1613,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1430,
-        "y": 3120,
+        "y": 3060,
         "wires": [
             [
                 "972fd529d85470f3"
@@ -1629,7 +1629,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 3120,
+        "y": 3060,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1650,7 +1650,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1450,
-        "y": 3200,
+        "y": 3140,
         "wires": [
             [
                 "df355e7be9a74e7b"
@@ -1666,7 +1666,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 3200,
+        "y": 3140,
         "wires": [
             [
                 "304ca8d3d559712f"
@@ -1687,7 +1687,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1450,
-        "y": 3280,
+        "y": 3220,
         "wires": [
             [
                 "f74ecc2fbd8763e3"
@@ -1703,7 +1703,118 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 3280,
+        "y": 3220,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "c440625f4e40271a",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "SCD30CC",
+        "topic": "+/SCD30CC",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 3300,
+        "wires": [
+            [
+                "3959715832501082"
+            ]
+        ]
+    },
+    {
+        "id": "3959715832501082",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3300,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "c2e73f518be86f0f",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BME280CC",
+        "topic": "+/BME280CC",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1450,
+        "y": 3380,
+        "wires": [
+            [
+                "86ceec0f038525d3"
+            ]
+        ]
+    },
+    {
+        "id": "86ceec0f038525d3",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3380,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "090215285f55bce1",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BME680CC",
+        "topic": "+/BME680CC",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1450,
+        "y": 3460,
+        "wires": [
+            [
+                "335888d9651ec940"
+            ]
+        ]
+    },
+    {
+        "id": "335888d9651ec940",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3460,
         "wires": [
             [
                 "304ca8d3d559712f"
