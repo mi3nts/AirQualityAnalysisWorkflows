@@ -14,7 +14,7 @@ services:
       - type: bind
         source: ${DOCKER_WMS_DATA_BM:?err}
         target: ${SKINNYWMS_DATA_PATH:?err}
-      # - '.:/app/skinnywms:ro'
+      - './skinnywms:/app/skinnywms:ro'
       # - './skinnywms/testdata:/data:ro'
     networks:
       - shared
