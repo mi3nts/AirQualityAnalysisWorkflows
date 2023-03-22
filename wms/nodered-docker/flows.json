@@ -42,8 +42,8 @@
         "type": "function",
         "z": "abe7cd58d86f0bc8",
         "name": "",
-        "func": "var d = new Date(msg.payload);\nd.setHours(d.getHours() - 6); //need to set the hours behind by 6 (since update frequency is 6 hours behind UTC)\nvar day=d.getDate();  //day as a number 1 -31\nvar month=d.getMonth(); //month as a number 0-11\nvar year=String(d.getFullYear()); //year as a four digit number (yyyy)\nvar hours=d.getHours(); //the hour (0-23)\nvar currDate=String(day + \"_\" + (month+1) + \"_\" + year); //the current date as a string (dd_mm_yyyy)\n\n//Making the date a valid format\nnewPayload = String(\"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/enkfgdas.\"); //the payload for the download command\nnewPayload += year; //add the year\n\n//month formatting\nif(month < 10)\n{\n    newPayload  += String(\"0\"+(month+1));\n}\nelse\n{\n    newPayload += String(month+1);\n}\n\n//day formatting\nif(day < 10)\n{\n    newPayload += String(\"0\"+day);\n}\nelse\n{\n    newPayload += String(day);\n}\n\n//Finding out what time of day to download the data\nvar modHours = Math.floor(hours / 6);\nvar quarter = \"\"; //holds the formatted hours (quarter of day)\nif(modHours < 2){   //'00' or '06'\n    quarter = String(\"0\" + modHours*6);\n}\nelse{               //'12' or '18'\n    quarter = String(modHours*6);\n}\n\n//adds to the command format\nnewPayload += String(\"/\" + quarter + \"/atmos/mem\");\n\nvar dirMsg = []; //directory creation array\nvar downMsg = []; //download command array\n\nfor(let i=1; i <= 80; i++){ //run for each of the folders of data (80 times)\n    if(i<10){ //formatting of folders < 10\n        dirMsg.push({payload:String(\"/data/ecmwf-data/\" + currDate + \"/\" + quarter + \"/mem00\" + i)});\n        //the 3 commands for downloading\n        for(let j=1; j<=3; j++){\n            downMsg.push({payload:String(\"-P /data/ecmwf-data/\" + currDate + \"/\" + quarter + \"/mem00\" + i + \"/ \" + newPayload + \"00\" + i + \"/gdas.t\" + quarter + \"z.sfcf00\" + j*3 + \".nc\")});\n        }\n    }\n    else{\n        dirMsg.push({payload:String(\"/data/ecmwf-data/\" + currDate + \"/\" + quarter + \"/mem0\" + i)});\n        //the 3 commands for downloading\n        for(let j=1; j<=3; j++){\n            downMsg.push({payload:String(\"-P /data/ecmwf-data/\" + currDate + \"/\" + quarter + \"/mem0\" + i + \"/ \" + newPayload + \"0\" + i + \"/gdas.t\" + quarter + \"z.sfcf00\" + j*3 + \".nc\")});\n        }\n    }\n}\n\n//output1 = array of commands to make directory; output2 = array of commands to download each of the netCDF data files\nreturn [dirMsg, downMsg];",
-        "outputs": 2,
+        "func": "var d = new Date(msg.payload);\n\nvar day=d.getDate();  //day as a number 1 -31\nvar month=d.getMonth(); //month as a number 0-11\nvar year=String(d.getFullYear()); //year as a four digit number (yyyy)\nvar hours=d.getHours(); //the hour (0-23)\nvar currDate=String(day + \"_\" + (month+1) + \"_\" + year); //the current date as a string (dd_mm_yyyy)\n\n//make sure date will be correct - need to set the hours behind by 6 (since update frequency is 6 hours behind UTC)\nif(Math.floor(hours/6) == 0){\n    //if Jan 1\n    if(month == 1 && day == 1){\n        year -= 1;\n        month = 12;\n        day = 31;\n    }\n    //if previous month has 30 days && day 1 of current month\n    else if((month == 5 || month == 7 || month == 8 || month == 10 || month == 12) && day == 1){\n        month -= 1;\n        day = 30;\n    }\n    //if March 1\n    else if(month == 3 && day == 1){\n        month -= 1;\n        //check leap year\n        if(year % 4 == 0){\n            day = 29;\n        }\n        else{\n            day = 28;\n        }\n    }\n    //if previous month had 31 days && day 1 of current month\n    else if((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day == 1){\n        month -= 1;\n        day = 31;\n    }\n    else{\n        day -= 1;\n    }\n    hours = 18;\n}\nelse{\n    hours -= 6;\n}\n\n//Making the date a valid format\nnewPayload = String(\"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.\"); //the payload for the download command\nnewPayload += year; //add the year\n\n//month formatting\nif(month < 10)\n{\n    newPayload  += String(\"0\"+(month+1));\n}\nelse\n{\n    newPayload += String(month+1);\n}\n\n//day formatting\nif(day < 10)\n{\n    newPayload += String(\"0\"+day);\n}\nelse\n{\n    newPayload += String(day);\n}\n\n//Finding out what time of day to download the data\n\n//ref hour\nvar refHours = Math.floor(hours / 6);\nvar quarter = \"\"; //holds the formatted hours (quarter of day)\nif(refHours < 2){   //'00' or '06'\n    quarter = String(\"0\" + refHour*6);\n}\nelse{               //'12' or '18'\n    quarter = String(refHours*6);\n}\n\n//recorded hour\nvar recHours = Math.floor(hours / 3) * 3;\n\nvar hourWithinRef = Math.abs(recHours - (refHours * 6)); //multiple refHours * 6 so that it is formatted correctly *NOTE will always be 000 or 003\n\n//adds to the command format\nnewPayload += String(\"/\" + quarter + \"/atmos/gfs.t\" + quarter + \"z.pgrb2.1p00.f00\" + hourWithinRef); //full download url\nvar fileName = String(\"gfs.t\" + quarter + \"z.pgrb2.1p00.f00\" + hourWithinRef); //fileName formatting\nvar filePath = String(\"/data/ecmwf-data/\" + currDate + \"/\" + quarter + \"/00\" + hourWithinRef + \"/\"); //filePath formatting\n\nvar dirMsg = []; //directory creation array\nvar downMsg = []; //download command array\nvar renameMsg = []; //rename to correct format\n\ndirMsg.push({payload:String(filePath)});\n//https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs. 20230322/12/atmos/\ndownMsg.push({payload:String(\"-P \" + filePath + \" \" + newPayload)});\nrenameMsg.push({payload:String(filePath + fileName + \" \" + filePath + fileName + \".grib2\")});\n\n//output1 = array of commands to make directory; output2 = array of commands to download each of the netCDF data files\nreturn [dirMsg, downMsg, renameMsg];",
+        "outputs": 3,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -56,6 +56,9 @@
             ],
             [
                 "f7d0c94641c98af7"
+            ],
+            [
+                "20115c59d544db92"
             ]
         ]
     },
@@ -64,7 +67,7 @@
         "type": "debug",
         "z": "abe7cd58d86f0bc8",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -186,6 +189,53 @@
             [
                 "8f08df45252865fb"
             ]
+        ]
+    },
+    {
+        "id": "20115c59d544db92",
+        "type": "delay",
+        "z": "abe7cd58d86f0bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 760,
+        "y": 280,
+        "wires": [
+            [
+                "1a9a6fc9a8429a6c"
+            ]
+        ]
+    },
+    {
+        "id": "1a9a6fc9a8429a6c",
+        "type": "exec",
+        "z": "abe7cd58d86f0bc8",
+        "command": "mv ",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 930,
+        "y": 280,
+        "wires": [
+            [],
+            [
+                "45cf630c80acc01a"
+            ],
+            []
         ]
     }
 ]
