@@ -4,7 +4,7 @@ services:
   skinnywms:
     build:
       context: ./
-      dockerfile: wms-docker/Dockerfile
+      dockerfile: skinnywms/Dockerfile
       args:
         - PYTHON_IMAGE=python:3.8-slim-buster
         - http_proxy
