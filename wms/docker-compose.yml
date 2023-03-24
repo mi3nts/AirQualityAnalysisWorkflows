@@ -49,6 +49,16 @@ services:
     depends_on:
       - skinnywms
     restart: unless-stopped
+    
+  miniconda:
+    build:
+      dockerfile: ./miniconda/Dockerfile
+    volumes:
+      - type: bind
+        source: ${DOCKER_WMS_DATA_BM:?err}
+        target: /data
+    networks:
+      - shared
 
 networks:
   shared:
