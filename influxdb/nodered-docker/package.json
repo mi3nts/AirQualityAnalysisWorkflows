@@ -30,7 +30,8 @@
   ],
   "dependencies": {
     "node-red": "2.2.2",
-    "node-red-contrib-influxdb": "^0.6.1"
+    "node-red-contrib-influxdb": "^0.6.1",
+    "node-red-contrib-openaq": "0.0.6"
   },
   "engines": {
     "node": ">=12"
