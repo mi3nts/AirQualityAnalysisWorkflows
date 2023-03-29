@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  miniconda:
+    build:
+      dockerfile: ./Dockerfile
+    volumes:
+      - type: bind
+        source: ./data
+        target: /data
+    networks:
+      - shared
+
+networks:
+  shared:
