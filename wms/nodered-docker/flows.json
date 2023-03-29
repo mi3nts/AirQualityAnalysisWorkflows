@@ -21,9 +21,9 @@
                 "vt": "str"
             }
         ],
-        "repeat": "21600",
-        "crontab": "",
-        "once": true,
+        "repeat": "",
+        "crontab": "00 00 * * *",
+        "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
@@ -236,6 +236,93 @@
                 "45cf630c80acc01a"
             ],
             []
+        ]
+    },
+    {
+        "id": "689bf72773aed46d",
+        "type": "inject",
+        "z": "abe7cd58d86f0bc8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 06 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "fcaae73723d16e2d"
+            ]
+        ]
+    },
+    {
+        "id": "05d6f8064c6b546d",
+        "type": "inject",
+        "z": "abe7cd58d86f0bc8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 12 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "fcaae73723d16e2d"
+            ]
+        ]
+    },
+    {
+        "id": "2a1a0a8ce855a162",
+        "type": "inject",
+        "z": "abe7cd58d86f0bc8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 18 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 360,
+        "wires": [
+            [
+                "fcaae73723d16e2d"
+            ]
         ]
     }
 ]
