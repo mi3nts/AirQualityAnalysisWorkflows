@@ -57,6 +57,9 @@ services:
       - type: bind
         source: ${DOCKER_WMS_DATA_BM:?err}
         target: /data
+      - type: bind
+        source: ./conda_scripts
+        target: /scripts
     networks:
       - shared
 
