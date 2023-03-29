@@ -4,7 +4,7 @@ services:
   skinnywms:
     build:
       context: ./
-      dockerfile: wms-docker/Dockerfile
+      dockerfile: skinnywms/Dockerfile
       args:
         - PYTHON_IMAGE=python:3.8-slim-buster
         - http_proxy
@@ -14,7 +14,7 @@ services:
       - type: bind
         source: ${DOCKER_WMS_DATA_BM:?err}
         target: ${SKINNYWMS_DATA_PATH:?err}
-      # - '.:/app/skinnywms:ro'
+      - './skinnywms:/app/skinnywms:ro'
       # - './skinnywms/testdata:/data:ro'
     networks:
       - shared
@@ -49,6 +49,19 @@ services:
     depends_on:
       - skinnywms
     restart: unless-stopped
+    
+  miniconda:
+    build:
+      dockerfile: ./miniconda/Dockerfile
+    volumes:
+      - type: bind
+        source: ${DOCKER_WMS_DATA_BM:?err}
+        target: /data
+      - type: bind
+        source: ./conda_scripts
+        target: /scripts
+    networks:
+      - shared
 
 networks:
   shared:

@@ -3,7 +3,7 @@ setup: build up
 build-nodered: nodered-docker/Dockerfile .env
 	docker compose build nodered
 
-build-wms: wms-docker/Dockerfile .env
+build-wms: skinnywms/Dockerfile .env
 	docker compose build wms
 
 build-dashboards: build-nodered build-wms .env
