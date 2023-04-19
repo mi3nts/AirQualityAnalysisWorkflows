@@ -1,8 +1,8 @@
 # docker-compose.yml
 # note: we can add restart:always to make the container run on reboot
 version: '3'
-services: 
-  influxdb: 
+services:
+  influxdb:
     build: ./influxdb-docker
     image: mints-influxdb
     volumes:
@@ -12,15 +12,15 @@ services:
       - type: bind
         source: ./influxdb-docker/scripts
         target: /scripts
-#      - type: bind
-#        source: ${DOCKER_INFLUXDB_CONFIG_BM:?err}
-#        target: /etc/influxdb2
-#      - ./influxdb-docker/scripts:/docker-entrypoint-initdb.d
+    #      - type: bind
+    #        source: ${DOCKER_INFLUXDB_CONFIG_BM:?err}
+    #        target: /etc/influxdb2
+    #      - ./influxdb-docker/scripts:/docker-entrypoint-initdb.d
 
     networks:
       - shared
     restart: unless-stopped
-    
+
     ports:
       - '8086:8086'
     environment:
@@ -30,7 +30,7 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG=${DOCKER_INFLUXDB_INIT_ORG:?err}
       - DOCKER_INFLUXDB_INIT_BUCKET=${DOCKER_INFLUXDB_INIT_BUCKET:?err}
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN:?err}
-    
+
   nodered:
     build: ./nodered-docker
     image: mints-nodered
@@ -59,6 +59,10 @@ services:
       - "3000:3000"
     networks:
       - shared
+    volumes:
+      - type: bind
+        source: ${GF_CUSTOM_PLUGINS:?err}
+        target: ${GF_PLUGINS_DESTINATION:?err}
     environment:
       - DOCKER_INFLUXDB_INIT_ORG=${DOCKER_INFLUXDB_INIT_ORG:?err}
       - DOCKER_INFLUXDB_INIT_BUCKET=${DOCKER_INFLUXDB_INIT_BUCKET:?err}

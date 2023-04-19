@@ -10,7 +10,7 @@ to Git!
 You may want to make a copy of `.example.env` to start with.
 
 ```shell
-cp .example.env .env
+cp .env .env
 ```
 
 ### InfluxDB Configuration

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "WMS Layer",
+  "id": "mintswmsgroup-wmslayer-panel",
+  "info": {
+    "keywords": ["panel"],
+    "description": "Plugin to visualize wms data on grafana",
+    "author": {
+      "name": "MINTS WMS Group"
+    },
+    "logos": {
+      "small": "img/Group-83.png",
+      "large": "img/Group-83.png"
+    },
+    "links": [],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=9.3.8",
+    "plugins": []
+  }
+}

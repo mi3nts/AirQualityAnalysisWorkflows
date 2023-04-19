@@ -1,0 +1,42 @@
+{
+  "type": "panel",
+  "name": "WindRose",
+  "id": "fatcloud-windrose-panel",
+  "info": {
+    "description": "Make windrose plots",
+    "author": {
+      "name": "Cloud",
+      "url": "https://github.com/fatcloud"
+    },
+    "keywords": [
+      "windrose",
+      "panel"
+    ],
+    "logos": {
+      "small": "img/windrose_logo.svg",
+      "large": "img/windrose_logo.svg"
+    },
+    "links": [
+      {
+        "name": "Github",
+        "url": "https://github.com/fatcloud/windrose-panel"
+      }
+    ],
+    "screenshots": [
+      {
+        "name": "Showcase",
+        "path": "img/twocharts.png"
+      },
+      {
+        "name": "Options",
+        "path": "img/windroseoptions.png"
+      }
+    ],
+    "version": "0.7.1",
+    "updated": "2018-07-19"
+  },
+  "dependencies": {
+    "grafanaVersion": "4.x.x",
+    "plugins": []
+  }
+}
