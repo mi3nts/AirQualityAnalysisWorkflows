@@ -419,6 +419,7 @@ module.exports = {
      *    global.get("os")
      */
     functionGlobalContext: {
+        S2: require('s2-geometry')
         // os:require('os'),
     },
 
