@@ -48,7 +48,7 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
         viewBox={`-${width / 2} -${height / 2} ${width} ${height}`}
       >
         <g>
-          <circle style={{ fill: theme.colors.primary.main }} r={100} />
+          <circle style={{ fill: theme.colors.warning.main }} r={100} />
         </g>
       </svg>
 

@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
   "name": "WMS Layer",
-  "id": "mintswmsgroup-wmslayer-panel",
+  "id": "fernandocolman-mintswmsgroup-wmslayer-panel",
   "info": {
     "keywords": ["panel"],
     "description": "Plugin to visualize wms data on grafana",

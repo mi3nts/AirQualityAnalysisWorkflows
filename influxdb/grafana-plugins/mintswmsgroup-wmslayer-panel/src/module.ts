@@ -15,6 +15,27 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
       name: 'Show series counter',
       defaultValue: false,
     })
+      .addRadio({
+        path: 'color',
+        name: 'Circle color',
+        defaultValue: 'red',
+        settings: {
+          options: [
+            {
+              value: 'red',
+              label: 'Red',
+            },
+            {
+              value: 'green',
+              label: 'Green',
+            },
+            {
+              value: 'blue',
+              label: 'Blue',
+            },
+          ],
+        }
+      })
     .addRadio({
       path: 'seriesCountSize',
       defaultValue: 'sm',
