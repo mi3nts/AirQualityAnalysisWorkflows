@@ -13,6 +13,9 @@ update-buckets: influxdb-docker/Dockerfile .env
 build-grafana: grafana-docker/Dockerfile .env
 	docker compose build grafana
 
+build-mongo: mongo-docker/Dockerfile .env
+	docker compose build mongo
+
 build-dashboards: build-nodered build-influxdb build-grafana .env
 
 build: build-dashboards
