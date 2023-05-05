@@ -39,7 +39,7 @@ services:
     build: ./nodered-docker
     image: mints-nodered
     ports:
-      - "1880:1880"
+      - "1890:1890"
     volumes:
       - type: bind
         source: ${DOCKER_WMS_DATA_BM:?err}
