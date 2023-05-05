@@ -44,6 +44,8 @@ Run using Docker
 
 By default the docker image will start the application using uwsgi and will load and display some demo data.
 
+To start it using the data pulled from NodeRed, run the command 'docker compose up --build -d' in the wms file
+
 * Run the demo:
 ```bash
 docker run --rm -p 5000:5000 -it ecmwf/skinnywms 
@@ -139,6 +141,23 @@ Make sure you have ``Docker`` and ``docker-compose`` installed. Then run:
 docker-compose up
 ```
 This will build a dev image and start up a local flask development server (with automatic reload on code changes) at http://localhost:5000 based on the configuration stored in [docker-compose.yml](./docker-compose.yml) and [.env](./.env) and by default try to load all GRIB and NetCDF data stored in [skinnywms/testdata](./skinnywms/testdata).
+
+
+NodeRed
+-------
+
+NodeRed is automatically built and run when the skinnywms server is built using the command 'docker compose up --build -d' while in the wms root file, and can be accessed on the localhost:1890 port.
+The NodeRed flows are currently built to automatically pull data from NOAA every 6 hours and stores it in /wms-data
+More details about the specifics of how NodeRed itself works can be found in the influxdb README.md.
+
+
+Ofelia
+------
+
+We have Ofelia implemented in order to run a script (conda_scripts/uvwind.sh) that will take the raw_data.grb file that is downloaded from NodeRed, and format it using eccodes built-in "grib_copy" command.
+This is achieved by setting the Miniconda container to run the uvwind.sh script whenever it starts, as the Miniconda container will not stay running on its own. 
+Then, we have Ofelia, set to start the Miniconda container 4 times a day at 12:02 AM, 6:02 AM, 12:02 PM, 6:02 PM (cron scheduling format: "0 2 0,6,12,18 * * *"), 
+2 minutes after NodeRed pulls the data (to ensure that there is enough time to download the data).
 
 
 Contributing
