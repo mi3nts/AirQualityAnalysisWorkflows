@@ -7,6 +7,8 @@ Both ACS and Redistricting now have GEO_ID; however this isn't the same as the s
 Potentially Travis's geojson script might be helpful in converting between the two, but I have not looked into it
 https://github.com/travisdula/us-census-2018-geojson
 
+Mongosh might also have to installed, but not sure if it is already
+
 
 These are the different parameters to query/narrow down for locations:
 us
@@ -27,9 +29,12 @@ place
 
 
 
-example query to get the block_groups in county 13 of state 2 (Alaska)  (this format is using the mongodb shell
+example query to get the block_groups in county 13 of state 2 (Alaska)  (this format is using the mongodb gui)
 {tract: {$exists: true}, block: {$exists: false}, county: 13, state: 2}
 
+You can use Mongosh to run the same queries through the terminal:
+use Redistricting (this puts you on the correct database)
+db.RACE.find({tract: {$exists: true}, block: {$exists: false}, county: 13, state: 2})
 
 #python script to do the same thing, example is from the redistricting database, querying in the 'Race' collection, which also has the total population
 include pymongo
