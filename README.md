@@ -3,7 +3,7 @@
 
 # Container Setup 
 
-1. Navigate to `/influxdb`. Copy `.example.env` to `.env` and edit the file with appropriate paths for your machine and desired settings. Contact *John Waczak* or *Lakitha Weijeratne* to obtain the necessary credentials files. 
+1. Navigate to `/influxdb`. Copy `.example.env` to `.env` and edit the file with appropriate paths for your machine and desired settings. Contact *John Waczak* or *Lakitha Wijeratne* to obtain the necessary credentials files. 
 2. Build the container via `docker compose up --build`. If you want the container to remain on in the background, instead run `docker compose up --build -d`. 
 3. To turn of the containers, run `docker compose down` 
 
