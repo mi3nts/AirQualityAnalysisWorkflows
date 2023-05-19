@@ -1476,7 +1476,8 @@
         "y": 1340,
         "wires": [
             [
-                "90a2314a45fa4786"
+                "90a2314a45fa4786",
+                "44606c755166e0ce"
             ]
         ]
     },
@@ -1513,9 +1514,9 @@
                 "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "21600",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
@@ -1911,6 +1912,22 @@
                 "304ca8d3d559712f"
             ]
         ]
+    },
+    {
+        "id": "44606c755166e0ce",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 1260,
+        "wires": []
     },
     {
         "id": "9c8cb7de31fcbeef",
