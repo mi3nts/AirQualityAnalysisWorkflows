@@ -1,0 +1,4443 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 20,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "cards": {},
+      "color": {
+        "cardColor": "#b4ff00",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolateTurbo",
+        "exponent": 0.5,
+        "mode": "spectrum"
+      },
+      "dataFormat": "tsbuckets",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "Particulate counts displayed in log scale",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "heatmap": {},
+      "hideZeroBuckets": false,
+      "highlightCards": true,
+      "id": 71,
+      "legend": {
+        "show": true
+      },
+      "maxDataPoints": 100,
+      "options": {
+        "calculate": false,
+        "calculation": {
+          "xBuckets": {
+            "mode": "size"
+          }
+        },
+        "cellGap": 0,
+        "cellValues": {
+          "unit": "Log10 (counts/sec)"
+        },
+        "color": {
+          "exponent": 0.5,
+          "fill": "#b4ff00",
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "Turbo",
+          "steps": 128
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "unknown"
+        },
+        "showValue": "never",
+        "tooltip": {
+          "show": true,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "decimals": 1,
+          "reverse": true,
+          "unit": "µm"
+        }
+      },
+      "pluginVersion": "9.3.6",
+      "reverseYBuckets": true,
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc10_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: 2m, fn: last, createEmpty: false)\n   |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> yield(name: \"last\")",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc5_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: 2m, fn: last, createEmpty: false)\n  |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> yield(name: \"last\")",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc2_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: 2m, fn: last, createEmpty: false)\n      |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> yield(name: \"last\")",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc1_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n   |> aggregateWindow( fn: last, every: 2m, createEmpty: false)\n     |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> yield(name: \"last\")",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(fn: last, every: 2m, createEmpty: false)\n    |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> yield(name: \"last\")",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_3\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(fn: last, every: 2m, createEmpty: false)\n  |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> yield(name: \"last\")",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_1\" )\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(fn: last, every: 2m, createEmpty: false)\n  |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> yield(name: \"last\")",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_1\" or r[\"_field\"] == \"pc0_3\" or r[\"_field\"] == \"pc0_5\" or r[\"_field\"] == \"pc1_0\" or r[\"_field\"] == \"pc2_5\" or r[\"_field\"] == \"pc5_0\" or r[\"_field\"] == \"pc10_0\")\n   \n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"last\")\n",
+          "refId": "test"
+        }
+      ],
+      "title": "Particulate Size Distribution as Number Density (Counts/Sec)",
+      "tooltip": {
+        "show": true,
+        "showHistogram": false
+      },
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {}
+        },
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "pc0_1": "0.1",
+              "pc0_3": "0.3",
+              "pc0_5": "0.5",
+              "pc10_0": "10.0",
+              "pc1_0": "1.0",
+              "pc2_5": "2.5",
+              "pc5_0": "5.0"
+            }
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "yAxis": {
+        "format": "short",
+        "logBase": 1,
+        "show": true
+      },
+      "yBucketBound": "middle"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "Particulate counts displayed in log scale",
+      "gridPos": {
+        "h": 10,
+        "w": 11,
+        "x": 12,
+        "y": 0
+      },
+      "id": 62,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const pm10 = 'pc10_0';\n  const pm5 = 'pc5_0';\n  const pm2_5 = 'pc2_5';\n  const pm1 = 'pc1_0';\n  const pm0_5 = 'pc0_5';\n  const pm0_3 = 'pc0_3';\n  const pm0_1 = 'pc0_1';\n\n  const sData1 = s.fields.find((f) => f.type === 'number' && f.name === pm10).values.buffer;\n  const sData2 = s.fields.find((f) => f.type === 'number' && f.name === pm5).values.buffer;\n  const sData3 = s.fields.find((f) => f.type === 'number' && f.name === pm2_5).values.buffer;\n  const sData4 = s.fields.find((f) => f.type === 'number' && f.name === pm1).values.buffer;\n  const sData5 = s.fields.find((f) => f.type === 'number' && f.name === pm0_5).values.buffer;\n  const sData6 = s.fields.find((f) => f.type === 'number' && f.name === pm0_3).values.buffer;\n  const sData7 = s.fields.find((f) => f.type === 'number' && f.name === pm0_1).values.buffer;\n\n  var Dat1 = sData1[sData1.length - 1];\n  var D1 = Dat1.toFixed(2);\n  var Dat2 = sData2[sData2.length - 1];\n  var D2 = Dat2.toFixed(2);\n  var Dat3 = sData3[sData3.length - 1];\n  var D3 = Dat3.toFixed(2);\n  var Dat4 = sData4[sData4.length - 1];\n  var D4 = Dat4.toFixed(2);\n  var Dat5 = sData5[sData5.length - 1];\n  var D5 = Dat5.toFixed(2);\n  var Dat6 = sData6[sData6.length - 1];\n  var D6 = Dat6.toFixed(2);\n  var Dat7 = sData7[sData7.length - 1];\n  var D7 = Dat7.toFixed(2);\n\n  return {\n    backgroundColor: 'transparent',\n    //animation: false,\n    legend: false,\n    toolbox: {\n      show: true,\n      feature: {\n        mark: { show: true },\n        dataView: { show: true, readOnly: false },\n        restore: { show: true },\n        saveAsImage: { show: true }\n      }\n    },\n    label: {\n      formatter: function (params) {\n        // Custom formatter function to insert arrow sign\n        return params.name + ' ➟ ' + params.value; // Insert arrow sign after the label name\n      },\n    },\n    name: 'Nightingale Chart',\n    type: 'pie',\n    radius: [30, 150],\n    center: ['50%', '50%'],\n    roseType: 'area',\n    emphasis: {\n      focus: 'self'\n    },\n    itemStyle: {\n      borderRadius: 8\n    },\n    data: [\n      { value: D1, name: 'PM 10' },\n      { value: D2, name: 'PM 5' },\n      { value: D3, name: 'PM 2.5' },\n      { value: D4, name: 'PM 1' },\n      { value: D5, name: 'PM 0.5' },\n      { value: D6, name: 'PM 0.3' },\n      { value: D7, name: 'PM 0.1' },\n\n    ]\n\n\n\n\n  };\n});\nreturn {\n  series,\n\n\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc10_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n      |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc5_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n      |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc2_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n      |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc1_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n      |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n      |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_3\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n      |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_1\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n      |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Particulate Count (Log Scale)",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {}
+        },
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "pc0_1": "0.1",
+              "pc0_3": "0.3",
+              "pc0_5": "0.5",
+              "pc10_0": "10.0",
+              "pc1_0": "1.0",
+              "pc2_5": "2.5",
+              "pc5_0": "5.0"
+            }
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 64,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer;\n\n  return {\n    name: s.refId,\n    type: 'line',\n    stack: 'Total',\n    smooth: true,\n    showSymbol: false,\n    emphasis: {\n      focus: 'series'\n    },\n    areaStyle: {\n      opacity: 0.5,\n    },\n    lineStyle: {\n      width: 0,\n    },\n    animationEasing: 'exponentialOut',\n    animationDuration: 2000,\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n  legend: {\n    left: '0',\n    bottom: '0',\n    data: data.series.map((s) => s.refId),\n    textStyle: {\n      color: 'rgba(128, 128, 128, .9)',\n    },\n  },\n  toolbox: {\n    bottom: '1px',\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none'\n      },\n      restore: {},\n      saveAsImage: {}\n    }\n  },\n  axisPointer: {\n    link: [\n      {\n        xAxisIndex: 'all'\n      }\n    ]\n  },\n  dataZoom: [\n    {\n      top: '5px',\n      show: true,\n      realtime: true,\n      start: 0,\n      end: 100,\n      xAxisIndex: [0, 1]\n    },\n    //{\n    //  type: 'inside',\n    //  realtime: true,\n    //  start: 70,\n    //  end: 100,\n    //  xAxisIndex: [0, 1]\n    //}\n  ],\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '20%',\n    bottom: 24,\n    containLabel: true,\n  },\n  series,\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_1\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n       |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> yield(name: \"last\")",
+          "refId": "PM0_1"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_3\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n       |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "PM0_3"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n       |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "PM0_5"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm1_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n       |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "PM1"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm2_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n       |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "PM2_5"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm5_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n       |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "PM5"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm10_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n       |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n\n  |> yield(name: \"last\")",
+          "refId": "PM10"
+        }
+      ],
+      "title": "Particulate Matter Concentrations (IPS7100) (Log Scale) ( µg/m³ )",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "Particulate counts displayed in log scale",
+      "gridPos": {
+        "h": 10,
+        "w": 11,
+        "x": 12,
+        "y": 10
+      },
+      "id": 65,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const pm10 = 'pm10_0';\n  const pm5 = 'pm5_0';\n  const pm2_5 = 'pm2_5';\n  const pm1 = 'pm1_0';\n  const pm0_5 = 'pm0_5';\n  const pm0_3 = 'pm0_3';\n  const pm0_1 = 'pm0_1';\n\n  const sData1 = s.fields.find((f) => f.type === 'number' && f.name === pm10).values.buffer;\n  const sData2 = s.fields.find((f) => f.type === 'number' && f.name === pm5).values.buffer;\n  const sData3 = s.fields.find((f) => f.type === 'number' && f.name === pm2_5).values.buffer;\n  const sData4 = s.fields.find((f) => f.type === 'number' && f.name === pm1).values.buffer;\n  const sData5 = s.fields.find((f) => f.type === 'number' && f.name === pm0_5).values.buffer;\n  const sData6 = s.fields.find((f) => f.type === 'number' && f.name === pm0_3).values.buffer;\n  const sData7 = s.fields.find((f) => f.type === 'number' && f.name === pm0_1).values.buffer;\n\n  var Dat1 = sData1[sData1.length - 1];\n  var D1 = Dat1.toFixed(2);\n  var Dat2 = sData2[sData2.length - 1];\n  var D2 = Dat2.toFixed(2);\n  var Dat3 = sData3[sData3.length - 1];\n  var D3 = Dat3.toFixed(2);\n  var Dat4 = sData4[sData4.length - 1];\n  var D4 = Dat4.toFixed(2);\n  var Dat5 = sData5[sData5.length - 1];\n  var D5 = Dat5.toFixed(2);\n  var Dat6 = sData6[sData6.length - 1];\n  var D6 = Dat6.toFixed(2);\n  var Dat7 = sData7[sData7.length - 1];\n  var D7 = Dat7.toFixed(2);\n\n  return {\n    backgroundColor: 'transparent',\n    legend: false,\n    olbox: {\n      show: true,\n      feature: {\n        mark: { show: true },\n        dataView: { show: true, readOnly: false },\n        restore: { show: true },\n        saveAsImage: { show: true }\n      }\n    },\n\n    name: 'Nightingale Chart',\n    type: 'pie',\n    radius: [30, 150],\n    center: ['50%', '50%'],\n    roseType: 'area',\n    emphasis: {\n      focus: 'self'\n    },\n\n    itemStyle: {\n      borderRadius: 8\n    },\n    label: {\n      formatter: function (params) {\n        // Custom formatter function to insert arrow sign\n        return params.name + ' ➟ ' + params.value + ' µg/m³'; // Insert arrow sign after the label name\n      },\n    },\n    data: [\n      { value: D1, name: 'PM 10' },\n      { value: D2, name: 'PM 5' },\n      { value: D3, name: 'PM 2.5' },\n      { value: D4, name: 'PM 1' },\n      { value: D5, name: 'PM 0.5' },\n      { value: D6, name: 'PM 0.3' },\n      { value: D7, name: 'PM 0.1' },\n\n    ]\n\n\n\n\n  };\n});\nreturn {\n  series,\n\n\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm10_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm5_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm2_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm1_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_3\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_1\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Particulate Matter Concentration ( µg/m³ )",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {}
+        },
+        {
+          "id": "labelsToFields",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "pc0_1": "0.1",
+              "pc0_3": "0.3",
+              "pc0_5": "0.5",
+              "pc10_0": "10.0",
+              "pc1_0": "1.0",
+              "pc2_5": "2.5",
+              "pc5_0": "5.0"
+            }
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 9,
+        "w": 17,
+        "x": 0,
+        "y": 20
+      },
+      "id": 54,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer;\n\n  return {\n    animationEasing: 'exponentialOut',\n    name: s.refId,\n    type: 'line',\n    showSymbol: false,\n    areaStyle: {\n      opacity: 0.2,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(255, 0, 0)'\n        },\n\n        {\n          offset: 0.4,\n          color: 'rgb(241, 143, 11)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(0, 255, 0)'\n        }\n\n      ])\n    },\n    lineStyle: {\n      width: 1,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(255, 0, 0)'\n        },\n\n        {\n          offset: 0.4,\n          color: 'rgb(241, 143, 11)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(0, 255, 0)'\n        }\n\n      ])\n    },\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n\n  toolbox: {\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none'\n      },\n      restore: {},\n      saveAsImage: {}\n    }\n  },\n  axisPointer: {\n    link: [\n      {\n        xAxisIndex: 'all'\n      }\n    ]\n  },\n  dataZoom: [\n    {\n      show: true,\n      realtime: true,\n      start: 0,\n      end: 100,\n      xAxisIndex: [0, 1]\n    },\n    //{\n    //  type: 'inside',\n    //  realtime: true,\n    //  start: 70,\n    //  end: 100,\n    //  xAxisIndex: [0, 1]\n    //}\n  ],\n  xAxis: {\n    type: 'time',\n    splitLine: {\n      show: true\n    },\n\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n    axisLabel: {\n      formatter: '{value}  °C'\n    },\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '2%',\n    bottom: 50,\n    containLabel: true,\n  },\n  series,\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "BME280"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "BME680"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "SCD30"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"airTemperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "WIMDA"
+        }
+      ],
+      "title": "Temperature (in ℃ )",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 9,
+        "w": 7,
+        "x": 17,
+        "y": 20
+      },
+      "id": 50,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n\n  var lastDataPoint = sData[sData.length - 1];\n  var DataPoint = lastDataPoint.toFixed(2);\n  return {\n    name: s.refId,\n    type: 'gauge',\n    startAngle: 270,\n    endAngle: 0,\n\n    radius: '100%',\n    min: '-20',\n    max: '50',\n    splitNumber: 7,\n    axisLine: {\n      lineStyle: {\n        width: 6,\n        color: [\n          [0.29, '#1412B2'],\n          [0.43, '#05C3CF'],\n          [0.71, '#7CFFB2'],\n          [0.8, 'orange'],\n          [1, '#FF6E76']\n        ]\n      }\n    },\n\n    detail: { formatter: '{value}  °C', fontSize: 20, color: 'inherit' },\n    pointer: {\n      itemStyle: {\n        color: 'inherit'\n      },\n      length: '50%',\n    },\n    axisTick: {\n      length: 5,\n      splitNumber: 10,\n      lineStyle: {\n        color: 'inherit',\n      }\n    },\n    splitLine: {\n      length: 20,\n      lineStyle: {\n        color: 'white',\n        width: 5\n      }\n    },\n\n    data: [{ value: DataPoint }],\n\n  };\n});\n\n\nreturn {\n  series,\n\n\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "BME280"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "BME680"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "SCD30"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"airTemperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "WIMDA"
+        }
+      ],
+      "title": "Temperature (℃)",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 9,
+        "w": 17,
+        "x": 0,
+        "y": 29
+      },
+      "id": 20,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer;\n\n  return {\n    name: s.refId,\n    type: 'line',\n    animationEasing: 'exponentialOut',\n    showSymbol: false,\n    areaStyle: {\n      opacity: 0.1,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(0, 0, 255)'\n        },\n\n        {\n          offset: 0.66,\n          color: 'rgb(0, 255, 0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(255, 0, 0)'\n        }\n\n      ])\n    },\n    lineStyle: {\n      width: 1,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(0, 0, 255)'\n        },\n\n        {\n          offset: 0.66,\n          color: 'rgb(0, 255, 0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(255, 0, 0)'\n        }\n\n      ])\n    },\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n    animationEasing: 'exponentialOut',\n    animationDuration: 1500,\n\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n\n  toolbox: {\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none'\n      },\n      restore: {},\n      saveAsImage: {}\n    }\n  },\n  axisPointer: {\n    link: [\n      {\n        xAxisIndex: 'all'\n      }\n    ]\n  },\n  dataZoom: [\n    {\n      show: true,\n      realtime: true,\n      start: 0,\n      end: 100,\n      xAxisIndex: [0, 1]\n    },\n    //{\n    //  type: 'inside',\n    //  realtime: true,\n    //  start: 70,\n    //  end: 100,\n    //  xAxisIndex: [0, 1]\n    //}\n  ],\n  xAxis: {\n    type: 'time',\n    splitLine: {\n      show: true\n    },\n\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n    axisLabel: {\n      formatter: '{value} mbar'\n    },\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '2%',\n    bottom: 50,\n    containLabel: true,\n  },\n  series,\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"barrometricPressureBars\")\n  |> map(fn: (r) => ({r with _value: r._value * 1000.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "WIMDA"
+        }
+      ],
+      "title": "Pressure (Milibars)",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 9,
+        "w": 7,
+        "x": 17,
+        "y": 29
+      },
+      "id": 57,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n\n  var lastDataPoint = sData[sData.length - 1];\n  var DataPoint = lastDataPoint.toFixed(1);\n  return {\n    name: s.refId,\n    type: 'gauge',\n    startAngle: 270,\n    endAngle: 0,\n    animationEasing: 'bounceOut',\n    \n    animationDuration: 2500,\n    radius: '100%',\n    min: '950',\n    max: '1050',\n    splitNumber: 5,\n    axisLine: {\n      lineStyle: {\n        width: 6,\n        color: [\n          [0.29, '#1412B2'],\n          [0.43, '#05C3CF'],\n          [0.61, '#7CFFB2'],\n          [0.7, 'orange'],\n          [1, '#FF6E76']\n        ]\n      }\n    },\n\n    detail: { formatter: '{value} mbar', fontSize: 15, color: 'inherit' },\n    pointer: {\n      icon: 'path://M2090.36389,615.30999 L2090.36389,615.30999 C2091.48372,615.30999 2092.40383,616.194028 2092.44859,617.312956 L2096.90698,728.755929 C2097.05155,732.369577 2094.2393,735.416212 2090.62566,735.56078 C2090.53845,735.564269 2090.45117,735.566014 2090.36389,735.566014 L2090.36389,735.566014 C2086.74736,735.566014 2083.81557,732.63423 2083.81557,729.017692 C2083.81557,728.930412 2083.81732,728.84314 2083.82081,728.755929 L2088.2792,617.312956 C2088.32396,616.194028 2089.24407,615.30999 2090.36389,615.30999 Z',\n      itemStyle: {\n        color: 'inherit'\n      },\n      offsetCenter: [0, '20%'],\n      length: '110%',\n    },\n    anchor:\n    {\n      show: 'true',\n      showAbove: true,\n      itemStyle: {\n        color: 'white'\n      },\n    },\n    axisTick: {\n      length: 5,\n      splitNumber: 10,\n      lineStyle: {\n        color: 'inherit',\n      }\n    },\n    splitLine: {\n      length: 20,\n      lineStyle: {\n        color: 'white',\n        width: 5\n      }\n    },\n\n    data: [{ value: DataPoint },],\n\n  };\n});\n\n\nreturn {\n  series,\n\n\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "BME280"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "BME680"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "SCD30"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"barrometricPressureBars\")\n  |> map(fn: (r) => ({r with _value: r._value * 1000.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "WIMDA"
+        }
+      ],
+      "title": "Pressure",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 9,
+        "w": 17,
+        "x": 0,
+        "y": 38
+      },
+      "id": 22,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer;\n\n  return {\n    name: s.refId,\n    type: 'line',\n    showSymbol: false,\n    animationEasing: 'exponentialOut',\n    areaStyle: {\n      opacity: 0.15,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(255, 0, 0)'\n        },\n\n        {\n          offset: 0.3,\n          color: 'rgb(255, 140, 0)'\n        },\n        {\n          offset: 0.6,\n          color: 'rgb(0,255,0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(0, 0, 255)'\n        }\n\n      ])\n    },\n    lineStyle: {\n      width: 1,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(255, 0, 0)'\n        },\n\n        {\n          offset: 0.3,\n          color: 'rgb(255, 140, 0)'\n        },\n        {\n          offset: 0.6,\n          color: 'rgb(0,255,0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(0, 0, 255)'\n        }\n\n      ])\n    },\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n  toolbox: {\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none'\n      },\n      restore: {},\n      saveAsImage: {}\n    }\n  },\n  axisPointer: {\n    link: [\n      {\n        xAxisIndex: 'all'\n      }\n    ]\n  },\n  dataZoom: [\n    {\n      show: true,\n      realtime: true,\n      start: 0,\n      end: 100,\n      xAxisIndex: [0, 1]\n    },\n    //{\n    //  type: 'inside',\n    //  realtime: true,\n    //  start: 70,\n    //  end: 100,\n    //  xAxisIndex: [0, 1]\n    //}\n  ],\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n    axisLabel: {\n      formatter: '{value} %'\n    },\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '2%',\n    bottom: 50,\n    containLabel: true,\n  },\n  series,\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"relativeHumidity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "WIMDA"
+        }
+      ],
+      "title": "Humidity",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 9,
+        "w": 7,
+        "x": 17,
+        "y": 38
+      },
+      "id": 58,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n\n  var lastDataPoint = sData[sData.length - 1];\n  var DataPoint = lastDataPoint.toFixed(1);\n  return {\n    name: s.refId,\n    type: 'gauge',\n    startAngle: 270,\n    endAngle: 0,\n\n    radius: '100%',\n    min: '0',\n    max: '100',\n    splitNumber: 5,\n    axisLine: {\n      lineStyle: {\n        width: 6,\n        color: [\n          [0.29, '#1412B2'],\n          \n          [0.5, '#7CFFB2'],\n          [0.6, 'orange'],\n          [1, '#FF6E76']\n        ]\n      }\n    },\n\n    detail: { formatter: '{value} %', fontSize: 15, color: 'inherit' },\n    pointer: {\n      itemStyle: {\n        color: 'inherit'\n      },\n      length: '50%',\n    },\n    axisTick: {\n      length: 5,\n      splitNumber: 10,\n      lineStyle: {\n        color: 'inherit',\n      }\n    },\n    splitLine: {\n      length: 20,\n      lineStyle: {\n        color: 'white',\n        width: 5\n      }\n    },\n\n    data: [{ value: DataPoint },],\n\n  };\n});\n\n\nreturn {\n  series,\n\n\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "BME280"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "BME680"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "SCD30"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"relativeHumidity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "WIMDA"
+        }
+      ],
+      "title": "Humidity",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 47
+      },
+      "id": 45,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer;\n\n\n  return {\n    name: s.refId,\n    type: 'line',\n    showSymbol: false,\n    areaStyle: {\n      opacity: 0.15,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(0, 0, 255)'\n        },\n\n        {\n          offset: 0.66,\n          color: 'rgb(0, 255, 0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(255, 0, 0)'\n        }\n\n      ])\n    },\n    lineStyle: {\n      width: 1,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(0, 0, 255)'\n        },\n\n        {\n          offset: 0.66,\n          color: 'rgb(0, 255, 0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(255, 0, 0)'\n        }\n\n      ])\n    },\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n\n\n  toolbox: {\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none'\n      },\n      restore: {},\n      saveAsImage: {}\n    }\n  },\n  axisPointer: {\n    link: [\n      {\n        xAxisIndex: 'all'\n      }\n    ]\n  },\n  dataZoom: [\n    {\n      show: true,\n      realtime: true,\n      start: 0,\n      end: 100,\n      xAxisIndex: [0, 1]\n    },\n    //{\n    //  type: 'inside',\n    //  realtime: true,\n    //  start: 70,\n    //  end: 100,\n    //  xAxisIndex: [0, 1]\n    //}\n  ],\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n    axisLabel: {\n      formatter: '{value} °C'\n    },\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '2%',\n    bottom: 50,\n    containLabel: true,\n  },\n  series,\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"dewPoint\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "WIMDA"
+        }
+      ],
+      "title": "Dewpoint",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 47
+      },
+      "id": 17,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer;\n\n  return {\n    name: s.refId,\n    type: 'line',\n    showSymbol: false,\n    areaStyle: {\n      opacity: 0.15,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(255, 0, 0)'\n        },\n\n        {\n          offset: 0.3,\n          color: 'rgb(255, 140, 0)'\n        },\n        {\n          offset: 0.6,\n          color: 'rgb(0,255,0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(0, 0, 255)'\n        }\n\n      ])\n    },\n    lineStyle: {\n      width: 1,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(255, 0, 0)'\n        },\n\n        {\n          offset: 0.3,\n          color: 'rgb(255, 140, 0)'\n        },\n        {\n          offset: 0.6,\n          color: 'rgb(0,255,0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(0, 0, 255)'\n        }\n\n      ])\n    },\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n  toolbox: {\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none'\n      },\n      restore: {},\n      saveAsImage: {}\n    }\n  },\n  axisPointer: {\n    link: [\n      {\n        xAxisIndex: 'all'\n      }\n    ]\n  },\n  dataZoom: [\n    {\n      show: true,\n      realtime: true,\n      start: 0,\n      end: 100,\n      xAxisIndex: [0, 1]\n    },\n    //{\n    //  type: 'inside',\n    //  realtime: true,\n    //  start: 70,\n    //  end: 100,\n    //  xAxisIndex: [0, 1]\n    //}\n  ],\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n    axisLabel: {\n      formatter: '{value} ppm'\n    },\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '2%',\n    bottom: 50,\n    containLabel: true,\n  },\n  series,\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"c02\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "CO2"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"INA219Duo\")\n  |> filter(fn: (r) => r[\"_field\"] ==   \"powerSolar\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "B"
+        }
+      ],
+      "title": "Carbon Dioxide",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 55
+      },
+      "id": 24,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer;\n\n  return {\n    name: s.refId,\n    type: 'line',\n    showSymbol: false,\n    areaStyle: {\n      opacity: 0.15,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(255, 0, 0)'\n        },\n\n        {\n          offset: 0.3,\n          color: 'rgb(255, 140, 0)'\n        },\n        {\n          offset: 0.6,\n          color: 'rgb(0,255,0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(0, 0, 255)'\n        }\n\n      ])\n    },\n    lineStyle: {\n      width: 1,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(255, 0, 0)'\n        },\n\n        {\n          offset: 0.3,\n          color: 'rgb(255, 140, 0)'\n        },\n        {\n          offset: 0.6,\n          color: 'rgb(0,255,0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(0, 0, 255)'\n        }\n\n      ])\n    },\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n  toolbox: {\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none'\n      },\n      restore: {},\n      saveAsImage: {}\n    }\n  },\n  axisPointer: {\n    link: [\n      {\n        xAxisIndex: 'all'\n      }\n    ]\n  },\n  dataZoom: [\n    {\n      show: true,\n      realtime: true,\n      start: 0,\n      end: 100,\n      xAxisIndex: [0, 1]\n    },\n    //{\n    //  type: 'inside',\n    //  realtime: true,\n    //  start: 70,\n    //  end: 100,\n    //  xAxisIndex: [0, 1]\n    //}\n  ],\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n    axisLabel: {\n      formatter: '{value} ppb'\n    },\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '2%',\n    bottom: 50,\n    containLabel: true,\n  },\n  series,\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TB108L\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ozone\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "O3"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"INA219Duo\")\n  |> filter(fn: (r) => r[\"_field\"] ==   \"powerSolar\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "B"
+        }
+      ],
+      "title": "Ozone",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "dB"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "dB"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "SEN0232"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 55
+      },
+      "id": 46,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SEN0232\")\n  |> filter(fn: (r) => r[\"_field\"] == \"dB\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "CO2"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"INA219Duo\")\n  |> filter(fn: (r) => r[\"_field\"] ==   \"powerSolar\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "B"
+        }
+      ],
+      "title": "Noise Levels",
+      "transformations": [],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "lux"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "luminance"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "APDS9002"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "TSL2591"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "TSL2591"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 63
+      },
+      "id": 26,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"APDS9002\")\n  |> filter(fn: (r) => r[\"_field\"] == \"luminance\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "APDS9002"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"lux\")\n  |> map(fn: (r) => ({r with _value: r._value/4.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "TSL2591"
+        }
+      ],
+      "title": "Luminosity",
+      "transformations": [],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0.5,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Source"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "AS3935:Distance"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Distance"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 63
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"AS3935\")\n  |> filter(fn: (r) => r[\"_field\"] == \"source\")\n  |> map(fn: (r) => ({r with _value: (r._value-2.0)*-20.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "AS3935:Source"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"AS3935\")\n  |> filter(fn: (r) => r[\"_field\"] == \"distance\")\n  |> map(fn: (r) => ({r with _value: (r._value-63.0)*-1.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "AS3935:Distance"
+        }
+      ],
+      "title": "Lightning",
+      "transformations": [],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "radusvh"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "radiationValue"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Radiation"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 71
+      },
+      "id": 30,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"LIBRAD\")\n  |> filter(fn: (r) => r[\"_field\"] == \"radiationValue\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "LIBRAD"
+        }
+      ],
+      "title": "Radiation Exposure",
+      "transformations": [],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 71
+      },
+      "id": 41,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "limit": 10,
+          "values": true
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MBC001\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> drop(columns: [\"device_id\", \"device_name\"])\n   |> filter(fn: (r) => r._value >= ${Confidence})\n\n  |> count()\n  |> group()\n  |> sort(desc: true)\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Bird Call Occurrences By Species",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "_field",
+                "_value"
+              ]
+            }
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 79
+      },
+      "id": 69,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer;\n\n\n  return {\n    name: s.refId,\n    type: 'line',\n    showSymbol: true,\n    markPoint: {\n      symbol: 'path:// ',\n      symbolSize: 25,\n      itemStyle: {\n        color: 'white',\n      },\n\n      data: [\n        {\n          coord: ['2023-06-27 09:00:00', 23]\n        },\n\n      ],\n    },\n    areaStyle: {\n      opacity: 0.15,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(0, 0, 255)'\n        },\n\n        {\n          offset: 0.66,\n          color: 'rgb(0, 255, 0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(255, 0, 0)'\n        }\n\n      ])\n    },\n    lineStyle: {\n      width: 1,\n      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [\n        {\n          offset: 0,\n          color: 'rgb(0, 0, 255)'\n        },\n\n        {\n          offset: 0.66,\n          color: 'rgb(0, 255, 0)'\n        },\n        {\n          offset: 1,\n          color: 'rgb(255, 0, 0)'\n        }\n\n      ])\n    },\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n\n\n  toolbox: {\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none'\n      },\n      restore: {},\n      saveAsImage: {}\n    }\n  },\n  axisPointer: {\n    link: [\n      {\n        xAxisIndex: 'all'\n      }\n    ]\n  },\n  dataZoom: [\n    {\n      show: true,\n      realtime: true,\n      start: 0,\n      end: 100,\n      xAxisIndex: [0, 1]\n    },\n    //{\n    //  type: 'inside',\n    //  realtime: true,\n    //  start: 70,\n    //  end: 100,\n    //  xAxisIndex: [0, 1]\n    //}\n  ],\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n    axisLabel: {\n      formatter: '{value} °C'\n    },\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '2%',\n    bottom: 50,\n    containLabel: true,\n  },\n  series,\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"dewPoint\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "WIMDA"
+        }
+      ],
+      "title": "Dewpoint",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 89
+      },
+      "id": 56,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": true,
+          "showScale": true,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "latitude": "GPSGPGGA2 · latitudeCoordinate",
+              "longitude": "GPSGPGGA2 · longitudeCoordinate",
+              "mode": "coords"
+            },
+            "name": "Layer 1",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 32.782739,
+          "lon": -96.870519,
+          "shared": false,
+          "zoom": 11.29
+        }
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "B"
+        }
+      ],
+      "title": "Sensor Location",
+      "transformations": [
+        {
+          "id": "concatenate",
+          "options": {
+            "frameNameLabel": "frame",
+            "frameNameMode": "field"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 97
+      },
+      "id": 43,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MBC001\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> drop(columns: [\"device_id\", \"device_name\"])\n   |> filter(fn: (r) => r._value >= ${Confidence})\n\n  |> aggregateWindow(every: 15m, fn: count)\n  |> group()\n  |> aggregateWindow(every: 1h, fn: sum)",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Bird Calls Observed",
+      "transparent": true,
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 104
+      },
+      "id": 55,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer;\n\n\n  return {\n    name: s.refId,\n    type: 'bar',\n    stack: 'total',\n    emphasis: {\n      focus: 'series'\n    },\n    label: {\n      show: false\n    },\n    data: sData.map((d, i) => [sTime[i], d]),\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n\n  },\n  legend: {},\n\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n  },\n  grid: {\n    left: '3%',\n    right: '4%',\n    bottom: '3%',\n    containLabel: true\n  },\n  series,\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": true,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MBC001\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> drop(columns: [\"device_id\", \"device_name\"])\n   |> filter(fn: (r) => r._value >= ${Confidence})\n\n  |> aggregateWindow(every: 1h, fn: count)\n  |> group()\n  |> aggregateWindow(every: 1h, fn: sum)",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"MBC001\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n   |> filter(fn: (r) => r._value >= ${Confidence})\n\n  |> aggregateWindow(every: 15m , fn: count)\n  |> sort(desc: true)\n  |> drop(columns: [\"device_id\", \"device_name\",\"_start\",\"_stop\", \"_measurement\"])\n  |> group()\n  \n  |> sort(desc: true)\n\n",
+          "refId": "Birdcall"
+        }
+      ],
+      "title": "Total Bird Calls Observed",
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 10,
+        "x": 0,
+        "y": 111
+      },
+      "id": 60,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "return {\n  series: [\n    {\n      type: 'gauge',\n      min: 0,\n      max: 100,\n      unit: 'mm Hg',\n      splitNumber: 10,\n      radius: '70%',\n      axisLine: {\n        lineStyle: {\n          color: [[1, '#f00']],\n          width: 3\n        }\n      },\n      splitLine: {\n        distance: -18,\n        length: 18,\n        lineStyle: {\n          color: '#f00'\n        }\n      },\n      axisTick: {\n        distance: -12,\n        length: 10,\n        lineStyle: {\n          color: '#f00'\n        }\n      },\n      axisLabel: {\n        distance: -50,\n        color: '#f00',\n        fontSize: 25\n      },\n      anchor: {\n        show: true,\n        size: 10,\n        itemStyle: {\n          borderColor: 'white',\n          borderWidth: 2\n        }\n      },\n      pointer: {\n        offsetCenter: [0, '20%'],\n        icon: 'path://M2090.36389,615.30999 L2090.36389,615.30999 C2091.48372,615.30999 2092.40383,616.194028 2092.44859,617.312956 L2096.90698,728.755929 C2097.05155,732.369577 2094.2393,735.416212 2090.62566,735.56078 C2090.53845,735.564269 2090.45117,735.566014 2090.36389,735.566014 L2090.36389,735.566014 C2086.74736,735.566014 2083.81557,732.63423 2083.81557,729.017692 C2083.81557,728.930412 2083.81732,728.84314 2083.82081,728.755929 L2088.2792,617.312956 C2088.32396,616.194028 2089.24407,615.30999 2090.36389,615.30999 Z',\n        length: '127%',\n        itemStyle: {\n          color: 'pink'\n        }\n      },\n      detail: {\n        valueAnimation: true,\n        precision: 1\n      },\n      title: {\n        offsetCenter: [0, '-50%']\n      },\n      data: [\n        {\n          value: 58.46,\n\n        }\n      ]\n    },\n    {\n      type: 'gauge',\n      min: 0,\n      max: 60,\n      radius: '67%',\n      splitNumber: 6,\n      axisLine: {\n        lineStyle: {\n          color: [[1, 'white']],\n          width: 3\n        }\n      },\n      splitLine: {\n        distance: -3,\n        length: 18,\n        lineStyle: {\n          color: 'white'\n        }\n      },\n      axisTick: {\n        distance: 0,\n        length: 10,\n        lineStyle: {\n          color: 'white'\n        }\n      },\n      axisLabel: {\n        distance: 10,\n        fontSize: 25,\n        color: 'white'\n      },\n      pointer: {\n        show: false\n      },\n      title: {\n        show: false\n      },\n      anchor: {\n        show: true,\n        size: 14,\n        itemStyle: {\n          color: 'white'\n        }\n      }\n    }\n  ]\n};\n",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "title": "Panel Title",
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 7,
+        "x": 10,
+        "y": 111
+      },
+      "id": 67,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "return {\n \n    series: [\n      {\n        name: 'Pressure',\n        backgroundcolor: 'transparent',\n        type: 'gauge',\n        animationDuration: 5000,\n        animationEasing: 'quadraticOut',\n        radius: '90%',\n        max: 300,\n        silent: true,\n        axisLine: {\n          lineStyle: {\n            width: 2,\n            color: [\n              [0.8, '#fff'],\n              [1, 'red'],\n            ],\n          },\n        },\n        axisTick: {\n          lineStyle: {\n            color: '#fff',\n          },\n        },\n        progress: {\n          show: true,\n          width: 200,\n          itemStyle: {\n            color: {\n              type: 'radial',\n              global: false,\n              x: 0,\n              y: 0,\n              r: 10,\n              colorStops: [\n                {\n                  offset: 0,\n                  color: 'transparent',\n                },\n                {\n                  offset: 0.7,\n                  color: 'transparent',\n                },\n                {\n                  offset: 0.95,\n                  color: 'rgba(150, 200, 255, 0.5)',\n                },\n                {\n                  offset: 0.98,\n                  color: 'rgba(230, 250, 255, 0.9)',\n                },\n                {\n                  offset: 1,\n                  color: 'rgba(255,255,255,1)',\n                },\n              ],\n            },\n          },\n        },\n        anchor: {\n          show: true,\n          \n          showAbove: true,\n          itemStyle: {\n            color: '#001122',\n            opacity: 0.9,\n            borderColor: 'rgba(255,255,255,0.8)',\n            borderWidth: 1,\n            shadowBlur: 30,\n            shadowColor: 'rgba(255, 255, 255, 0.5)',\n          },\n        },\n        pointer: {\n          offsetCenter: [0, '20%'],\n          icon: 'path://M2090.36389,615.30999 L2090.36389,615.30999 C2091.48372,615.30999 2092.40383,616.194028 2092.44859,617.312956 L2096.90698,728.755929 C2097.05155,732.369577 2094.2393,735.416212 2090.62566,735.56078 C2090.53845,735.564269 2090.45117,735.566014 2090.36389,735.566014 L2090.36389,735.566014 C2086.74736,735.566014 2083.81557,732.63423 2083.81557,729.017692 C2083.81557,728.930412 2083.81732,728.84314 2083.82081,728.755929 L2088.2792,617.312956 C2088.32396,616.194028 2089.24407,615.30999 2090.36389,615.30999 Z',\n          length: '110%',\n          itemStyle: {\n            color: 'rgba(255,255,255,0.9)',\n          },\n        },\n        axisLabel: {\n          color: '#fff',\n          fontSize: 20,\n        },\n        title: {\n          show: false,\n          color: '#fff',\n          // offsetCenter: [0, 0],\n        },\n        detail: {\n          valueAnimation: true,\n          formatter: '{value}\\n{unit|km / h}',\n          offsetCenter: [0, '50%'],\n          rich: {\n            unit: {\n              lineHeight: 80,\n              color: '#fff',\n              fontSize: 30,\n            },\n          },\n          fontSize: 50,\n          color: '#fff',\n        },\n        data: [\n          {\n            value: 288,\n            name: 'SPEED',\n          },\n        ],\n      },\n    ],\n  \n};\n\n//export default new Scene({\n//  option,\n//  duration: 5000,\n // file: 'gaugeCar',\n // title: 'Gauge',\n  //dark: true,\n  //background: '#001122',\n//});\n",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "title": "Panel Title",
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 7,
+        "x": 17,
+        "y": 111
+      },
+      "id": 68,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "return {\n\n  series: [{\n    type: 'liquidFill',\n    radius: '90%',\n    data: [0.5],\n    color: ['green'],\n    shape: 'path:// d: \"M 222.003 85.2031 C 221.459 92.4963 219.337 98.8166 216.46 105.106 C 212.735 113.25 209.201 121.351 203.869 128.697 C 200.815 132.904 205.022 141.407 210.966 144.472 C 218.91 148.568 227.709 149.537 236.355 151.037 C 249.386 153.297 262.425 156.696 269.16 169.128 C 276.077 181.895 279.485 195.894 277.361 210.882 C 276.41 217.591 276.909 224.518 276.915 231.346 C 276.929 247.366 276.383 263.555 281.071 279.035 C 284.528 290.452 288.603 301.703 292.047 313.147 C 296.158 326.807 298.343 340.918 301.978 354.685 C 304.281 363.407 307.061 371.535 314.795 377.575 C 322.588 383.661 325.562 393.791 332.013 401.175 C 332.751 402.02 333.285 403.298 332.013 404.267 C 330.45 405.458 328.847 405.232 327.497 403.931 C 324.617 401.156 321.849 398.266 318.961 395.5 C 318.065 394.641 317.255 392.872 315.81 393.633 C 314.232 394.466 314.824 396.42 315.198 397.72 C 317.076 404.252 319.203 410.701 321.93 416.952 C 323.385 420.29 324.505 423.79 325.558 427.282 C 326.106 429.098 327.036 431.764 324.823 432.573 C 322.441 433.443 321.045 430.912 320.17 428.989 C 317.972 424.156 316.02 419.212 313.941 414.324 C 313.309 412.837 312.587 411.389 311.479 409.004 C 309.942 417.164 312.742 423.878 313.42 430.776 C 313.581 432.42 314.018 434.065 313.952 435.695 C 313.893 437.149 314.928 439.454 312.398 439.726 C 310.312 439.951 309.665 437.87 309.308 436.351 C 307.758 429.745 306.381 423.098 305.026 416.449 C 304.699 414.85 304.518 413.256 303.295 411.917 C 302.011 419.039 304.266 425.897 304.003 432.841 C 303.937 434.58 304.637 437.154 302.305 437.477 C 299.756 437.831 299.428 435.118 299.065 433.273 C 297.806 426.87 296.734 420.431 295.53 413.662 C 293.678 419.65 296.119 425.574 294.177 431.197 C 293.708 432.555 294.033 434.561 292 434.556 C 289.962 434.551 290.293 432.544 289.844 431.18 C 288.235 426.281 289.093 421.254 289.068 416.299 C 289.043 411.418 288.38 406.687 286.866 402.104 C 284.564 395.138 284.569 388.174 285.746 380.992 C 287.08 372.857 282.897 366.138 278.983 359.592 C 275.753 354.191 271.721 349.275 268.391 343.929 C 258.95 328.774 252.939 312.445 251.975 294.443 C 251.449 284.635 248.279 275.289 246.724 265.655 C 245.725 259.465 244.762 253.281 245.035 245.509 C 242.28 254.526 242.807 262.392 242.212 270.067 C 240.654 290.142 240.524 310.307 241.097 330.434 C 241.439 342.43 245.59 353.814 248.291 365.411 C 253.697 388.622 253.822 412.06 252.193 435.671 C 251.52 445.42 250.579 455.161 250.159 464.911 C 249.743 474.566 247.636 483.951 246.749 493.498 C 245.461 507.355 244.952 521.193 245.459 535.193 C 245.87 546.567 250.865 556.292 252.969 566.94 C 256.531 584.97 255.042 602.79 251.773 620.76 C 248.936 636.358 243.761 651.793 244.269 667.706 C 244.732 682.219 247.355 696.718 254.847 709.721 C 256.344 712.32 256.02 713.426 252.925 715.31 C 248.562 717.966 243.246 717.118 239.277 720.311 C 237.305 721.897 234.772 720.405 232.269 721.347 C 229.137 722.526 225.492 722.933 222.069 723.844 C 218.092 724.902 214.536 721.898 215.116 717.697 C 215.993 711.358 214.985 704.739 217.905 698.662 C 219.385 695.582 219.272 692.277 218.518 688.905 C 217.643 684.992 218.392 681.066 218.679 677.093 C 219.61 664.225 221.968 651.562 220.627 638.376 C 218.975 622.137 214.526 606.529 212.275 590.5 C 211.388 584.187 211.822 577.638 212.645 571.128 C 213.911 561.125 212.034 551.163 208.671 541.797 C 202.954 525.878 200.027 509.535 198.976 492.749 C 197.681 472.058 190.818 452.639 185.164 432.948 C 185.14 432.866 184.859 432.858 184.301 432.711 C 180.734 448.479 174.447 463.576 172.234 479.634 C 170.543 491.906 170.131 504.352 168.051 516.608 C 166.546 525.48 163.779 533.982 161.031 542.513 C 157.54 553.352 156.048 564.307 157.786 575.816 C 159.287 585.76 157.367 595.719 154.698 605.352 C 149.96 622.454 148.252 639.981 148.914 657.52 C 149.178 664.518 149.489 671.918 151.476 678.893 C 152.092 681.055 151.847 683.079 151.468 685.26 C 150.669 689.858 150.161 694.646 152.194 699.003 C 154.911 704.825 153.846 711.1 154.803 717.117 C 155.661 722.509 150.386 725.496 145.342 723.137 C 141.382 721.285 137.049 721.584 132.928 720.751 C 128.588 719.874 124.38 718.215 120.231 716.6 C 119.071 716.149 118.098 715.243 116.728 714.939 C 113.488 714.222 113.507 712.202 114.878 709.675 C 119.81 700.578 123.251 690.975 123.953 680.582 C 124.235 676.412 126.002 672.599 126.098 668.36 C 126.328 658.253 123.17 648.741 121.443 638.984 C 118.035 619.737 113.475 600.637 114.988 580.84 C 115.648 572.212 116.671 563.604 120.245 555.683 C 123.902 547.577 124.464 538.984 124.866 530.448 C 125.742 511.82 123.447 493.424 120.344 475.048 C 118.864 466.288 118.758 457.244 118.134 448.331 C 116.901 430.74 116.305 413.075 117.15 395.461 C 117.882 380.206 121.409 365.32 125.266 350.554 C 127.832 340.729 129.131 330.787 129.147 320.563 C 129.171 304.587 128.674 288.636 127.919 272.693 C 127.513 264.124 126.487 255.584 125.415 247.003 C 124.772 266.565 118.461 285.203 116.651 304.647 C 115.193 320.306 107.975 334.465 99.045 347.55 C 94.2976 354.506 88.7701 360.949 85.8125 369.108 C 84.2178 373.507 83.3462 377.918 84.191 382.285 C 85.4921 389.013 85.3852 395.461 83.0185 401.869 C 80.6539 408.271 80.7856 414.944 81.0643 421.581 C 81.2139 425.144 80.2145 428.486 79.8048 431.933 C 79.6606 433.146 79.1353 434.828 77.4646 434.714 C 75.5095 434.58 75.9804 432.771 76.0079 431.566 C 76.141 425.741 74.1286 420.074 74.2654 414.122 C 73.1998 420.281 72.1565 426.443 71.0482 432.594 C 70.8448 433.722 70.451 434.834 70.0119 435.898 C 69.5477 437.023 68.7686 437.997 67.394 437.779 C 65.7842 437.523 66.1048 436.114 65.9946 435.001 C 65.3173 428.161 67.0475 421.439 66.9989 414.63 C 66.993 413.806 66.9981 412.982 66.1611 411.99 C 64.4489 419.399 62.739 426.809 61.0221 434.217 C 60.7622 435.339 60.5656 436.488 60.1697 437.562 C 59.6122 439.075 58.6262 440.341 56.8127 439.724 C 55.0699 439.13 55.0795 437.755 55.4014 436.044 C 56.6846 429.224 57.8267 422.376 58.8708 415.515 C 59.1016 413.999 59.4925 412.304 58.0011 410.027 C 55.5447 415.418 53.308 420.303 51.0961 425.199 C 50.6184 426.257 50.3465 427.421 49.7757 428.42 C 48.6742 430.347 47.837 433.664 45.1088 432.496 C 42.7089 431.469 43.9019 428.341 44.4783 426.195 C 47.0217 416.724 52.2044 408.184 54.3056 398.536 C 54.6597 396.91 55.8278 394.87 54.4901 393.868 C 52.7205 392.543 51.1332 394.75 49.9774 395.782 C 47.3999 398.086 45.8441 401.429 42.9116 403.429 C 41.4321 404.438 39.5132 405.887 37.9027 404.581 C 35.9612 403.006 37.8239 401.21 38.7865 399.838 C 45.6266 390.091 51.1962 379.364 60.7507 371.704 C 64.0385 369.068 64.9017 364.913 65.9401 361.125 C 71.939 339.237 75.7713 316.783 83.1336 295.25 C 84.6378 290.85 86.19 286.464 87.8579 282.124 C 92.0439 271.234 92.0501 259.71 92.9275 248.347 C 94.2065 231.785 91.7021 215.204 92.3359 198.709 C 92.8432 185.505 95.8975 172.314 106.141 162.357 C 113.951 154.766 123.951 152.735 134.193 150.933 C 142.47 149.477 150.978 148.813 158.681 144.769 C 163.436 142.272 165.514 138.06 166.845 133.383 C 167.515 131.03 167.122 128.613 165.095 126.487 C 161.64 122.86 159.115 118.505 157.4 113.797 C 154.517 105.884 149.544 98.75 148.56 90.1301 C 148.204 87.0126 146.403 83.7395 150.37 81.321 C 151.69 80.5164 150.863 78.5767 150.562 77.1089 C 147.216 60.8002 156.99 45.3809 173.171 41.4333 C 182.241 39.2206 191.276 39.3014 200.189 42.1903 C 212.383 46.1424 219.837 56.7508 220.064 69.7294 C 220.152 74.777 218.227 80.1733 222.003 85.2031 Z',\n    itemStyle: {\n      opacity: 0.4\n    },\n\n    waveLength: '100%',\n    amplitude: '2%',\n    label: {\n      fontSize: '30',\n      position: ['50%', '25%']\n    },\n    period: '1000',\n    outline: {\n      show: false\n    }\n  }]\n\n};\n",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "svg"
+      },
+      "title": "Panel Title",
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "SI114X"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "SI114X"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "TMG3993RED"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "TMG3993 Red"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "TMG3993Green"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-greens"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "TMG3993 Green"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "TMG3993Blue"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-blues"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "TMG3993 Blue"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "TSL2591"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "TSL2591"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 124
+      },
+      "id": 27,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SI114X\")\n  |> filter(fn: (r) => r[\"_field\"] == \"visible\")\n    |> map(fn: (r) => ({r with _value: r._value/1.5}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "SI114X"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"red\")\n  |> map(fn: (r) => ({r with _value: r._value/50.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "TMG3993RED"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"green\")\n  |> map(fn: (r) => ({r with _value: r._value/50.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "TMG3993Green"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"blue\")\n  |> map(fn: (r) => ({r with _value: r._value/50.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "TMG3993Blue"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"visible\")\n  |> map(fn: (r) => ({r with _value: r._value/50.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "TSL2591"
+        }
+      ],
+      "title": "Raw Visible Light Levels",
+      "transformations": [],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 12,
+        "x": 12,
+        "y": 124
+      },
+      "id": 61,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "return {\n  tooltip: {\n    trigger: 'axis',\n    axisPointer: {\n      type: 'shadow'\n    }\n  },\n  legend: {},\n  grid: {\n    left: '3%',\n    right: '4%',\n    bottom: '3%',\n    containLabel: true\n  },\n  xAxis: [\n    {\n      type: 'category',\n      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']\n    }\n  ],\n  yAxis: [\n    {\n      type: 'value'\n    }\n  ],\n  series: [\n    \n    {\n      name: 'Email',\n      type: 'bar',\n      stack: 'Ad',\n      emphasis: {\n        focus: 'series'\n      },\n      data: [120, 132, 101, 134, 90, 230, 210]\n    },\n    {\n      name: 'Union Ads',\n      type: 'bar',\n      stack: 'Ad',\n      emphasis: {\n        focus: 'series'\n      },\n      data: [220, 182, 191, 234, 290, 330, 310]\n    },\n    {\n      name: 'Video Ads',\n      type: 'bar',\n      stack: 'Ad',\n      emphasis: {\n        focus: 'series'\n      },\n      data: [150, 232, 201, 154, 190, 330, 410]\n    },\n    \n  ]\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "title": "Panel Title",
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "uvLevel"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "GUV001"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "SI114X"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "SI114X"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "VEML6075_UVA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "VEML6075 UVA"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "VEML6075_UVB"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "VEML6075 UVB"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 132
+      },
+      "id": 28,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SI114X\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uv\")\n  |> map(fn: (r) => ({r with _value: r._value*2.5}))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "SI114X"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GUV001\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uvLevel\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "GUV001"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uva\")\n  |> map(fn: (r) => ({r with _value: r._value/200.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "VEML6075_UVA"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"VEML6075\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uvb\")\n  |> map(fn: (r) => ({r with _value: r._value/200.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "VEML6075_UVB"
+        }
+      ],
+      "title": "Raw UV Levels",
+      "transformations": [],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-YlRd"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 5,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "GPSGPGGA2"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "USBGPS"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "GPGGA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Airmar"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 12,
+        "y": 137
+      },
+      "id": 36,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "GPSGPGGA2"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: +(math.floor(x: r._value/100.00) +  (r._value - 100.00*math.floor(x: r._value/100.00))/60.00) }))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "GPGGA"
+        }
+      ],
+      "title": "Latitude",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-YlRd"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 5,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "GPSGPGGA2"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "USBGPS"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "GPGGA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Airmar"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 137
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "GPSGPGGA2"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: -(math.floor(x: r._value/100.00) +  (r._value - 100.00*math.floor(x: r._value/100.00))/60.00) }))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "GPGGA"
+        }
+      ],
+      "title": "Longitude",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-YlRd"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "lengthm"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "GPSGPGGA2"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "USBGPS"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "GPGGA"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Airmar"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 137
+      },
+      "id": 37,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"altitude\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "GPSGPGGA2"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"altitude\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "GPGGA"
+        }
+      ],
+      "title": "Altitude",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ir"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "SI114X"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "TMG3993"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "TMG3993"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "TSL2591"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "TSL2591"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 140
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SI114X\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ir\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "SI114X"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TMG3993\")\n  |> filter(fn: (r) => r[\"_field\"] == \"infraRed\")\n  |> map(fn: (r) => ({r with _value: r._value / 5.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")  \n",
+          "refId": "TMG3993"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"TSL2591\")\n  |> filter(fn: (r) => r[\"_field\"] == \"ir\")\n  |> map(fn: (r) => ({r with _value: r._value / 5.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")  \n",
+          "refId": "TSL2591"
+        }
+      ],
+      "title": "Raw IR Levels",
+      "transformations": [],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "GPVTG:CoG"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "GPVTG"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 12,
+        "y": 145
+      },
+      "id": 38,
+      "options": {
+        "bucketOffset": 0,
+        "bucketSize": 5,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        }
+      },
+      "pluginVersion": "0.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPVTG\")\n  |> filter(fn: (r) => r[\"_field\"] == \"courseOGTrue\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "GPVTG:CoG"
+        }
+      ],
+      "title": "Sensor Movement",
+      "transformations": [],
+      "transparent": true,
+      "type": "histogram"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "velocityms"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "GPVTG:CoG"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "GPVTG"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 145
+      },
+      "id": 39,
+      "options": {
+        "bucketOffset": 0,
+        "bucketSize": 0.01,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        }
+      },
+      "pluginVersion": "0.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPVTG\")\n  |> filter(fn: (r) => r[\"_field\"] == \"speedOverGroundKMPH\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: r._value * 1000.0/(60.0*60.0)         }))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "GPVTG:CoG"
+        }
+      ],
+      "title": "Speed Over Ground",
+      "transformations": [],
+      "transparent": true,
+      "type": "histogram"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 145
+      },
+      "id": 25,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": true,
+          "showScale": true,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "latitude": "GPSGPGGA2 · latitudeCoordinate",
+              "longitude": "GPSGPGGA2 · longitudeCoordinate",
+              "mode": "coords"
+            },
+            "name": "Layer 1",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 32.794242,
+          "lon": -96.7943,
+          "shared": false,
+          "zoom": 9.48
+        }
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPSGPGGA2\")\n  |> filter(fn: (r) => r[\"_field\"] == \"longitudeCoordinate\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "B"
+        }
+      ],
+      "title": "Sensor Location",
+      "transformations": [
+        {
+          "id": "concatenate",
+          "options": {
+            "frameNameLabel": "frame",
+            "frameNameMode": "field"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cloudPecentage"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Cloud Percentage"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "allRed"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Red"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "allGreen"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Green"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "allBlue"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "Blue"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "skyRed"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "Sky Red"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "skyGreen"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "Sky Green"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "skyBlue"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "Sky Blue"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cloudRed"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    0,
+                    10
+                  ],
+                  "fill": "dot"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "Cloud Red"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cloudGreen"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    0,
+                    10
+                  ],
+                  "fill": "dot"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "Cloud Green"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cloudBlue"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    0,
+                    10
+                  ],
+                  "fill": "dot"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "Cloud Blue"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 148
+      },
+      "id": 51,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SKYCAM003\")\n  |> filter(fn: (r) => r[\"_field\"] == \"cloudPecentage\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "cloudPercentage"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SKYCAM003\")\n  |> filter(fn: (r) => r[\"_field\"] == \"allRed\")\n  |> map(fn: (r) => ({r with _value: r._value*100.0 / 255.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "allRed"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SKYCAM003\")\n  |> filter(fn: (r) => r[\"_field\"] == \"allGreen\")\n  |> map(fn: (r) => ({r with _value: r._value*100.0 / 255.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "allGreen"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SKYCAM003\")\n  |> filter(fn: (r) => r[\"_field\"] == \"allBlue\")\n  |> map(fn: (r) => ({r with _value: r._value*100.0 / 255.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "allBlue"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SKYCAM003\")\n  |> filter(fn: (r) => r[\"_field\"] == \"skyRed\")\n  |> map(fn: (r) => ({r with _value: r._value*100.0 / 255.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "skyRed"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SKYCAM003\")\n  |> filter(fn: (r) => r[\"_field\"] == \"skyGreen\")\n  |> map(fn: (r) => ({r with _value: r._value*100.0 / 255.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "skyGreen"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SKYCAM003\")\n  |> filter(fn: (r) => r[\"_field\"] == \"skyBlue\")\n  |> map(fn: (r) => ({r with _value: r._value*100.0 / 255.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "skyBlue"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SKYCAM003\")\n  |> filter(fn: (r) => r[\"_field\"] == \"cloudRed\")\n  |> map(fn: (r) => ({r with _value: r._value*100.0 / 255.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "cloudRed"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SKYCAM003\")\n  |> filter(fn: (r) => r[\"_field\"] == \"cloudGreen\")\n  |> map(fn: (r) => ({r with _value: r._value*100.0 / 255.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "cloudGreen"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SKYCAM003\")\n  |> filter(fn: (r) => r[\"_field\"] == \"cloudBlue\")\n  |> map(fn: (r) => ({r with _value: r._value*100.0 / 255.0}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "cloudBlue"
+        }
+      ],
+      "title": "Sky Cam Outputs",
+      "transformations": [],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "degree"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "pitch"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Pitch"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "roll"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Roll"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 153
+      },
+      "id": 53,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"YXXDR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pitch\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "pitch"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"YXXDR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"roll\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "roll"
+        }
+      ],
+      "title": "Sensor Orientation",
+      "transformations": [],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 156
+      },
+      "id": 32,
+      "options": {
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
+        },
+        "editor": {
+          "format": "auto",
+          "height": 600
+        },
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer;\n\n  return {\n    name: s.refId,\n    type: 'line',\n    showSymbol: false,\n    areaStyle: {\n      opacity: 0.1,\n    },\n    lineStyle: {\n      width: 1,\n    },\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n    xAxis: {\n      type: 'time',\n    },\n    yAxis: {\n      type: 'value',\n      min: 'dataMin',\n      inverse: true,\n    },\n\n  };\n  \n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n  legend: {\n    left: '0',\n    bottom: '0',\n    data: data.series.map((s) => s.refId),\n    textStyle: {\n      color: 'rgba(128, 128, 128, .9)',\n    },\n  },\n  toolbox: {\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none',\n        icon: {\n          zoom: 'path://',\n          back: 'path://',\n        },\n      },\n      saveAsImage: {},\n    }\n  },\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '2%',\n    bottom: 24,\n    containLabel: true,\n  },\n  series,\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"RG15\")\n  |> filter(fn: (r) => r[\"_field\"] == \"rainPerInterval\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "RG15"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pm2_5\")\r\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\r\n  |> yield(name: \"last\")",
+          "refId": "PM2.5"
+        }
+      ],
+      "title": "Rain",
+      "transformations": [],
+      "transparent": true,
+      "type": "volkovlabs-echarts-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 23,
+        "w": 24,
+        "x": 0,
+        "y": 164
+      },
+      "id": 49,
+      "pconfig": {
+        "layout": {
+          "autosize": false,
+          "font": {
+            "color": "rgb(110,110,110)",
+            "family": "\"Open Sans\", Helvetica, Arial, sans-serif"
+          },
+          "hovermode": "closest",
+          "legend": {
+            "orientation": "v"
+          },
+          "paper_bgcolor": "transparent",
+          "plot_bgcolor": "transparent",
+          "polar": {
+            "angularaxis": {
+              "direction": "counterclockwise",
+              "dtick": 22.5,
+              "rotation": 90
+            },
+            "radialaxis": {
+              "angle": 90,
+              "ticksuffix": "%"
+            }
+          },
+          "showlegend": true
+        },
+        "mapping": {
+          "color": "@index",
+          "x": "windDirectionTrue {device_id=\"001e06430224\", device_name=\"Central Hub 8\"}",
+          "y": "windSpeedMetersPerSecond {device_id=\"001e06430224\", device_name=\"Central Hub 8\"}"
+        },
+        "settings": {
+          "color_option": "ramp",
+          "displayModeBar": false,
+          "marker": {
+            "color": "#33B5E5",
+            "colorscale": "YIOrRd",
+            "showscale": true,
+            "size": 15,
+            "sizemin": 3,
+            "sizemode": "diameter",
+            "sizeref": 0.2,
+            "symbol": "circle"
+          },
+          "petals": 100,
+          "plot": "windrose",
+          "wind_speed_interval": 2
+        }
+      },
+      "pluginVersion": "9.3.6",
+      "repeat": "device_id",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"windSpeedMetersPerSecond\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "windSpeed"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"windDirectionTrue\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "windDirection"
+        }
+      ],
+      "title": "Wind Speed and Direction (WIMDA)",
+      "transformations": [],
+      "transparent": true,
+      "type": "fatcloud-windrose-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 23,
+        "w": 24,
+        "x": 0,
+        "y": 187
+      },
+      "id": 52,
+      "pconfig": {
+        "layout": {
+          "autosize": false,
+          "font": {
+            "color": "rgb(110,110,110)",
+            "family": "\"Open Sans\", Helvetica, Arial, sans-serif"
+          },
+          "hovermode": "closest",
+          "legend": {
+            "orientation": "v"
+          },
+          "paper_bgcolor": "transparent",
+          "plot_bgcolor": "transparent",
+          "polar": {
+            "angularaxis": {
+              "direction": "counterclockwise",
+              "dtick": 22.5,
+              "rotation": 90
+            },
+            "radialaxis": {
+              "angle": 90,
+              "ticksuffix": "%"
+            }
+          },
+          "showlegend": true
+        },
+        "mapping": {
+          "color": "@index",
+          "x": "windAngle {device_id=\"001e06430224\", device_name=\"Central Hub 8\"}",
+          "y": "windSpeed {device_id=\"001e06430224\", device_name=\"Central Hub 8\"}"
+        },
+        "settings": {
+          "color_option": "ramp",
+          "displayModeBar": false,
+          "marker": {
+            "color": "#33B5E5",
+            "colorscale": "YIOrRd",
+            "showscale": true,
+            "size": 15,
+            "sizemin": 3,
+            "sizemode": "diameter",
+            "sizeref": 0.2,
+            "symbol": "circle"
+          },
+          "petals": 100,
+          "plot": "windrose",
+          "wind_speed_interval": 2
+        }
+      },
+      "pluginVersion": "9.3.6",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMWV\")\n  |> filter(fn: (r) => r[\"_field\"] == \"windSpeed\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> map(fn: (r) => ({r with _value: r._value*0.5444}))\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "windSpeed"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "influxdb-uid"
+          },
+          "hide": false,
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMWV\")\n  |> filter(fn: (r) => r[\"_field\"] == \"windAngle\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
+          "refId": "windDirection"
+        }
+      ],
+      "title": "Wind Speed and Direction (WIMWV)",
+      "transformations": [],
+      "transparent": true,
+      "type": "fatcloud-windrose-panel"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "001e0610c0e4",
+          "value": "001e0610c0e4"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_id\")",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "device_id",
+        "options": [],
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_id\")",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Central Hub 8",
+          "value": "Central Hub 8"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_name\")",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "device_name",
+        "options": [],
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"SharedAirDFW\", tag: \"device_name\")",
+        "refresh": 1,
+        "regex": "^.*Central.*$",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "0.65",
+          "value": "0.65"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Bird Call Confidence",
+        "multi": false,
+        "name": "Confidence",
+        "options": [
+          {
+            "selected": false,
+            "text": "0.3",
+            "value": "0.3"
+          },
+          {
+            "selected": false,
+            "text": "0.5",
+            "value": "0.5"
+          },
+          {
+            "selected": true,
+            "text": "0.65",
+            "value": "0.65"
+          },
+          {
+            "selected": false,
+            "text": "0.8",
+            "value": "0.8"
+          },
+          {
+            "selected": false,
+            "text": "0.95",
+            "value": "0.95"
+          }
+        ],
+        "query": "0.3, 0.5, 0.65, 0.8, 0.95",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Central Node Debugging Apache Echirt",
+  "uid": "CB1HRh_4z",
+  "version": 86,
+  "weekStart": ""
+}
