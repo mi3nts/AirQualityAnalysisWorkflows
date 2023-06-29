@@ -34,10 +34,6 @@ services:
   nodered:
     build: ./nodered-docker
     image: mints-nodered
-    volumes:
-      - type: bind
-        source: ./nodered-docker/id_lookup.csv
-        target: /data/id_lookup.csv  
     ports:
       - "1880:1880"
     networks:
