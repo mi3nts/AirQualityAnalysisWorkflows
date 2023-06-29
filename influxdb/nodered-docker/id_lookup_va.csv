@@ -1,0 +1,13 @@
+mac_address,name,node_type,device_type,in_use,,,,,
+001e064a151d,Mints Wearable Node 02,Wearable Node,C4,1,,,,,
+001e064300d6,Mints Wearable Station 01,Wearable Station,N2,1,,,,,
+e45f018020e9,Mints Wearable Node V5 01,Wearable Node,Rasberry Pi Zero 2W,1,,,,,
+e45f018020cb,Mints Wearable Node V5 02,Wearable Node,Rasberry Pi Zero 2W,1,,,,,
+e45f018020c7,Mints Wearable Node V5 03,Wearable Node,Rasberry Pi Zero 2W,1,,,,,
+e45f017b9a66,Mints Wearable Node V5 04,Wearable Node,Rasberry Pi Zero 2W,1,,,,,
+e45f01802105,Mints Wearable Node V5 05,Wearable Node,Rasberry Pi Zero 2W,1,,,,,
+e45f017b9205,Mints Wearable Node V5 06,Wearable Node,Rasberry Pi Zero 2W,1,,,,,
+
+
+
+
