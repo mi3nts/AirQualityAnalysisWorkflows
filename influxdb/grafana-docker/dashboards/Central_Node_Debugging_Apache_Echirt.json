@@ -700,7 +700,7 @@
           "key": "",
           "plugin": "AMap.Scale,AMap.ToolBar"
         },
-        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n\n  var lastDataPoint = sData[sData.length - 1];\n  var DataPoint = lastDataPoint.toFixed(2);\n  return {\n    name: s.refId,\n    type: 'gauge',\n    startAngle: 270,\n    endAngle: 0,\n\n    radius: '100%',\n    min: '-20',\n    max: '50',\n    splitNumber: 7,\n    axisLine: {\n      lineStyle: {\n        width: 6,\n        color: [\n          [0.29, '#1412B2'],\n          [0.43, '#05C3CF'],\n          [0.71, '#7CFFB2'],\n          [0.8, 'orange'],\n          [1, '#FF6E76']\n        ]\n      }\n    },\n\n    detail: { formatter: '{value}  °C', fontSize: 20, color: 'inherit' },\n    pointer: {\n      itemStyle: {\n        color: 'inherit'\n      },\n      length: '50%',\n    },\n    axisTick: {\n      length: 5,\n      splitNumber: 10,\n      lineStyle: {\n        color: 'inherit',\n      }\n    },\n    splitLine: {\n      length: 20,\n      lineStyle: {\n        color: 'white',\n        width: 5\n      }\n    },\n\n    data: [{ value: DataPoint }],\n\n  };\n});\n\n\nreturn {\n  series,\n\n\n};",
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n\n  var lastDataPoint = sData[sData.length - 1];\n  var DataPoint = lastDataPoint.toFixed(2);\n  return {\n    name: s.refId,\n    type: 'gauge',\n    startAngle: 270,\n    endAngle: 0,\n\n    radius: '100%',\n    min: '-20',\n    max: '50',\n    splitNumber: 7,\n    axisLine: {\n      lineStyle: {\n        width: 6,\n        color: [\n          [0.29, '#1412B2'],\n          [0.43, '#05C3CF'],\n          [0.71, '#7CFFB2'],\n          [0.8, 'orange'],\n          [1, '#FF6E76']\n        ]\n      }\n    },\n\n    detail: { formatter: '{value}  °C', fontSize: 20, color: 'inherit' },\n    pointer: {\n      itemStyle: {\n        color: 'inherit'\n      },\n      length: '80%',\n    },\n    axisTick: {\n      length: 5,\n      splitNumber: 10,\n      lineStyle: {\n        color: 'inherit',\n      }\n    },\n    splitLine: {\n      length: 20,\n      lineStyle: {\n        color: 'white',\n        width: 5\n      }\n    },\n\n    data: [{ value: DataPoint }],\n\n  };\n});\n\n\nreturn {\n  series,\n\n\n};",
         "google": {
           "callback": "gmapReady",
           "key": ""
@@ -827,7 +827,7 @@
           "key": "",
           "plugin": "AMap.Scale,AMap.ToolBar"
         },
-        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n\n  var lastDataPoint = sData[sData.length - 1];\n  var DataPoint = lastDataPoint.toFixed(1);\n  return {\n    name: s.refId,\n    type: 'gauge',\n    startAngle: 270,\n    endAngle: 0,\n    animationEasing: 'bounceOut',\n    \n    animationDuration: 2500,\n    radius: '100%',\n    min: '950',\n    max: '1050',\n    splitNumber: 5,\n    axisLine: {\n      lineStyle: {\n        width: 6,\n        color: [\n          [0.29, '#1412B2'],\n          [0.43, '#05C3CF'],\n          [0.61, '#7CFFB2'],\n          [0.7, 'orange'],\n          [1, '#FF6E76']\n        ]\n      }\n    },\n\n    detail: { formatter: '{value} mbar', fontSize: 15, color: 'inherit' },\n    pointer: {\n      icon: 'path://M2090.36389,615.30999 L2090.36389,615.30999 C2091.48372,615.30999 2092.40383,616.194028 2092.44859,617.312956 L2096.90698,728.755929 C2097.05155,732.369577 2094.2393,735.416212 2090.62566,735.56078 C2090.53845,735.564269 2090.45117,735.566014 2090.36389,735.566014 L2090.36389,735.566014 C2086.74736,735.566014 2083.81557,732.63423 2083.81557,729.017692 C2083.81557,728.930412 2083.81732,728.84314 2083.82081,728.755929 L2088.2792,617.312956 C2088.32396,616.194028 2089.24407,615.30999 2090.36389,615.30999 Z',\n      itemStyle: {\n        color: 'inherit'\n      },\n      offsetCenter: [0, '20%'],\n      length: '110%',\n    },\n    anchor:\n    {\n      show: 'true',\n      showAbove: true,\n      itemStyle: {\n        color: 'white'\n      },\n    },\n    axisTick: {\n      length: 5,\n      splitNumber: 10,\n      lineStyle: {\n        color: 'inherit',\n      }\n    },\n    splitLine: {\n      length: 20,\n      lineStyle: {\n        color: 'white',\n        width: 5\n      }\n    },\n\n    data: [{ value: DataPoint },],\n\n  };\n});\n\n\nreturn {\n  series,\n\n\n};",
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n\n  var lastDataPoint = sData[sData.length - 1];\n  var DataPoint = lastDataPoint.toFixed(1);\n  return {\n    name: s.refId,\n    type: 'gauge',\n    startAngle: 270,\n    endAngle: 0,\n    animationEasing: 'bounceOut',\n\n    animationDuration: 1500,\n    radius: '100%',\n    min: '950',\n    max: '1050',\n    splitNumber: 5,\n    axisLine: {\n      lineStyle: {\n        width: 6,\n        color: [\n          [0.29, '#1412B2'],\n          [0.43, '#05C3CF'],\n          [0.61, '#7CFFB2'],\n          [0.7, 'orange'],\n          [1, '#FF6E76']\n        ]\n      }\n    },\n\n    detail: { formatter: '{value} mbar', fontSize: 15, color: 'inherit' },\n    pointer: {\n      icon: 'path://M2090.36389,615.30999 L2090.36389,615.30999 C2091.48372,615.30999 2092.40383,616.194028 2092.44859,617.312956 L2096.90698,728.755929 C2097.05155,732.369577 2094.2393,735.416212 2090.62566,735.56078 C2090.53845,735.564269 2090.45117,735.566014 2090.36389,735.566014 L2090.36389,735.566014 C2086.74736,735.566014 2083.81557,732.63423 2083.81557,729.017692 C2083.81557,728.930412 2083.81732,728.84314 2083.82081,728.755929 L2088.2792,617.312956 C2088.32396,616.194028 2089.24407,615.30999 2090.36389,615.30999 Z',\n      itemStyle: {\n        color: 'inherit'\n      },\n      offsetCenter: [0, '20%'],\n      length: '110%',\n    },\n    anchor:\n    {\n      show: 'true',\n      showAbove: true,\n      itemStyle: {\n        color: 'white'\n      },\n    },\n    axisTick: {\n      length: 5,\n      splitNumber: 10,\n      lineStyle: {\n        color: 'inherit',\n      }\n    },\n    splitLine: {\n      length: 20,\n      lineStyle: {\n        color: 'white',\n        width: 5\n      }\n    },\n\n    data: [{ value: DataPoint },],\n\n  };\n});\n\n\nreturn {\n  series,\n\n\n};",
         "google": {
           "callback": "gmapReady",
           "key": ""
@@ -954,7 +954,7 @@
           "key": "",
           "plugin": "AMap.Scale,AMap.ToolBar"
         },
-        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n\n  var lastDataPoint = sData[sData.length - 1];\n  var DataPoint = lastDataPoint.toFixed(1);\n  return {\n    name: s.refId,\n    type: 'gauge',\n    startAngle: 270,\n    endAngle: 0,\n\n    radius: '100%',\n    min: '0',\n    max: '100',\n    splitNumber: 5,\n    axisLine: {\n      lineStyle: {\n        width: 6,\n        color: [\n          [0.29, '#1412B2'],\n          \n          [0.5, '#7CFFB2'],\n          [0.6, 'orange'],\n          [1, '#FF6E76']\n        ]\n      }\n    },\n\n    detail: { formatter: '{value} %', fontSize: 15, color: 'inherit' },\n    pointer: {\n      itemStyle: {\n        color: 'inherit'\n      },\n      length: '50%',\n    },\n    axisTick: {\n      length: 5,\n      splitNumber: 10,\n      lineStyle: {\n        color: 'inherit',\n      }\n    },\n    splitLine: {\n      length: 20,\n      lineStyle: {\n        color: 'white',\n        width: 5\n      }\n    },\n\n    data: [{ value: DataPoint },],\n\n  };\n});\n\n\nreturn {\n  series,\n\n\n};",
+        "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer;\n\n  var lastDataPoint = sData[sData.length - 1];\n  var DataPoint = lastDataPoint.toFixed(1);\n  return {\n    name: s.refId,\n    type: 'gauge',\n    startAngle: 270,\n    endAngle: 0,\n    animationEasing: 'easeInOutExpo',\n    animationDuration: '500',\n\n    radius: '100%',\n    min: '0',\n    max: '100',\n    splitNumber: 5,\n    axisLine: {\n      lineStyle: {\n        width: 6,\n        color: [\n          [0.29, '#1412B2'],\n\n          [0.5, '#7CFFB2'],\n          [0.6, 'orange'],\n          [1, '#FF6E76']\n        ]\n      }\n    },\n\n    detail: { formatter: '{value} %', fontSize: 15, color: 'inherit' },\n    pointer: {\n      icon: 'path://M2090.36389,615.30999 L2090.36389,615.30999 C2091.48372,615.30999 2092.40383,616.194028 2092.44859,617.312956 L2096.90698,728.755929 C2097.05155,732.369577 2094.2393,735.416212 2090.62566,735.56078 C2090.53845,735.564269 2090.45117,735.566014 2090.36389,735.566014 L2090.36389,735.566014 C2086.74736,735.566014 2083.81557,732.63423 2083.81557,729.017692 C2083.81557,728.930412 2083.81732,728.84314 2083.82081,728.755929 L2088.2792,617.312956 C2088.32396,616.194028 2089.24407,615.30999 2090.36389,615.30999 Z',\n      itemStyle: {\n        color: 'inherit'\n      },\n      length: '90%',\n      offsetCenter: [0, '20%'],\n    },\n    axisTick: {\n      length: 5,\n      splitNumber: 10,\n      lineStyle: {\n        color: 'inherit',\n      }\n    },\n    splitLine: {\n      length: 20,\n      lineStyle: {\n        color: 'white',\n        width: 5\n      }\n    },\n\n    data: [{ value: DataPoint },],\n\n  };\n});\n\n\nreturn {\n  series,\n\n\n};",
         "google": {
           "callback": "gmapReady",
           "key": ""
@@ -969,7 +969,7 @@
             "uid": "influxdb-uid"
           },
           "hide": true,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME280\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
           "refId": "BME280"
         },
         {
@@ -978,7 +978,7 @@
             "uid": "influxdb-uid"
           },
           "hide": true,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"BME680\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
           "refId": "BME680"
         },
         {
@@ -987,7 +987,7 @@
             "uid": "influxdb-uid"
           },
           "hide": true,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"SCD30\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
           "refId": "SCD30"
         },
         {
@@ -996,7 +996,7 @@
             "uid": "influxdb-uid"
           },
           "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"relativeHumidity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: -5m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"WIMDA\")\n  |> filter(fn: (r) => r[\"_field\"] == \"relativeHumidity\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
           "refId": "WIMDA"
         }
       ],
@@ -4438,6 +4438,6 @@
   "timezone": "",
   "title": "Central Node Debugging Apache Echirt",
   "uid": "CB1HRh_4z",
-  "version": 86,
+  "version": 87,
   "weekStart": ""
 }
