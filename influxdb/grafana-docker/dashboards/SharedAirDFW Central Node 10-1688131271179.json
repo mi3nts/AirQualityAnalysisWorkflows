@@ -1951,7 +1951,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2035,7 +2036,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green"
+                "color": "dark-green",
+                "value": null
               },
               {
                 "color": "semi-dark-green",
@@ -2127,7 +2129,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2203,7 +2206,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green"
+                "color": "dark-green",
+                "value": null
               },
               {
                 "color": "green",
@@ -2335,7 +2339,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2435,7 +2440,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2537,7 +2543,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2609,7 +2616,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2723,7 +2731,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-red"
+                "color": "dark-red",
+                "value": null
               }
             ]
           }
@@ -2874,7 +2883,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "Central Hub 10",
           "value": "Central Hub 10"
         },
@@ -2898,8 +2907,8 @@
       {
         "current": {
           "selected": true,
-          "text": "0.8",
-          "value": "0.8"
+          "text": "0.65",
+          "value": "0.65"
         },
         "hide": 0,
         "includeAll": false,
@@ -2909,11 +2918,21 @@
         "options": [
           {
             "selected": false,
+            "text": "0.3",
+            "value": "0.3"
+          },
+          {
+            "selected": false,
+            "text": "0.5",
+            "value": "0.5"
+          },
+          {
+            "selected": true,
             "text": "0.65",
             "value": "0.65"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "0.8",
             "value": "0.8"
           },
@@ -2923,8 +2942,8 @@
             "value": "0.95"
           }
         ],
-        "query": "0.65, 0.8, 0.95",
-        "queryValue": "0.3",
+        "query": "0.3, 0.5, 0.65, 0.8, 0.95",
+        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       }
@@ -2938,6 +2957,6 @@
   "timezone": "",
   "title": "SharedAirDFW Central Node 10",
   "uid": "Op3lXkrVk",
-  "version": 16,
+  "version": 18,
   "weekStart": ""
 }
