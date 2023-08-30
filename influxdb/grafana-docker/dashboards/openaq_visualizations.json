@@ -1,0 +1,743 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 1,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "description": "The national average pm1 concentration of 1000 randomly selected points",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "conμgm3"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 5,
+          "x": 0,
+          "y": 0
+        },
+        "id": 12,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "influxdb-uid"
+            },
+            "query": "from(bucket: \"open-aq\")\r\n  |> range(start: -2h)\r\n  |> filter(fn: (r) => r[\"parameter\"] == \"pm1\")\r\n  |> group()\r\n  |> limit(n: 1000)",
+            "refId": "A"
+          }
+        ],
+        "title": "Average pm1 Concentration",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "description": "The national average pm10 concentration of 1000 randomly selected points",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "conμgm3"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 5,
+          "x": 5,
+          "y": 0
+        },
+        "id": 16,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "influxdb-uid"
+            },
+            "query": "from(bucket: \"open-aq\")\r\n  |> range(start: -2h)\r\n  |> filter(fn: (r) => r[\"parameter\"] == \"pm10\")\r\n  |> group()\r\n  |> limit(n: 1000)",
+            "refId": "A"
+          }
+        ],
+        "title": "Average pm10 Concentration",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "description": "A heat map of various parameters in ten minute intervals in µg/m³",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "scaleDistribution": {
+                "type": "linear"
+              }
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 10,
+          "y": 0
+        },
+        "id": 14,
+        "options": {
+          "calculate": false,
+          "cellGap": 1,
+          "cellValues": {
+            "unit": "conμgm3"
+          },
+          "color": {
+            "exponent": 0.5,
+            "fill": "green",
+            "mode": "scheme",
+            "reverse": true,
+            "scale": "exponential",
+            "scheme": "YlGn",
+            "steps": 64
+          },
+          "exemplars": {
+            "color": "rgba(255,0,255,0.7)"
+          },
+          "filterValues": {
+            "le": 1e-9
+          },
+          "legend": {
+            "show": true
+          },
+          "rowsFrame": {
+            "layout": "auto"
+          },
+          "tooltip": {
+            "show": true,
+            "yHistogram": false
+          },
+          "yAxis": {
+            "axisPlacement": "left",
+            "reverse": false
+          }
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "influxdb-uid"
+            },
+            "query": "from(bucket: \"open-aq\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"unit\"] == \"µg/m³\")\r\n  |> group(columns: [\"parameter\"])\r\n  |> aggregateWindow(\r\n        column: \"_value\",\r\n        every: 10m,\r\n        fn: mean\r\n    )",
+            "refId": "A"
+          }
+        ],
+        "title": "Parameter Heat Map (µg/m³)",
+        "type": "heatmap"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "conμgm3"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 10,
+          "x": 0,
+          "y": 7
+        },
+        "id": 4,
+        "options": {
+          "basemap": {
+            "config": {},
+            "name": "Layer 0",
+            "type": "default"
+          },
+          "controls": {
+            "mouseWheelZoom": true,
+            "showAttribution": true,
+            "showDebug": false,
+            "showMeasure": false,
+            "showScale": true,
+            "showZoom": true
+          },
+          "layers": [
+            {
+              "config": {
+                "blur": 15,
+                "radius": 2,
+                "weight": {
+                  "fixed": 1,
+                  "max": 1,
+                  "min": 0
+                }
+              },
+              "name": "pm1 Concentration",
+              "tooltip": true,
+              "type": "heatmap"
+            }
+          ],
+          "tooltip": {
+            "mode": "details"
+          },
+          "view": {
+            "allLayers": true,
+            "id": "north-america",
+            "lat": 40,
+            "lon": -100,
+            "zoom": 4
+          }
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "influxdb-uid"
+            },
+            "query": "from(bucket: \"open-aq\")\r\n  |> range(start: -2h)\r\n  |> filter(fn: (r) => r[\"parameter\"] == \"pm1\")\r\n  |> group()\r\n  |> limit(n: 5000)",
+            "refId": "A"
+          }
+        ],
+        "title": "pm1 Heatmap",
+        "type": "geomap"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "description": "The hourly national average of parameters in µg/m³",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "conμgm3"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 10,
+          "y": 8
+        },
+        "id": 6,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "influxdb-uid"
+            },
+            "query": "from(bucket: \"open-aq\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"unit\"] == \"µg/m³\")\r\n  |> group(columns: [\"parameter\"])\r\n  |> aggregateWindow(\r\n        column: \"_value\",\r\n        every: 1h,\r\n        fn: mean\r\n    )",
+            "refId": "A"
+          }
+        ],
+        "title": "Parameter Average Measurements (µg/m³)",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "description": "The hourly national average of parameters in ppm",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "ppm"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 10,
+          "y": 16
+        },
+        "id": 8,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "influxdb-uid"
+            },
+            "query": "from(bucket: \"open-aq\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"unit\"] == \"ppm\")\r\n  |> group(columns: [\"parameter\"])\r\n  |> aggregateWindow(\r\n        column: \"_value\",\r\n        every: 1h,\r\n        fn: mean\r\n    )",
+            "refId": "A"
+          }
+        ],
+        "title": "Parameter Average Measurements (ppm)",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "description": "The map of the 1000 highest pm1 concentrations in the nation",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": [],
+            "max": 25,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "conμgm3"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 10,
+          "x": 0,
+          "y": 19
+        },
+        "id": 2,
+        "options": {
+          "basemap": {
+            "config": {},
+            "name": "Layer 0",
+            "type": "default"
+          },
+          "controls": {
+            "mouseWheelZoom": true,
+            "showAttribution": true,
+            "showDebug": false,
+            "showMeasure": false,
+            "showScale": false,
+            "showZoom": true
+          },
+          "layers": [
+            {
+              "config": {
+                "showLegend": true,
+                "style": {
+                  "color": {
+                    "field": "_value",
+                    "fixed": "dark-green"
+                  },
+                  "opacity": 0.4,
+                  "rotation": {
+                    "fixed": 0,
+                    "max": 360,
+                    "min": -360,
+                    "mode": "mod"
+                  },
+                  "size": {
+                    "field": "_value",
+                    "fixed": 5,
+                    "max": 15,
+                    "min": 2
+                  },
+                  "symbol": {
+                    "fixed": "img/icons/marker/circle.svg",
+                    "mode": "fixed"
+                  },
+                  "textConfig": {
+                    "fontSize": 12,
+                    "offsetX": 0,
+                    "offsetY": 0,
+                    "textAlign": "center",
+                    "textBaseline": "middle"
+                  }
+                }
+              },
+              "location": {
+                "mode": "auto"
+              },
+              "name": "pm1 Concentration",
+              "tooltip": true,
+              "type": "markers"
+            }
+          ],
+          "tooltip": {
+            "mode": "details"
+          },
+          "view": {
+            "allLayers": true,
+            "id": "north-america",
+            "lat": 40,
+            "lon": -100,
+            "zoom": 4
+          }
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "influxdb-uid"
+            },
+            "query": "from(bucket: \"open-aq\")\r\n  |> range(start: -2h)\r\n  |> filter(fn: (r) => r[\"parameter\"] == \"pm1\")\r\n  |> group()\r\n  |> sort(desc: true)\r\n  |> limit(n: 1000)",
+            "refId": "A"
+          }
+        ],
+        "title": "Highest pm1 Measurements",
+        "type": "geomap"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb-uid"
+        },
+        "description": "The hourly national average of parameters in particles/cm³",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "particles/cm³"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 10,
+          "y": 24
+        },
+        "id": 10,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "influxdb-uid"
+            },
+            "query": "from(bucket: \"open-aq\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"unit\"] == \"particles/cm³\")\r\n  |> group(columns: [\"parameter\"])\r\n  |> aggregateWindow(\r\n        column: \"_value\",\r\n        every: 1h,\r\n        fn: mean\r\n    )",
+            "refId": "A"
+          }
+        ],
+        "title": "Parameter Average Measurements (particles/cm³)",
+        "type": "timeseries"
+      }
+    ],
+    "refresh": "",
+    "revision": 1,
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "OpenAQ Visualizations",
+    "uid": "fGQtNjP4k",
+    "version": 14,
+    "weekStart": ""
+  }
