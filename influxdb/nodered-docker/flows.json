@@ -107,7 +107,7 @@
     {
         "id": "6d81027f06ed63bd",
         "type": "influxdb",
-        "hostname": "127.0.0.1",
+        "hostname": "${DOCKER_INFLUXDB_HOSTNAME}",
         "port": "8086",
         "protocol": "http",
         "database": "database",
@@ -115,7 +115,7 @@
         "usetls": false,
         "tls": "a262c54bb2fd3604",
         "influxdbVersion": "2.0",
-        "url": "http://influxdb:8086",
+        "url": "${DOCKER_INFLUXDB_URL}",
         "rejectUnauthorized": true
     },
     {
