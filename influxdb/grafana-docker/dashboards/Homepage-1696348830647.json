@@ -144,7 +144,7 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "fixed": 8,
+                  "fixed": 16,
                   "max": 15,
                   "min": 2
                 },
@@ -213,7 +213,7 @@
             "uid": "influxdb-uid"
           },
           "hide": false,
-          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGA\" or r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\" or r[\"_field\"] == \"${pm_value}\")\n  |> aggregateWindow(every: 1h, fn: last)\n  |> last()\n",
+          "query": "from(bucket: \"SharedAirDFW\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"GPGGAPL\" or r[\"_measurement\"] == \"IPS7100CNR\")\n  |> filter(fn: (r) => r[\"_field\"] == \"latitudeCoordinate\" or r[\"_field\"] == \"longitudeCoordinate\" or r[\"_field\"] == \"${pm_value}\")\n  |> aggregateWindow(every: 1h, fn: last)\n  |> last()\n",
           "refId": "C"
         }
       ],
@@ -283,6 +283,6 @@
   "timezone": "",
   "title": "Homepage",
   "uid": "58VYFvD4a",
-  "version": 8,
+  "version": 10,
   "weekStart": ""
 }

@@ -226,11 +226,6 @@
       "yBucketBound": "middle"
     },
     {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "influxdb-uid"
-      },
-      "description": "Particulate counts displayed in log scale",
       "gridPos": {
         "h": 10,
         "w": 11,
@@ -238,126 +233,11 @@
         "y": 0
       },
       "id": 62,
-      "options": {
-        "baidu": {
-          "callback": "bmapReady",
-          "key": ""
-        },
-        "editor": {
-          "format": "auto",
-          "height": 600
-        },
-        "gaode": {
-          "key": "",
-          "plugin": "AMap.Scale,AMap.ToolBar"
-        },
-        "getOption": "const series = data.series.map((s) => {\n  const pm10 = 'pc10_0';\n  const pm5 = 'pc5_0';\n  const pm2_5 = 'pc2_5';\n  const pm1 = 'pc1_0';\n  const pm0_5 = 'pc0_5';\n  const pm0_3 = 'pc0_3';\n  const pm0_1 = 'pc0_1';\n\n  const sData1 = s.fields.find((f) => f.type === 'number' && f.name === pm10).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm10).values;\n  const sData2 = s.fields.find((f) => f.type === 'number' && f.name === pm5).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm5).values;\n  const sData3 = s.fields.find((f) => f.type === 'number' && f.name === pm2_5).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm2_5).values;\n  const sData4 = s.fields.find((f) => f.type === 'number' && f.name === pm1).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm1).values;\n  const sData5 = s.fields.find((f) => f.type === 'number' && f.name === pm0_5).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm0_5).values;\n  const sData6 = s.fields.find((f) => f.type === 'number' && f.name === pm0_3).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm0_3).values;\n  const sData7 = s.fields.find((f) => f.type === 'number' && f.name === pm0_1).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm0_1).values;\n\n  var Dat1 = sData1[sData1.length - 1];\n  var D1 = Dat1.toFixed(2);\n  var Dat2 = sData2[sData2.length - 1];\n  var D2 = Dat2.toFixed(2);\n  var Dat3 = sData3[sData3.length - 1];\n  var D3 = Dat3.toFixed(2);\n  var Dat4 = sData4[sData4.length - 1];\n  var D4 = Dat4.toFixed(2);\n  var Dat5 = sData5[sData5.length - 1];\n  var D5 = Dat5.toFixed(2);\n  var Dat6 = sData6[sData6.length - 1];\n  var D6 = Dat6.toFixed(2);\n  var Dat7 = sData7[sData7.length - 1];\n  var D7 = Dat7.toFixed(2);\n\n  return {\n    backgroundColor: 'transparent',\n    //animation: false,\n    legend: false,\n    toolbox: {\n      show: true,\n      feature: {\n        mark: { show: true },\n        dataView: { show: true, readOnly: false },\n        restore: { show: true },\n        saveAsImage: { show: true }\n      }\n    },\n    label: {\n      formatter: function (params) {\n        // Custom formatter function to insert arrow sign\n        return params.name + ' ➟ ' + params.value; // Insert arrow sign after the label name\n      },\n    },\n    name: 'Nightingale Chart',\n    type: 'pie',\n    radius: [30, 150],\n    center: ['50%', '50%'],\n    roseType: 'area',\n    emphasis: {\n      focus: 'self'\n    },\n    itemStyle: {\n      borderRadius: 8\n    },\n    data: [\n      { value: D1, name: 'PM 10' },\n      { value: D2, name: 'PM 5' },\n      { value: D3, name: 'PM 2.5' },\n      { value: D4, name: 'PM 1' },\n      { value: D5, name: 'PM 0.5' },\n      { value: D6, name: 'PM 0.3' },\n      { value: D7, name: 'PM 0.1' },\n\n    ]\n\n\n\n\n  };\n});\nreturn {\n  series,\n\n\n};",
-        "google": {
-          "callback": "gmapReady",
-          "key": ""
-        },
-        "map": "none",
-        "renderer": "canvas",
-        "themeEditor": {
-          "config": "{}",
-          "height": 400,
-          "name": "default"
-        }
+      "libraryPanel": {
+        "name": "Particulate Count (Log Scale) apache",
+        "uid": "c4a8ed20-d02e-47a9-9365-7d75d3acb3bd"
       },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${influxdb-uid}"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -10m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc10_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n    |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "G"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${influxdb-uid}"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -10m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc5_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n    |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "F"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${influxdb-uid}"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -10m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc2_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n    |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${influxdb-uid}"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -10m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc1_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n    |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${influxdb-uid}"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -10m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n    |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${influxdb-uid}"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -10m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_3\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n    |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${influxdb-uid}"
-          },
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -10m, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pc0_1\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n    |> map(fn: (r) => ({ r with _value: math.log10(x: r._value + 1.0) }))\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Particulate Count (Log Scale)",
-      "transformations": [
-        {
-          "id": "joinByField",
-          "options": {}
-        },
-        {
-          "id": "labelsToFields",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "pc0_1": "0.1",
-              "pc0_3": "0.3",
-              "pc0_5": "0.5",
-              "pc10_0": "10.0",
-              "pc1_0": "1.0",
-              "pc2_5": "2.5",
-              "pc5_0": "5.0"
-            }
-          }
-        }
-      ],
-      "transparent": true,
-      "type": "volkovlabs-echarts-panel"
+      "title": "Particulate Count (Log Scale)"
     },
     {
       "datasource": {
@@ -468,11 +348,6 @@
       "type": "volkovlabs-echarts-panel"
     },
     {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "influxdb-uid"
-      },
-      "description": "Particulate counts displayed in log scale",
       "gridPos": {
         "h": 10,
         "w": 11,
@@ -480,126 +355,11 @@
         "y": 10
       },
       "id": 65,
-      "options": {
-        "baidu": {
-          "callback": "bmapReady",
-          "key": ""
-        },
-        "editor": {
-          "format": "auto",
-          "height": 600
-        },
-        "gaode": {
-          "key": "",
-          "plugin": "AMap.Scale,AMap.ToolBar"
-        },
-        "getOption": "const series = data.series.map((s) => {\n  const pm10 = 'pm10_0';\n  const pm5 = 'pm5_0';\n  const pm2_5 = 'pm2_5';\n  const pm1 = 'pm1_0';\n  const pm0_5 = 'pm0_5';\n  const pm0_3 = 'pm0_3';\n  const pm0_1 = 'pm0_1';\n\n  const sData1 = s.fields.find((f) => f.type === 'number' && f.name === pm10).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm10).values;\n  const sData2 = s.fields.find((f) => f.type === 'number' && f.name === pm5).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm5).values;\n  const sData3 = s.fields.find((f) => f.type === 'number' && f.name === pm2_5).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm2_5).values;\n  const sData4 = s.fields.find((f) => f.type === 'number' && f.name === pm1).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm1).values;\n  const sData5 = s.fields.find((f) => f.type === 'number' && f.name === pm0_5).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm0_5).values;\n  const sData6 = s.fields.find((f) => f.type === 'number' && f.name === pm0_3).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm0_3).values;\n  const sData7 = s.fields.find((f) => f.type === 'number' && f.name === pm0_1).values.buffer || s.fields.find((f) => f.type === 'number' && f.name === pm0_1).values;\n\n  var Dat1 = sData1[sData1.length - 1];\n  var D1 = Dat1.toFixed(2);\n  var Dat2 = sData2[sData2.length - 1];\n  var D2 = Dat2.toFixed(2);\n  var Dat3 = sData3[sData3.length - 1];\n  var D3 = Dat3.toFixed(2);\n  var Dat4 = sData4[sData4.length - 1];\n  var D4 = Dat4.toFixed(2);\n  var Dat5 = sData5[sData5.length - 1];\n  var D5 = Dat5.toFixed(2);\n  var Dat6 = sData6[sData6.length - 1];\n  var D6 = Dat6.toFixed(2);\n  var Dat7 = sData7[sData7.length - 1];\n  var D7 = Dat7.toFixed(2);\n\n  return {\n    backgroundColor: 'transparent',\n    legend: false,\n    olbox: {\n      show: true,\n      feature: {\n        mark: { show: true },\n        dataView: { show: true, readOnly: false },\n        restore: { show: true },\n        saveAsImage: { show: true }\n      }\n    },\n\n    name: 'Nightingale Chart',\n    type: 'pie',\n    radius: [30, 150],\n    center: ['50%', '50%'],\n    roseType: 'area',\n    emphasis: {\n      focus: 'self'\n    },\n\n    itemStyle: {\n      borderRadius: 8\n    },\n    label: {\n      formatter: function (params) {\n        // Custom formatter function to insert arrow sign\n        return params.name + ' ➟ ' + params.value + ' µg/m³'; // Insert arrow sign after the label name\n      },\n    },\n    data: [\n      { value: D1, name: 'PM 10' },\n      { value: D2, name: 'PM 5' },\n      { value: D3, name: 'PM 2.5' },\n      { value: D4, name: 'PM 1' },\n      { value: D5, name: 'PM 0.5' },\n      { value: D6, name: 'PM 0.3' },\n      { value: D7, name: 'PM 0.1' },\n\n    ]\n\n\n\n\n  };\n});\nreturn {\n  series,\n\n\n};",
-        "google": {
-          "callback": "gmapReady",
-          "key": ""
-        },
-        "map": "none",
-        "renderer": "canvas",
-        "themeEditor": {
-          "config": "{}",
-          "height": 400,
-          "name": "default"
-        }
+      "libraryPanel": {
+        "name": "Particulate Matter Concentration ( µg/m³ ) Apache",
+        "uid": "f14f0ca4-9462-4ee9-8a8e-ca386ad687a1"
       },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -1h, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm10_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "G"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -1h, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm5_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "F"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -1h, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm2_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -1h, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm1_0\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -1h, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_5\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "hide": false,
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -1h, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_3\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "influxdb-uid"
-          },
-          "query": "import \"math\"\nfrom(bucket: \"SharedAirDFW\")\n  |> range(start: -1h, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"IPS7100\")\n  |> filter(fn: (r) => r[\"_field\"] == \"pm0_1\")\n  |> filter(fn: (r) => r[\"device_name\"] == \"${device_name}\")\n\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"last\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Particulate Matter Concentration ( µg/m³ )",
-      "transformations": [
-        {
-          "id": "joinByField",
-          "options": {}
-        },
-        {
-          "id": "labelsToFields",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "pc0_1": "0.1",
-              "pc0_3": "0.3",
-              "pc0_5": "0.5",
-              "pc10_0": "10.0",
-              "pc1_0": "1.0",
-              "pc2_5": "2.5",
-              "pc5_0": "5.0"
-            }
-          }
-        }
-      ],
-      "transparent": true,
-      "type": "volkovlabs-echarts-panel"
+      "title": "Particulate Matter Concentration ( µg/m³ )"
     },
     {
       "datasource": {
@@ -4302,6 +4062,6 @@
   "timezone": "",
   "title": "Central Node Debugging Apache Echirt",
   "uid": "CB1HRh_4z",
-  "version": 30,
+  "version": 31,
   "weekStart": ""
 }
