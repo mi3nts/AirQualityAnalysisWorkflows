@@ -2229,7 +2229,7 @@
         "type": "function",
         "z": "b44edfff80da0ecb",
         "name": "LoRaSummaryWrite",
-        "func": "portIDs = {\n    1:  \"LoRaDefault\",\n    2:  \"PM\",\n    3:  \"INA219Duo\",\n    4:  \"PMPoLo\",\n    5:  \"GPGGALR\",\n    6:  \"GPGGA\",\n    7:  \"GPRMC\",\n    8:  \"MacAD\",\n    11: \"OPCN2\",\n    13: \"OPCN3\",\n    15: \"IPS7100\",\n    17: \"IPS7100CNR\",\n    21: \"BME280\",\n    22: \"BME280V2\",    \n    23: \"BME680\",\n    25: \"BME688CNR\",\n    31: \"MGS001\",\n    33: \"SCD30\",\n    42: \"MBCLR001\",\n    43: \"MBCLR002\",    \n    51: \"AS7265X\",\n    61: \"RG15\",\n    71: \"MBLS001\",\n    106:\"GPGGAPL\",\n    107:\"GPRMCPL\"\n};\n\n\nmsg.payload =\n    {\n        sensorID: portIDs[msg.payload.fPort],\n        framePort: msg.payload.fPort,\n        //base16data: Buffer.from(msg.payload.data).toString('base64').toString('hex'),\n        base16data: Buffer.from(msg.payload.data, 'base64').toString('hex'),\n\n        //gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID).toString('base64').toString('hex'),\n        gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID, 'base64').toString('hex'),\n        \n        nodeID: msg.topic.split(\"/\")[5],\n        \n        //time: Date.parse(msg.payload.publishedAt + \" UTC\")\n        time: Date.parse(msg.payload.publishedAt)\n    };\n\n\n\n\nreturn msg;",
+        "func": "portIDs = {\n    1:  \"LoRaDefault\",\n    2:  \"PM\",\n    3:  \"INA219Duo\",\n    4:  \"PMPoLo\",\n    5:  \"GPGGALR\",\n    6:  \"GPGGA\",\n    7:  \"GPRMC\",\n    8:  \"MacAD\",\n    11: \"OPCN2\",\n    13: \"OPCN3\",\n    15: \"IPS7100\",\n    17: \"IPS7100CNR\",\n    21: \"BME280\",\n    22: \"BME280V2\",    \n    23: \"BME680\",\n    25: \"BME688CNR\",\n    31: \"MGS001\",\n    33: \"SCD30\",\n    42: \"MBCLR001\",\n    43: \"MBCLR002\",    \n    51: \"AS7265X\",\n    52: \"AS7265X1\",\n    53: \"AS7265X2\",\n    61: \"RG15\",\n    71: \"MBLS001\",\n    102:\"PMSalor\",\n    103:\"MLRPS001\",\n    105:\"PA1010D\",\n    106:\"GPGGAPL\",\n    107:\"GPRMCPL\"\n};\n\n\nmsg.payload =\n    {\n        sensorID: portIDs[msg.payload.fPort],\n        framePort: msg.payload.fPort,\n        //base16data: Buffer.from(msg.payload.data).toString('base64').toString('hex'),\n        base16data: Buffer.from(msg.payload.data, 'base64').toString('hex'),\n\n        //gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID).toString('base64').toString('hex'),\n        gatewayID: Buffer.from(msg.payload.rxInfo[0].gatewayID, 'base64').toString('hex'),\n        \n        nodeID: msg.topic.split(\"/\")[5],\n        \n        //time: Date.parse(msg.payload.publishedAt + \" UTC\")\n        time: Date.parse(msg.payload.publishedAt)\n    };\n\n\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2373,11 +2373,36 @@
                 "t": "eq",
                 "v": "MBCLR002",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "AS7265X1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "AS7265X2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "PA1010D",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "MLRPS001",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "PMSalor",
+                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 21,
+        "outputs": 26,
         "x": 900,
         "y": 320,
         "wires": [
@@ -2441,6 +2466,21 @@
             ],
             [
                 "bae95d2ebbd15b1f"
+            ],
+            [
+                "2c26dae874d8783b"
+            ],
+            [
+                "58a58f77c82222e3"
+            ],
+            [
+                "e894ce8f78e46f50"
+            ],
+            [
+                "112fa9818132ab43"
+            ],
+            [
+                "bce59a8194dd5df1"
             ]
         ]
     },
@@ -2654,7 +2694,7 @@
         "finalize": "",
         "libs": [],
         "x": 1260,
-        "y": 760,
+        "y": 880,
         "wires": [
             [
                 "2e3426e5aa11eb5b",
@@ -2674,7 +2714,7 @@
         "finalize": "",
         "libs": [],
         "x": 1250,
-        "y": 820,
+        "y": 940,
         "wires": [
             [
                 "2e3426e5aa11eb5b",
@@ -2694,7 +2734,7 @@
         "finalize": "",
         "libs": [],
         "x": 1260,
-        "y": 880,
+        "y": 1000,
         "wires": [
             [
                 "2e3426e5aa11eb5b",
@@ -2714,7 +2754,7 @@
         "finalize": "",
         "libs": [],
         "x": 1260,
-        "y": 940,
+        "y": 1060,
         "wires": [
             [
                 "2e3426e5aa11eb5b",
@@ -2734,7 +2774,7 @@
         "finalize": "",
         "libs": [],
         "x": 1250,
-        "y": 1000,
+        "y": 1120,
         "wires": [
             [
                 "2e3426e5aa11eb5b",
@@ -2754,7 +2794,7 @@
         "finalize": "",
         "libs": [],
         "x": 1260,
-        "y": 1060,
+        "y": 1180,
         "wires": [
             [
                 "2e3426e5aa11eb5b",
@@ -2774,7 +2814,7 @@
         "finalize": "",
         "libs": [],
         "x": 1270,
-        "y": 1180,
+        "y": 1520,
         "wires": [
             [
                 "2e3426e5aa11eb5b",
@@ -2795,7 +2835,7 @@
         "finalize": "",
         "libs": [],
         "x": 1260,
-        "y": 1120,
+        "y": 1240,
         "wires": [
             [
                 "2e3426e5aa11eb5b",
@@ -2957,8 +2997,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 8,
-        "x": 1690,
-        "y": 1220,
+        "x": 1710,
+        "y": 1520,
         "wires": [
             [
                 "032e4d56e06f5286"
@@ -3205,6 +3245,127 @@
                 "e3e5961ae051f6d0"
             ]
         ]
+    },
+    {
+        "id": "2c26dae874d8783b",
+        "type": "function",
+        "z": "b44edfff80da0ecb",
+        "name": "AS7265X1 Unpack V2",
+        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload.data = \n    {\n        time: msg.payload.time,\n        channelA410nm: Buffer.from(rawdata.slice(0,8), 'hex').readFloatLE(),\n        channelB435nm: Buffer.from(rawdata.slice(8,16), 'hex').readFloatLE(),\n        channelC460nm: Buffer.from(rawdata.slice(16,24), 'hex').readFloatLE(),\n        channelD485nm: Buffer.from(rawdata.slice(24,32), 'hex').readFloatLE(),\n        channelE510nm: Buffer.from(rawdata.slice(32,40), 'hex').readFloatLE(),\n        channelF535nm: Buffer.from(rawdata.slice(40,48), 'hex').readFloatLE(),\n        channelG560nm: Buffer.from(rawdata.slice(48,56), 'hex').readFloatLE(),\n        channelH585nm: Buffer.from(rawdata.slice(56,64), 'hex').readFloatLE(),\n        channelR610nm: Buffer.from(rawdata.slice(64,72), 'hex').readFloatLE(),\n    };\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 760,
+        "wires": [
+            [
+                "2e3426e5aa11eb5b",
+                "960895e46fb5c80a",
+                "8ff7a06b217643b8"
+            ]
+        ]
+    },
+    {
+        "id": "58a58f77c82222e3",
+        "type": "function",
+        "z": "b44edfff80da0ecb",
+        "name": "AS7265X2 Unpack V2",
+        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload.data = \n    {\n        time: msg.payload.time,\n        channelI645nm: Buffer.from(rawdata.slice(0,8), 'hex').readFloatLE(),\n        channelS680nm: Buffer.from(rawdata.slice(8,16), 'hex').readFloatLE(),\n        channelJ705nm: Buffer.from(rawdata.slice(16,24), 'hex').readFloatLE(),\n        channelT730nm: Buffer.from(rawdata.slice(24,32), 'hex').readFloatLE(),\n        channelU760nm: Buffer.from(rawdata.slice(32,40), 'hex').readFloatLE(),\n        channelV810nm: Buffer.from(rawdata.slice(40,48), 'hex').readFloatLE(),\n        channelW860nm: Buffer.from(rawdata.slice(48,56), 'hex').readFloatLE(),\n        channelK900nm: Buffer.from(rawdata.slice(56,64), 'hex').readFloatLE(),\n        channelL940nm: Buffer.from(rawdata.slice(64,72), 'hex').readFloatLE(),\n    };\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 820,
+        "wires": [
+            [
+                "2e3426e5aa11eb5b",
+                "960895e46fb5c80a",
+                "8ff7a06b217643b8"
+            ]
+        ]
+    },
+    {
+        "id": "e894ce8f78e46f50",
+        "type": "function",
+        "z": "b44edfff80da0ecb",
+        "name": "PA1010D Unpack V2",
+        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload.data = \n    {\n        time                : msg.payload.time,\n        latitudeCoordinate  : Buffer.from(rawdata.slice( 0,16),'hex').readDoubleLE(),\n        longitudeCoordinate : Buffer.from(rawdata.slice(16,32), 'hex').readDoubleLE(),\n        altitude            : Buffer.from(rawdata.slice(32,40), 'hex').readFloatLE(),\n        speed               : Buffer.from(rawdata.slice(40,48), 'hex').readFloatLE(), \n        magVariation        : Buffer.from(rawdata.slice(48,56), 'hex').readFloatLE(), \n        year                : Buffer.from(rawdata.slice(56,60), 'hex').readUInt16LE(),\n        month               : Buffer.from(rawdata.slice(60,62), 'hex').readUInt8(),\n        day                 : Buffer.from(rawdata.slice(62,64), 'hex').readUInt8(), \n        hour                : Buffer.from(rawdata.slice(64,66), 'hex').readUInt8(),\n        minute              : Buffer.from(rawdata.slice(66,68), 'hex').readUInt8(),\n        second              : Buffer.from(rawdata.slice(68,70), 'hex').readUInt8(),\n        satellites          : Buffer.from(rawdata.slice(70,72), 'hex').readUInt8(), \n        fixQuality          : Buffer.from(rawdata.slice(72,74), 'hex').readUInt8(),\n        fixQuality3D        : Buffer.from(rawdata.slice(74,76), 'hex').readUInt8(), \n    };\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 1300,
+        "wires": [
+            [
+                "2e3426e5aa11eb5b",
+                "960895e46fb5c80a",
+                "8ff7a06b217643b8"
+            ]
+        ]
+    },
+    {
+        "id": "112fa9818132ab43",
+        "type": "function",
+        "z": "b44edfff80da0ecb",
+        "name": "MLRPS001 Unpack V2",
+        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\n\nmsg.payload.data = \n    {\n        time                   : msg.payload.time,\n        batteryShuntVoltage    : Buffer.from(rawdata.slice( 0, 8), 'hex').readFloatLE(),\n        batteryBusVoltage      : Buffer.from(rawdata.slice( 8,16), 'hex').readFloatLE(),\n        batteryCurrent         : Buffer.from(rawdata.slice(16,24), 'hex').readFloatLE(), \n        batteryPower           : Buffer.from(rawdata.slice(24,32), 'hex').readFloatLE(), \n        solarShuntVoltage      : Buffer.from(rawdata.slice(32,40), 'hex').readFloatLE(),\n        solarBusVoltage        : Buffer.from(rawdata.slice(40,48), 'hex').readFloatLE(),\n        solarCurrent           : Buffer.from(rawdata.slice(48,56), 'hex').readFloatLE(), \n        solarPower             : Buffer.from(rawdata.slice(56,64), 'hex').readFloatLE(), \n        internalBatteryVoltage : Buffer.from(rawdata.slice(64,72), 'hex').readFloatLE(), \n    };\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 1360,
+        "wires": [
+            [
+                "2e3426e5aa11eb5b",
+                "960895e46fb5c80a",
+                "8ff7a06b217643b8"
+            ]
+        ]
+    },
+    {
+        "id": "bce59a8194dd5df1",
+        "type": "function",
+        "z": "b44edfff80da0ecb",
+        "name": "PM Salor V2",
+        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload.data = \n    {\n        time: msg.payload.time,\n        powerMode: Buffer.from(rawdata.slice(0,2), 'hex').readUInt8(),\n\n    };\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 1440,
+        "wires": [
+            [
+                "2e3426e5aa11eb5b",
+                "960895e46fb5c80a",
+                "8ff7a06b217643b8"
+            ]
+        ]
+    },
+    {
+        "id": "8ff7a06b217643b8",
+        "type": "debug",
+        "z": "b44edfff80da0ecb",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1770,
+        "y": 620,
+        "wires": []
     },
     {
         "id": "b25c4671e8b092bd",
