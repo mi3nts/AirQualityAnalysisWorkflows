@@ -2787,7 +2787,7 @@
         "type": "function",
         "z": "b44edfff80da0ecb",
         "name": "BME280V2 Unpack V2",
-        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\n\nmsg.payload,data = \n    {\n        time             : msg.payload.time,\n        temperature      : Buffer.from(rawdata.slice(0, 8), 'hex').readFloatLE(),\n        pressure         : Buffer.from(rawdata.slice(8, 16), 'hex').readFloatLE(),\n        humidity         : Buffer.from(rawdata.slice(16, 24), 'hex').readFloatLE(),\n        dewPoint         : Buffer.from(rawdata.slice(24, 32), 'hex').readFloatLE(), \n        altitude         : Buffer.from(rawdata.slice(32, 40), 'hex').readFloatLE(), \n    };\n\nreturn msg;",
+        "func": "rawdata = msg.payload.base16data;\n\nmsg.measurement = msg.payload.sensorID;\n\n\nmsg.payload.data = \n    {\n        time             : msg.payload.time,\n        temperature      : Buffer.from(rawdata.slice(0, 8), 'hex').readFloatLE(),\n        pressure         : Buffer.from(rawdata.slice(8, 16), 'hex').readFloatLE(),\n        humidity         : Buffer.from(rawdata.slice(16, 24), 'hex').readFloatLE(),\n        dewPoint         : Buffer.from(rawdata.slice(24, 32), 'hex').readFloatLE(), \n        altitude         : Buffer.from(rawdata.slice(32, 40), 'hex').readFloatLE(), \n    };\n\nreturn msg;\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3262,8 +3262,7 @@
         "wires": [
             [
                 "2e3426e5aa11eb5b",
-                "960895e46fb5c80a",
-                "8ff7a06b217643b8"
+                "960895e46fb5c80a"
             ]
         ]
     },
@@ -3283,8 +3282,7 @@
         "wires": [
             [
                 "2e3426e5aa11eb5b",
-                "960895e46fb5c80a",
-                "8ff7a06b217643b8"
+                "960895e46fb5c80a"
             ]
         ]
     },
@@ -3304,8 +3302,7 @@
         "wires": [
             [
                 "2e3426e5aa11eb5b",
-                "960895e46fb5c80a",
-                "8ff7a06b217643b8"
+                "960895e46fb5c80a"
             ]
         ]
     },
@@ -3325,8 +3322,7 @@
         "wires": [
             [
                 "2e3426e5aa11eb5b",
-                "960895e46fb5c80a",
-                "8ff7a06b217643b8"
+                "960895e46fb5c80a"
             ]
         ]
     },
@@ -3346,26 +3342,9 @@
         "wires": [
             [
                 "2e3426e5aa11eb5b",
-                "960895e46fb5c80a",
-                "8ff7a06b217643b8"
+                "960895e46fb5c80a"
             ]
         ]
-    },
-    {
-        "id": "8ff7a06b217643b8",
-        "type": "debug",
-        "z": "b44edfff80da0ecb",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1770,
-        "y": 620,
-        "wires": []
     },
     {
         "id": "b25c4671e8b092bd",
