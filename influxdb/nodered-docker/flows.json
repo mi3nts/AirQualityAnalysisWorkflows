@@ -166,7 +166,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1430,
-        "y": 80,
+        "y": 20,
         "wires": [
             [
                 "594dae494bf3c3e8"
@@ -187,7 +187,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1430,
-        "y": 200,
+        "y": 140,
         "wires": [
             [
                 "751527d9d035d5a0"
@@ -203,7 +203,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 200,
+        "y": 140,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -833,7 +833,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1440,
-        "y": 140,
+        "y": 80,
         "wires": [
             [
                 "e31d2f8c10daf91f"
@@ -849,7 +849,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 140,
+        "y": 80,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -979,7 +979,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 80,
+        "y": 20,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2188,6 +2188,44 @@
             [
                 "304ca8d3d559712f",
                 "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "21d4e226f9aa824e",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 200,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "e69f883dc834f579",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "AS7265X",
+        "topic": "+/AS7265X",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 200,
+        "wires": [
+            [
+                "21d4e226f9aa824e"
             ]
         ]
     },
