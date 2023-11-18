@@ -1453,8 +1453,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2430,
-        "y": 2360,
+        "x": 2450,
+        "y": 2420,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2226,6 +2226,44 @@
         "wires": [
             [
                 "21d4e226f9aa824e"
+            ]
+        ]
+    },
+    {
+        "id": "b90f380c81245ad2",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "RSN012",
+        "topic": "+/RSN012",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 3020,
+        "wires": [
+            [
+                "6f78e0d3485f338c"
+            ]
+        ]
+    },
+    {
+        "id": "6f78e0d3485f338c",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3020,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
             ]
         ]
     },
