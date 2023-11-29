@@ -1,0 +1,123 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 17,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "gridPos": {
+        "h": 41,
+        "w": 9,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# InfluxDB\n\n## Quickstart\n\n### Initialize Configuration File\n\nIn `influxdb/` (this directory), create a file called `.env`. We will put passwords into this file, so do not commit it\nto Git!\n\nYou may want to make a copy of `.example.env` to start with.\n\n```shell\ncp .example.env .env\n```\n\n### InfluxDB Configuration\n\nBe sure to keep the first line, because this tells InfluxDB to automatically set up based on the other variables:\n\n```dotenv\nDOCKER_INFLUXDB_INIT_MODE=setup\n```\n\nRead about the other InfluxDB environment variables in the \"Automated Setup\" section\n[here](https://hub.docker.com/_/influxdb). Also, feel free to change the other InfluxDB variables, because NodeRED and\nInfluxDB will adjust from it.\n\n### NodeRED Configuration\n\nSet the 4 MQTT credentials (username and password for both Central and LoRa nodes). Use the same credentials as the ones\nin `credentials.yml` and `loRacredentials.yml`, for in the mqttSubscribers repository.\n\n### Start Docker Services\n\nFor your first time running the services, Docker will build our custom influxdb image.\n\n```shell\ndocker-compose up --build\n```\n\nYou should now be able to access InfluxDB at http://localhost:8086. Log in using the initial username/password combo you\nspecified in `.env`.\n\n### Run Ingestion\n\nIngestion is not automated yet. Run the ingestion script to get old data into InfluxDB.\n\n```shell\ndocker exec -it influxdb_influxdb_1 /custom-data/csvtoinflux.sh /custom-data/mqttSubscribers_dump\n```\n\nYou should see output that looks similar to this:\n\n```\nLoading GPGGALR (../mqttSubscribers_dump/rawMqtt/471a55800038004e/2022/03/25/MINTS_471a55800038004e_GPGGALR_2022_03_25.csv) into InfluxDB\nDetected single-sensor CSV\nLoading IPS7100 (../mqttSubscribers_dump/rawMqtt/471a55800038004e/2022/03/25/MINTS_471a55800038004e_IPS7100_2022_03_25.csv) into InfluxDB\nDetected single-sensor CSV\nLoading BME280 (../mqttSubscribers_dump/rawMqtt/471a55800038004e/2022/03/25/MINTS_471a55800038004e_BME280_2022_03_25.csv) into InfluxDB\nDetected single-sensor CSV\nLoading INA219Duo (../mqttSubscribers_dump/rawMqtt/471a55800038004e/2022/03/25/MINTS_471a55800038004e_INA219Duo_2022_03_25.csv) into InfluxDB\nDetected single-sensor CSV\nLoading PM (../mqttSubscribers_dump/rawMqtt/471a55800038004e/2022/03/25/MINTS_471a55800038004e_PM_2022_03_25.csv) into InfluxDB\nDetected single-sensor CSV\nLoading BME280 (../mqttSubscribers_dump/rawMqtt/478b5fe30040004b/2022/03/25/MINTS_478b5fe30040004b_BME280_2022_03_25.csv) into InfluxDB\nDetected single-sensor CSV\n...\n```\n\n### Display Data\n\nIn the InfluxDB dashboard, navigate to `Explore`, and select the `SharedAirDFW` bucket (or whatever you set as\n`DOCKER_INFLUXDB_INIT_BUCKET`). Configure the filters to whatever you want, make sure the time range (top right of\nbottom panel) surrounds the data you want to graph, and hit `Submit`.\n\nYou may want to use a custom, 1-minute mean aggregate function to view the trends in more detail. Configure this on the\nright side, under the `Submit` button.\n\nExample:  \n![Example showing custom aggregate function](doc-img/Screen%20Shot%202022-04-08%20at%204.12.52%20PM.png)\n\n## Other Useful Knowledge\n\n### Commands\n\nStart the containers again, preserving all data:\n\n```shell\ndocker-compose up\n```\n\nStart the containers again, rebuilding from scratch:\n\n```shell\ndocker-compose down --volumes && docker-compose up --build\n```\n\n### Environment\n\nThe environment is specified in `.env`, and variables from it are pulled in with `docker-compose.yml`\n\n## Docker Services\n\n### Custom InfluxDB\n\nInfluxDB is plug-and-play, with data persisted to the `influxdb_data` volume. It will read the environment variables on\nbuild and automatically initialize an admin user. A token is also specified, rather than being automatically generated,\nfor simplicity.\n\nThe only manual step at this time is data ingestion.\n\n`influxdb-docker/Dockerfile` copies everything in `influxdb-docker/` to `/custom-data/` in the container. This includes\nthe\n`csvtoinflux.sh` ingestion script, and the original data.\n\n### Custom NodeRED\n\nNodeRED is plug-and-play, *with no data persisted*. Read more about this choice below. It, too, reads environment\nvariables on build to be used in the imported flows.\n\n`nodered-docker/Dokerfile` copies `package.json`, with InfluxDB support included, to the container. It then installs\nInfluxDB support. The dockerfile also copies flows, credentials, and settings to the container. The settings are\nconfigured to read/store credentials in plaintext. This is not an issue because the plaintext \"credentials\" should refer\nto environment variables only.\n\n**Why not persist data?** short ramble: This service does not persist any data, because the container's `/data/`\nneeds to be written to by the Dockerfile at build time. Since containers are mounted after build, this would wipe all\nconfigurations. There is definitely way around this, but the added complexity is not worth it at this time (flows and\nsettings will not change regularly). **To persist any changes, export them from the container and re-build.**\n\n### Grafana\n\nGrafana is *not* plug-and-play. This is a todo item.  \n\n## External Resources\n\n- [influx write](https://docs.influxdata.com/influxdb/v2.1/reference/cli/influx/write/)\n- [Python client](https://github.com/influxdata/influxdb-client-python)\n- [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)\n- [Docker compose file reference](https://docs.docker.com/compose/compose-file/)\n- [influxdb Docker page/docs](https://hub.docker.com/_/influxdb)",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.0.1",
+      "title": "Demo Text Panels",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "gridPos": {
+        "h": 19,
+        "w": 8,
+        "x": 10,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "autoPlay": true,
+        "customBackground": false,
+        "geolocate": false,
+        "loop": true,
+        "videoId": "eQpyJQ2womo",
+        "videoType": "youtube"
+      },
+      "title": "Demo Video Panel",
+      "type": "innius-video-panel"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "influxdb-uid"
+      },
+      "gridPos": {
+        "h": 19,
+        "w": 2,
+        "x": 20,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<p style=\"font-size:90px\">⛅</p>\n<p style=\"font-size:90px\">🌦</p>\n<p style=\"font-size:90px\">🌧</p>\n<p style=\"font-size:90px\">😊</p>\n\n",
+        "mode": "html"
+      },
+      "pluginVersion": "10.0.1",
+      "title": "Demo Emojis",
+      "transparent": true,
+      "type": "text"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Other Functionality Demo",
+  "uid": "other_functionality_demo",
+  "version": 1,
+  "weekStart": ""
+}
