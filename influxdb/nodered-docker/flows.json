@@ -2272,7 +2272,7 @@
         "type": "mqtt in",
         "z": "b44edfff80da0ecb",
         "name": "Read ALL",
-        "topic": "utd/lora/app/4/device/+/event/up",
+        "topic": "utd/lora/app/5/device/+/event/up",
         "qos": "2",
         "datatype": "auto",
         "broker": "13a2a6da2720468e",
