@@ -10,4 +10,5 @@ COPY flows_cred.json /data/flows_cred.json
 COPY settings.js /data/settings.js
 COPY id_lookup.csv /data/id_lookup.csv
 COPY id_lookup_va.csv /data/id_lookup_va.csv
+COPY id_lookup_iq.csv /data/id_lookup_iq.csv
 #ENV FLOWS="/custom-data/flows.json"
