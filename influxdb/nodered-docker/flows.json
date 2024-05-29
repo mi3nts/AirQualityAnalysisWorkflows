@@ -2276,6 +2276,158 @@
         ]
     },
     {
+        "id": "e7c90dcdaeadd40a",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BME280V3",
+        "topic": "+/BME280V3",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 3080,
+        "wires": [
+            [
+                "7d9b844ea440690b"
+            ]
+        ]
+    },
+    {
+        "id": "7d9b844ea440690b",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3080,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "bbec25752732e3f1",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "TMP117",
+        "topic": "+/TMP117",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 3200,
+        "wires": [
+            [
+                "982af9f6016397c3"
+            ]
+        ]
+    },
+    {
+        "id": "982af9f6016397c3",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3200,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "8223a89416e72ac2",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BNO080",
+        "topic": "+/BNO080",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 3140,
+        "wires": [
+            [
+                "794a4433085af1a4"
+            ]
+        ]
+    },
+    {
+        "id": "794a4433085af1a4",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3140,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "e8348c7cefdd6dd3",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "COZIRAEH2000",
+        "topic": "+/COZIRAEH2000",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1460,
+        "y": 3260,
+        "wires": [
+            [
+                "ca86a99328dcfcf1"
+            ]
+        ]
+    },
+    {
+        "id": "ca86a99328dcfcf1",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3260,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
         "id": "9c8cb7de31fcbeef",
         "type": "mqtt in",
         "z": "b44edfff80da0ecb",
@@ -3888,7 +4040,7 @@
         "type": "debug",
         "z": "c42c5a4d1f22be10",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
