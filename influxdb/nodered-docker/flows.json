@@ -1426,8 +1426,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 2340,
-        "y": 2760,
+        "x": 2520,
+        "y": 2780,
         "wires": [
             [
                 "b876e919a08b38f8"
@@ -1442,8 +1442,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 2490,
-        "y": 2760,
+        "x": 2710,
+        "y": 2780,
         "wires": [
             [
                 "4580469327b1425c"
@@ -1461,8 +1461,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2670,
-        "y": 2760,
+        "x": 2890,
+        "y": 2780,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2462,6 +2462,44 @@
             [
                 "85650578b76fd194",
                 "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "a5abec5424ad4f89",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "IPS7100MHC001",
+        "topic": "+/IPS7100MHC001",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1460,
+        "y": 3320,
+        "wires": [
+            [
+                "aa59414588e0b43e"
+            ]
+        ]
+    },
+    {
+        "id": "aa59414588e0b43e",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3320,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
             ]
         ]
     },
