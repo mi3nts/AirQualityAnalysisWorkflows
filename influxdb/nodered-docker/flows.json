@@ -2097,7 +2097,8 @@
         "y": 1520,
         "wires": [
             [
-                "69cd5528a453d312"
+                "69cd5528a453d312",
+                "080b4e70291c1bb4"
             ]
         ]
     },
@@ -2496,6 +2497,60 @@
         "pretty": false,
         "x": 1730,
         "y": 3320,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "080b4e70291c1bb4",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3930,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "6deea5412d5d5d06",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "MTS001",
+        "topic": "+/MTS001",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 3500,
+        "wires": [
+            [
+                "f5ebc913e80dd98c"
+            ]
+        ]
+    },
+    {
+        "id": "f5ebc913e80dd98c",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1750,
+        "y": 3500,
         "wires": [
             [
                 "304ca8d3d559712f",
