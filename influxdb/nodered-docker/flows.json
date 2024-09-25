@@ -1176,7 +1176,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1860,
+        "x": 1960,
         "y": 1640,
         "wires": [
             [
@@ -1426,8 +1426,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 2520,
-        "y": 2780,
+        "x": 2120,
+        "y": 3480,
         "wires": [
             [
                 "b876e919a08b38f8"
@@ -1442,8 +1442,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 2710,
-        "y": 2780,
+        "x": 2310,
+        "y": 3480,
         "wires": [
             [
                 "4580469327b1425c"
@@ -1461,8 +1461,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2890,
-        "y": 2780,
+        "x": 2490,
+        "y": 3480,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2534,7 +2534,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1440,
-        "y": 3500,
+        "y": 3460,
         "wires": [
             [
                 "f5ebc913e80dd98c"
@@ -2549,8 +2549,160 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 1750,
-        "y": 3500,
+        "x": 1730,
+        "y": 3460,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "da38cc41425bc5aa",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "MLPM003",
+        "topic": "+/MLPM003",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 3380,
+        "wires": [
+            [
+                "3524fac248d18e0f"
+            ]
+        ]
+    },
+    {
+        "id": "3524fac248d18e0f",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3380,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "818716c2540dbc09",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GUVAS12SDV2",
+        "topic": "+/GUVAS12SDV2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1460,
+        "y": 3540,
+        "wires": [
+            [
+                "ee7ea64a774464cf"
+            ]
+        ]
+    },
+    {
+        "id": "bae4ed8d9c22268e",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "LTR390V2",
+        "topic": "+/LTR390V2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 3600,
+        "wires": [
+            [
+                "f702bc7f7efd7aec"
+            ]
+        ]
+    },
+    {
+        "id": "709e010fce240dc7",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "MIN001",
+        "topic": "+/MIN001",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1430,
+        "y": 3660,
+        "wires": [
+            [
+                "71434548683967de"
+            ]
+        ]
+    },
+    {
+        "id": "ee7ea64a774464cf",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3540,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "f702bc7f7efd7aec",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3600,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "71434548683967de",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3660,
         "wires": [
             [
                 "304ca8d3d559712f",
