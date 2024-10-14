@@ -2711,6 +2711,44 @@
         ]
     },
     {
+        "id": "a574a2064ea4e5cd",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "ICM20948",
+        "topic": "+/ICM20948",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 3740,
+        "wires": [
+            [
+                "cf4c75f7b1b427eb"
+            ]
+        ]
+    },
+    {
+        "id": "cf4c75f7b1b427eb",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3740,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
         "id": "9c8cb7de31fcbeef",
         "type": "mqtt in",
         "z": "b44edfff80da0ecb",
