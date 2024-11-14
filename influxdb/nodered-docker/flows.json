@@ -2534,7 +2534,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1440,
-        "y": 3460,
+        "y": 3440,
         "wires": [
             [
                 "f5ebc913e80dd98c"
@@ -2550,7 +2550,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 3460,
+        "y": 3440,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2610,7 +2610,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1460,
-        "y": 3540,
+        "y": 3500,
         "wires": [
             [
                 "ee7ea64a774464cf"
@@ -2631,7 +2631,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1440,
-        "y": 3600,
+        "y": 3560,
         "wires": [
             [
                 "f702bc7f7efd7aec"
@@ -2652,7 +2652,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1430,
-        "y": 3660,
+        "y": 3620,
         "wires": [
             [
                 "71434548683967de"
@@ -2668,7 +2668,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 3540,
+        "y": 3500,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2685,7 +2685,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 3600,
+        "y": 3560,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2702,7 +2702,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 3660,
+        "y": 3620,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2724,7 +2724,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1440,
-        "y": 3740,
+        "y": 3680,
         "wires": [
             [
                 "cf4c75f7b1b427eb"
@@ -2733,6 +2733,44 @@
     },
     {
         "id": "cf4c75f7b1b427eb",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3680,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "4f4eb78da774c606",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "PLSFRG001",
+        "topic": "+/PLSFRG001",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1450,
+        "y": 3740,
+        "wires": [
+            [
+                "3d1ff705f84c6921"
+            ]
+        ]
+    },
+    {
+        "id": "3d1ff705f84c6921",
         "type": "json",
         "z": "f6f2187d.f17ca8",
         "name": "",
