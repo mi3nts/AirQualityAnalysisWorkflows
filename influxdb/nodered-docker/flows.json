@@ -2787,6 +2787,44 @@
         ]
     },
     {
+        "id": "3d8215f07f4670a9",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "CHT8305C",
+        "topic": "+/CHT8305C",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 3800,
+        "wires": [
+            [
+                "caa8d4a9932447f3"
+            ]
+        ]
+    },
+    {
+        "id": "caa8d4a9932447f3",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 3800,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
         "id": "9c8cb7de31fcbeef",
         "type": "mqtt in",
         "z": "b44edfff80da0ecb",
