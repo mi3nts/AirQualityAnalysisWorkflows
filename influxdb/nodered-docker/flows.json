@@ -1009,8 +1009,8 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 3650,
-        "y": 1520,
+        "x": 3870,
+        "y": 3620,
         "wires": []
     },
     {
@@ -1151,14 +1151,14 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "parse for Mints Data",
-        "func": "const id_lookup = global.get(\"mac_to_name\");\n\n\nconst strFields = /status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID/;\nconst doNotInclude = /timestamp|dateStamp/\n\nlet fields = {}\nfor (let x in msg.payload) {\n    if (!msg.payload.hasOwnProperty(x) || doNotInclude.test(x))\n        continue;\n        \n    // Parse dateTime\n    if (x == 'dateTime') {\n        fields['time'] = Date.parse(msg.payload[x] + \" UTC\")\n        continue;\n    }\n        \n    // Include string fields as-is\n    if (strFields.test(x)) {\n        fields[x] = msg.payload[x];\n        continue;\n    }\n    \n    // Try to parse float fields\n    const val = parseFloat(msg.payload[x])\n    // Only include if fload field is not NaN. \n    // Otherwise, InfluxDB will reject the whole datapoint. \n    if(!isNaN(val))\n        fields[x] = val\n}\n\nconst tags = { \n    device_id: msg.topic.split(\"/\")[0],\n    device_name: id_lookup[msg.topic.split(\"/\")[0]]\n    \n}\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\n// add logic for dealing with BME280 and BME680\nif (msg.measurement == \"BME280\" || msg.measurement == \"BME680\") {\n    // see https://github.com/finitespace/BME280/blob/72a11d3b7d484995eb34c6bb8533c5ceb2aa4156/src/EnvironmentCalculations.cpp\n    // also https://github.com/finitespace/BME280\n    if (fields[\"humidity\"] > 0) {\n        fields[\"dewPoint\"] = 243.04 * (Math.log(fields[\"humidity\"]/100.0) + ((17.625 * fields[\"temperature\"])/(243.04 + fields[\"temperature\"])))/(17.625 - Math.log(fields[\"humidity\"]/100.0) - ((17.625 * fields[\"temperature\"])/(243.04 + fields[\"temperature\"])));\n    }else{\n        fields[\"dewPoint\"] = 0.0;\n        \n    }\n    \n}\n\nmsg.payload = [fields, tags];\n\nreturn msg;",
+        "func": "const id_lookup = global.get(\"mac_to_name\");\n\n\n// const strFields = /status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID|hostIP/;\n\nconst strFields = new RegExp([\n  \"status\",\n  \"Direction\",\n  \"Units\",\n  \"base64Data\",\n  \"base16Data\",\n  \"devAddr\",\n  \"deviceAddDecoded\",\n  \"codeRate\",\n  \"ID\",\n  \"gaseraDateTime\",\n  \"manufacturer\",\n  \"deviceName\",\n  \"parameter0\",\n  \"parameter1\",\n  \"parameter2\",\n  \"parameter3\",\n  \"parameter4\",\n  \"gaseraName\",\n  \"gaseraIP\",\n  \"netmask\",\n  \"gateway\",\n  \"taskName0\",\n  \"taskName1\",\n  \"taskName2\",\n  \"taskName3\",\n  \"taskName4\",\n  \"casNumbers\",\n  \"hostIP\",\n].join(\"|\"));\n\nconst doNotInclude = /timestamp|dateStamp/\n\nlet fields = {}\nfor (let x in msg.payload) {\n    if (!msg.payload.hasOwnProperty(x) || doNotInclude.test(x))\n        continue;\n        \n    // Parse dateTime\n    if (x == 'dateTime') {\n        fields['time'] = Date.parse(msg.payload[x] + \" UTC\")\n        continue;\n    }\n        \n    // Include string fields as-is\n    if (strFields.test(x)) {\n        fields[x] = msg.payload[x];\n        continue;\n    }\n    \n    // Try to parse float fields\n    const val = parseFloat(msg.payload[x])\n    // Only include if fload field is not NaN. \n    // Otherwise, InfluxDB will reject the whole datapoint. \n    if(!isNaN(val))\n        fields[x] = val\n}\n\nconst tags = { \n    device_id: msg.topic.split(\"/\")[0],\n    device_name: id_lookup[msg.topic.split(\"/\")[0]]\n    \n}\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\n// add logic for dealing with BME280 and BME680\nif (msg.measurement == \"BME280\" || msg.measurement == \"BME680\") {\n    // see https://github.com/finitespace/BME280/blob/72a11d3b7d484995eb34c6bb8533c5ceb2aa4156/src/EnvironmentCalculations.cpp\n    // also https://github.com/finitespace/BME280\n    if (fields[\"humidity\"] > 0) {\n        fields[\"dewPoint\"] = 243.04 * (Math.log(fields[\"humidity\"]/100.0) + ((17.625 * fields[\"temperature\"])/(243.04 + fields[\"temperature\"])))/(17.625 - Math.log(fields[\"humidity\"]/100.0) - ((17.625 * fields[\"temperature\"])/(243.04 + fields[\"temperature\"])));\n    }else{\n        fields[\"dewPoint\"] = 0.0;\n        \n    }\n    \n}\n\nmsg.payload = [fields, tags];\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3220,
-        "y": 1520,
+        "x": 3440,
+        "y": 3620,
         "wires": [
             [
                 "e84ef0458d8d4c8e"
@@ -1426,8 +1426,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 2320,
-        "y": 3500,
+        "x": 1440,
+        "y": 4100,
         "wires": [
             [
                 "b876e919a08b38f8"
@@ -1442,8 +1442,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 2510,
-        "y": 3500,
+        "x": 1730,
+        "y": 4100,
         "wires": [
             [
                 "4580469327b1425c"
@@ -1461,8 +1461,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2690,
-        "y": 3500,
+        "x": 1930,
+        "y": 4060,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2093,8 +2093,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 3430,
-        "y": 1520,
+        "x": 3650,
+        "y": 3620,
         "wires": [
             [
                 "69cd5528a453d312",
@@ -2116,8 +2116,8 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "VA",
-        "x": 3640,
-        "y": 1780,
+        "x": 3880,
+        "y": 3460,
         "wires": []
     },
     {
@@ -2131,8 +2131,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3210,
-        "y": 1780,
+        "x": 3450,
+        "y": 3460,
         "wires": [
             [
                 "8b284cf87a2a91a0"
@@ -2154,8 +2154,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 3430,
-        "y": 1780,
+        "x": 3670,
+        "y": 3460,
         "wires": [
             [
                 "3afaa070b3fcb650"
@@ -2516,8 +2516,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 3930,
-        "y": 1180,
+        "x": 4070,
+        "y": 2260,
         "wires": []
     },
     {
@@ -2838,7 +2838,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1450,
-        "y": 3880,
+        "y": 3860,
         "wires": [
             [
                 "8d5941a577f5c324"
@@ -2859,7 +2859,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1440,
-        "y": 3940,
+        "y": 3920,
         "wires": [
             [
                 "e8af9c0b510201c0"
@@ -2880,7 +2880,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1450,
-        "y": 4000,
+        "y": 3980,
         "wires": [
             [
                 "bec0655e630e9d7c"
@@ -2901,7 +2901,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 1430,
-        "y": 4060,
+        "y": 4040,
         "wires": [
             [
                 "2977ac3742221fc6"
@@ -2917,7 +2917,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 3880,
+        "y": 3860,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2934,7 +2934,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 3940,
+        "y": 3920,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2951,7 +2951,7 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 4000,
+        "y": 3980,
         "wires": [
             [
                 "304ca8d3d559712f",
@@ -2968,11 +2968,677 @@
         "action": "",
         "pretty": false,
         "x": 1730,
-        "y": 4060,
+        "y": 4040,
         "wires": [
             [
                 "304ca8d3d559712f",
                 "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "c39ac0dee8356c5f",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001ACLK",
+        "topic": "+/GSR001ACLK",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1450,
+        "y": 4180,
+        "wires": [
+            [
+                "724d1b1475e52a98"
+            ]
+        ]
+    },
+    {
+        "id": "724d1b1475e52a98",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 4180,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "c85ae6ca853d4e47",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001ACON",
+        "topic": "+/GSR001ACON",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1460,
+        "y": 4240,
+        "wires": [
+            [
+                "aa1e1af9c7317be8"
+            ]
+        ]
+    },
+    {
+        "id": "aa1e1af9c7317be8",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 4240,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "59aab940cdb61931",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001ADEV",
+        "topic": "+/GSR001ADEV",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1450,
+        "y": 4300,
+        "wires": [
+            [
+                "dcd1bf1c308c77fd"
+            ]
+        ]
+    },
+    {
+        "id": "dcd1bf1c308c77fd",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 4300,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "739232aafb22b985",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001AERR",
+        "topic": "+/GSR001AERR",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1450,
+        "y": 4360,
+        "wires": [
+            [
+                "dd1d36106f1da9b5"
+            ]
+        ]
+    },
+    {
+        "id": "dd1d36106f1da9b5",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 4360,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "d331fd72c2677149",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001AITR",
+        "topic": "+/GSR001AITR",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1450,
+        "y": 4420,
+        "wires": [
+            [
+                "439ac6ce816ac935"
+            ]
+        ]
+    },
+    {
+        "id": "439ac6ce816ac935",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 4420,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "f111d5593cbd0c3e",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001AMPS",
+        "topic": "+/GSR001AMPS",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1460,
+        "y": 4480,
+        "wires": [
+            [
+                "fee1569c60477d09"
+            ]
+        ]
+    },
+    {
+        "id": "fee1569c60477d09",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 4480,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "2c21c0e1d8f343a2",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001AMST",
+        "topic": "+/GSR001AMST",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1460,
+        "y": 4540,
+        "wires": [
+            [
+                "ee297088c4d19e53"
+            ]
+        ]
+    },
+    {
+        "id": "ee297088c4d19e53",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 4540,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "883ac53bb080a974",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001ANAM",
+        "topic": "+/GSR001ANAM",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1460,
+        "y": 4600,
+        "wires": [
+            [
+                "f5fcc4acc29c147f"
+            ]
+        ]
+    },
+    {
+        "id": "f5fcc4acc29c147f",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 4600,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "48785b2425e3d17d",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001ANET",
+        "topic": "+/GSR001ANET",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1450,
+        "y": 4660,
+        "wires": [
+            [
+                "a02794fc248e6de0"
+            ]
+        ]
+    },
+    {
+        "id": "a02794fc248e6de0",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 4660,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "95167610894cda4a",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001ASTR",
+        "topic": "+/GSR001ASTR",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2270,
+        "y": 4160,
+        "wires": [
+            [
+                "b6eb3e67b3cf63de"
+            ]
+        ]
+    },
+    {
+        "id": "b6eb3e67b3cf63de",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2510,
+        "y": 4160,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "2a7d9a8ab8312ee8",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001ASTS",
+        "topic": "+/GSR001ASTS",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2270,
+        "y": 4220,
+        "wires": [
+            [
+                "0ab30a1d729b3871"
+            ]
+        ]
+    },
+    {
+        "id": "0ab30a1d729b3871",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2510,
+        "y": 4220,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "8dece2c3e061e6a7",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001ASYP",
+        "topic": "+/GSR001ASYP",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2270,
+        "y": 4280,
+        "wires": [
+            [
+                "b94ba8773080a5ed"
+            ]
+        ]
+    },
+    {
+        "id": "b94ba8773080a5ed",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2510,
+        "y": 4280,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "110d0046fc44af7d",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001ATSK",
+        "topic": "+/GSR001ATSK",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2270,
+        "y": 4340,
+        "wires": [
+            [
+                "0d15f5cc354198b4"
+            ]
+        ]
+    },
+    {
+        "id": "0d15f5cc354198b4",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2510,
+        "y": 4340,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "179ab4d994146f05",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001ATSP",
+        "topic": "+/GSR001ATSP",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2270,
+        "y": 4400,
+        "wires": [
+            [
+                "281d292a9bf85b0f"
+            ]
+        ]
+    },
+    {
+        "id": "281d292a9bf85b0f",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2510,
+        "y": 4400,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "b33c619b75d70a2a",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001CS",
+        "topic": "+/GSR001CS",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2270,
+        "y": 4460,
+        "wires": [
+            [
+                "6572a747ffa388fc"
+            ]
+        ]
+    },
+    {
+        "id": "6572a747ffa388fc",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2510,
+        "y": 4460,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "f9486cfc4e55217d",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001STAM",
+        "topic": "+/GSR001STAM",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2270,
+        "y": 4520,
+        "wires": [
+            [
+                "b4d92039f8069687"
+            ]
+        ]
+    },
+    {
+        "id": "b4d92039f8069687",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2510,
+        "y": 4520,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "f99725bdb2b419fb",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001STPM",
+        "topic": "+/GSR001STPM",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2280,
+        "y": 4580,
+        "wires": [
+            [
+                "e04cd1025976dbbe"
+            ]
+        ]
+    },
+    {
+        "id": "e04cd1025976dbbe",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2510,
+        "y": 4580,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "a7b276a71c5dba3b",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "GSR001STST",
+        "topic": "+/GSR001STST",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2270,
+        "y": 4640,
+        "wires": [
+            [
+                "68dd6bccf5e98f69"
+            ]
+        ]
+    },
+    {
+        "id": "68dd6bccf5e98f69",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2510,
+        "y": 4640,
+        "wires": [
+            [
+                "304ca8d3d559712f"
             ]
         ]
     },
@@ -3062,27 +3728,9 @@
         "y": 320,
         "wires": [
             [
-                "e40c3b22a24d9eb7",
                 "b962b6ee4261184e"
             ]
         ]
-    },
-    {
-        "id": "e40c3b22a24d9eb7",
-        "type": "debug",
-        "z": "b44edfff80da0ecb",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 690,
-        "y": 160,
-        "wires": []
     },
     {
         "id": "b962b6ee4261184e",
