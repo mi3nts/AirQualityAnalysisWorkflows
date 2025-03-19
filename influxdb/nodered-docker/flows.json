@@ -1009,8 +1009,8 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
-        "x": 3870,
-        "y": 3620,
+        "x": 3730,
+        "y": 660,
         "wires": []
     },
     {
@@ -1151,14 +1151,14 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "parse for Mints Data",
-        "func": "const id_lookup = global.get(\"mac_to_name\");\n\n\n// const strFields = /status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID|hostIP/;\n\nconst strFields = new RegExp([\n  \"status\",\n  \"Direction\",\n  \"Units\",\n  \"base64Data\",\n  \"base16Data\",\n  \"devAddr\",\n  \"deviceAddDecoded\",\n  \"codeRate\",\n  \"ID\",\n  \"gaseraDateTime\",\n  \"manufacturer\",\n  \"deviceName\",\n  \"parameter0\",\n  \"parameter1\",\n  \"parameter2\",\n  \"parameter3\",\n  \"parameter4\",\n  \"gaseraName\",\n  \"gaseraIP\",\n  \"netmask\",\n  \"gateway\",\n  \"taskName0\",\n  \"taskName1\",\n  \"taskName2\",\n  \"taskName3\",\n  \"taskName4\",\n  \"casNumbers\",\n  \"hostIP\",\n].join(\"|\"));\n\nconst doNotInclude = /timestamp|dateStamp/\n\nlet fields = {}\nfor (let x in msg.payload) {\n    if (!msg.payload.hasOwnProperty(x) || doNotInclude.test(x))\n        continue;\n        \n    // Parse dateTime\n    if (x == 'dateTime') {\n        fields['time'] = Date.parse(msg.payload[x] + \" UTC\")\n        continue;\n    }\n        \n    // Include string fields as-is\n    if (strFields.test(x)) {\n        fields[x] = msg.payload[x];\n        continue;\n    }\n    \n    // Try to parse float fields\n    const val = parseFloat(msg.payload[x])\n    // Only include if fload field is not NaN. \n    // Otherwise, InfluxDB will reject the whole datapoint. \n    if(!isNaN(val))\n        fields[x] = val\n}\n\nconst tags = { \n    device_id: msg.topic.split(\"/\")[0],\n    device_name: id_lookup[msg.topic.split(\"/\")[0]]\n    \n}\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\n// add logic for dealing with BME280 and BME680\nif (msg.measurement == \"BME280\" || msg.measurement == \"BME680\") {\n    // see https://github.com/finitespace/BME280/blob/72a11d3b7d484995eb34c6bb8533c5ceb2aa4156/src/EnvironmentCalculations.cpp\n    // also https://github.com/finitespace/BME280\n    if (fields[\"humidity\"] > 0) {\n        fields[\"dewPoint\"] = 243.04 * (Math.log(fields[\"humidity\"]/100.0) + ((17.625 * fields[\"temperature\"])/(243.04 + fields[\"temperature\"])))/(17.625 - Math.log(fields[\"humidity\"]/100.0) - ((17.625 * fields[\"temperature\"])/(243.04 + fields[\"temperature\"])));\n    }else{\n        fields[\"dewPoint\"] = 0.0;\n        \n    }\n    \n}\n\nmsg.payload = [fields, tags];\n\nreturn msg;",
+        "func": "const id_lookup = global.get(\"mac_to_name\");\n\n\n// const strFields = /status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID|hostIP/;\n\nconst strFields = new RegExp([\n  \"status\",\n  \"Direction\",\n  \"Units\",\n  \"base64Data\",\n  \"base16Data\",\n  \"devAddr\",\n  \"deviceAddDecoded\",\n  \"codeRate\",\n  \"ID\",\n  \"gaseraDateTime\",\n  \"manufacturer\",\n  \"deviceName\",\n  \"parameter0\",\n  \"parameter1\",\n  \"parameter2\",\n  \"parameter3\",\n  \"parameter4\",\n  \"gaseraName\",\n  \"gaseraIP\",\n  \"netmask\",\n  \"gateway\",\n  \"taskName0\",\n  \"taskName1\",\n  \"taskName2\",\n  \"taskName3\",\n  \"taskName4\",\n  \"casNumbers\",\n  \"hostIP\",\n  \"humidityGroup\",\n  \"temperatureGroup\",\n  \"chamberTime\",\n  \"operationLabel\",\n  \"programName\",\n  \"changeLabel\",\n  \"programName1\",\n  \"programName2\",\n  \"programName3\",\n  \"programName4\",\n  \"programName5\",\n  \"dapGroup\",\n  \"majorVariable\",\n  \"program_counters\"\n].join(\"|\"));\n\nconst doNotInclude = /timestamp|dateStamp/\n\nlet fields = {}\nfor (let x in msg.payload) {\n    if (!msg.payload.hasOwnProperty(x) || doNotInclude.test(x))\n        continue;\n        \n    // Parse dateTime\n    if (x == 'dateTime') {\n        fields['time'] = Date.parse(msg.payload[x] + \" UTC\")\n        continue;\n    }\n        \n    // Include string fields as-is\n    if (strFields.test(x)) {\n        fields[x] = msg.payload[x];\n        continue;\n    }\n    \n    // Try to parse float fields\n    const val = parseFloat(msg.payload[x])\n    // Only include if fload field is not NaN. \n    // Otherwise, InfluxDB will reject the whole datapoint. \n    if(!isNaN(val))\n        fields[x] = val\n}\n\nconst tags = { \n    device_id: msg.topic.split(\"/\")[0],\n    device_name: id_lookup[msg.topic.split(\"/\")[0]]\n    \n}\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\n// add logic for dealing with BME280 and BME680\nif (msg.measurement == \"BME280\" || msg.measurement == \"BME680\") {\n    // see https://github.com/finitespace/BME280/blob/72a11d3b7d484995eb34c6bb8533c5ceb2aa4156/src/EnvironmentCalculations.cpp\n    // also https://github.com/finitespace/BME280\n    if (fields[\"humidity\"] > 0) {\n        fields[\"dewPoint\"] = 243.04 * (Math.log(fields[\"humidity\"]/100.0) + ((17.625 * fields[\"temperature\"])/(243.04 + fields[\"temperature\"])))/(17.625 - Math.log(fields[\"humidity\"]/100.0) - ((17.625 * fields[\"temperature\"])/(243.04 + fields[\"temperature\"])));\n    }else{\n        fields[\"dewPoint\"] = 0.0;\n        \n    }\n    \n}\n\nmsg.payload = [fields, tags];\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3440,
-        "y": 3620,
+        "x": 3340,
+        "y": 660,
         "wires": [
             [
                 "e84ef0458d8d4c8e"
@@ -2093,8 +2093,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 3650,
-        "y": 3620,
+        "x": 3510,
+        "y": 660,
         "wires": [
             [
                 "69cd5528a453d312",
@@ -2116,8 +2116,8 @@
         "retentionPolicyV18Flux": "",
         "org": "${DOCKER_INFLUXDB_INIT_ORG}",
         "bucket": "VA",
-        "x": 3880,
-        "y": 3460,
+        "x": 3740,
+        "y": 500,
         "wires": []
     },
     {
@@ -2131,8 +2131,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3450,
-        "y": 3460,
+        "x": 3330,
+        "y": 500,
         "wires": [
             [
                 "8b284cf87a2a91a0"
@@ -2154,8 +2154,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 3670,
-        "y": 3460,
+        "x": 3530,
+        "y": 500,
         "wires": [
             [
                 "3afaa070b3fcb650"
@@ -3639,6 +3639,348 @@
         "wires": [
             [
                 "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "9f545de9bbde1997",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BTL433ESC001TMPRT",
+        "topic": "+/BTL433ESC001TMPRT",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2480,
+        "y": 340,
+        "wires": [
+            [
+                "828adab8511f0239"
+            ]
+        ]
+    },
+    {
+        "id": "128844318dd9283b",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BTL433ESC001HMDTY",
+        "topic": "+/BTL433ESC001HMDTY",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2480,
+        "y": 100,
+        "wires": [
+            [
+                "a074f7078fdfea25"
+            ]
+        ]
+    },
+    {
+        "id": "60f3b2e52a6f8bfb",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BTL433ESC001STATUS",
+        "topic": "+/BTL433ESC001STATUS",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2490,
+        "y": 300,
+        "wires": [
+            [
+                "4e0e38c0bc4939e7"
+            ]
+        ]
+    },
+    {
+        "id": "770f799d7d9ad096",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BTL433ESC001CHNG",
+        "topic": "+/BTL433ESC001CHNG",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2480,
+        "y": 20,
+        "wires": [
+            [
+                "5be0c52010db7f27"
+            ]
+        ]
+    },
+    {
+        "id": "302831dd27c89a42",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BTL433ESC001PRGRM",
+        "topic": "+/BTL433ESC001PRGRM",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2490,
+        "y": 140,
+        "wires": [
+            [
+                "ec23efbb2349e612"
+            ]
+        ]
+    },
+    {
+        "id": "870c457fcb41cced",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BTL433ESC001DAP",
+        "topic": "+/BTL433ESC001DAP",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2470,
+        "y": 60,
+        "wires": [
+            [
+                "36edc19d27cc3e57"
+            ]
+        ]
+    },
+    {
+        "id": "c10d75b89a5c50db",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BTL433ESC001RTNPRG",
+        "topic": "+/BTL433ESC001RTNPRG",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2490,
+        "y": 260,
+        "wires": [
+            [
+                "1928fb996ac6ea4f"
+            ]
+        ]
+    },
+    {
+        "id": "41ae04033a163f59",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BTL433ESC001RTNCHG",
+        "topic": "+/BTL433ESC001RTNCHG",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2490,
+        "y": 180,
+        "wires": [
+            [
+                "b399b7247137d799"
+            ]
+        ]
+    },
+    {
+        "id": "cb2a43a7971acabb",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BTL433ESC001RTNDT",
+        "topic": "+/BTL433ESC001RTNDT",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 2480,
+        "y": 220,
+        "wires": [
+            [
+                "42d5983e1339cc0c"
+            ]
+        ]
+    },
+    {
+        "id": "5be0c52010db7f27",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2710,
+        "y": 20,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "36edc19d27cc3e57",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2710,
+        "y": 60,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "a074f7078fdfea25",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2710,
+        "y": 100,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "ec23efbb2349e612",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2710,
+        "y": 140,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "b399b7247137d799",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2710,
+        "y": 180,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "42d5983e1339cc0c",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2710,
+        "y": 220,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "1928fb996ac6ea4f",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2710,
+        "y": 260,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "4e0e38c0bc4939e7",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2710,
+        "y": 300,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
+            ]
+        ]
+    },
+    {
+        "id": "828adab8511f0239",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2710,
+        "y": 340,
+        "wires": [
+            [
+                "304ca8d3d559712f",
+                "85650578b76fd194"
             ]
         ]
     },
