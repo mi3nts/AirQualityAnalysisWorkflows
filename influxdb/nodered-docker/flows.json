@@ -11337,8 +11337,7 @@
         "y": 220,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11357,8 +11356,7 @@
         "y": 280,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11377,8 +11375,7 @@
         "y": 340,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11397,8 +11394,7 @@
         "y": 400,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11417,8 +11413,7 @@
         "y": 460,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11437,8 +11432,7 @@
         "y": 520,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11457,8 +11451,7 @@
         "y": 580,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11477,8 +11470,7 @@
         "y": 640,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11497,8 +11489,7 @@
         "y": 700,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11517,8 +11508,7 @@
         "y": 880,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11537,8 +11527,7 @@
         "y": 940,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11557,8 +11546,7 @@
         "y": 1000,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11577,8 +11565,7 @@
         "y": 1060,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11597,8 +11584,7 @@
         "y": 1120,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11617,8 +11603,7 @@
         "y": 1180,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11638,8 +11623,7 @@
         "wires": [
             [
                 "2e3426e5aa11eb5b",
-                "d66ea195d05d507b",
-                "960895e46fb5c80a"
+                "d66ea195d05d507b"
             ]
         ]
     },
@@ -11658,8 +11642,7 @@
         "y": 1240,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11678,8 +11661,7 @@
         "y": 40,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11741,8 +11723,7 @@
         "y": 100,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11761,8 +11742,7 @@
         "y": 160,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11862,8 +11842,7 @@
         "y": 1160,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11882,8 +11861,7 @@
         "y": 1220,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11902,8 +11880,7 @@
         "y": 1280,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11922,8 +11899,7 @@
         "y": 1340,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11942,8 +11918,7 @@
         "y": 1400,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11962,8 +11937,7 @@
         "y": 1460,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -11982,8 +11956,7 @@
         "y": 1520,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -12002,68 +11975,7 @@
         "y": 1580,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
-            ]
-        ]
-    },
-    {
-        "id": "e3e5961ae051f6d0",
-        "type": "influxdb out",
-        "z": "b44edfff80da0ecb",
-        "influxdb": "6d81027f06ed63bd",
-        "name": "InfluxDB Write VA",
-        "measurement": "",
-        "precision": "n",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ms",
-        "retentionPolicyV18Flux": "",
-        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
-        "bucket": "VA",
-        "x": 3310,
-        "y": 480,
-        "wires": []
-    },
-    {
-        "id": "960895e46fb5c80a",
-        "type": "function",
-        "z": "b44edfff80da0ecb",
-        "name": "Set device name for VA nodes",
-        "func": "\nconst id_lookup = global.get(\"mac_to_name_va\");\n\nmsg.measurement = msg.payload.sensorID;\n\nmsg.payload = [\n    msg.payload.data,\n    {\n        device_id: msg.payload.nodeID, \n        device_name: id_lookup[msg.payload.nodeID],\n    },\n];\n\n\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 2810,
-        "y": 480,
-        "wires": [
-            [
-                "729ecd598712d96e"
-            ]
-        ]
-    },
-    {
-        "id": "729ecd598712d96e",
-        "type": "switch",
-        "z": "b44edfff80da0ecb",
-        "name": "",
-        "property": "payload[1].device_name",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 3090,
-        "y": 480,
-        "wires": [
-            [
-                "e3e5961ae051f6d0"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -12082,8 +11994,7 @@
         "y": 760,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -12102,8 +12013,7 @@
         "y": 820,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -12122,8 +12032,7 @@
         "y": 1300,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -12142,8 +12051,7 @@
         "y": 1360,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
@@ -12162,8 +12070,7 @@
         "y": 1440,
         "wires": [
             [
-                "2e3426e5aa11eb5b",
-                "960895e46fb5c80a"
+                "2e3426e5aa11eb5b"
             ]
         ]
     },
