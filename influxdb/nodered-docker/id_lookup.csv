@@ -1,5 +1,5 @@
 mac_address,name,node_type,device_type,in_use,,,,,
-abcdefg000001,Guide Node 00,Guide Node,C4,1,,,,,
+abcdefg000001,Guide Node 1,Guide Node,C4,1,,,,,
 001e06318c91,Central Hub 1,Central Node,XU4,1,,,,,
 a84041ffff2037bc,Central Hub 1,Central Node,Dragino ,1,,,,,
 00044bec2707,Central Hub 1,Central Node,Jetson,0,,,,,
@@ -345,4 +345,5 @@ mtid001,Mits Test ID 001,MTID,Local PC,1,,,,,
 10004098,WLMA 01,Windows Light Module Allocated,H4 ,1,,,,,
 001e06437a70,Traffic Module 01,Traffic Module,N2,1,,,,,
 abcdefg123456789,Guide Node 00,Guide Node,C4,1,,,,,
+
 
