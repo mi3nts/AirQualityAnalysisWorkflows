@@ -2847,6 +2847,192 @@
         ]
     },
     {
+        "id": "046d70ac93e36137",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "BME280v5",
+        "topic": "+/BME280v5",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1520,
+        "y": 680,
+        "wires": [
+            [
+                "c2a631e8e845190b"
+            ]
+        ]
+    },
+    {
+        "id": "c2a631e8e845190b",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1810,
+        "y": 680,
+        "wires": [
+            [
+                "b9d193ddbe16d3ae",
+                "304ca8d3d559712f",
+                "ce30e274af7b73de"
+            ]
+        ]
+    },
+    {
+        "id": "b9d193ddbe16d3ae",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2690,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "ce30e274af7b73de",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "parse for Mints Data",
+        "func": "const id_lookup = global.get(\"mac_to_name\");\n\n\n// const strFields = /status|Direction|Units|base64Data|base16Data|devAddr|deviceAddDecoded|codeRate|ID|hostIP/;\n\nconst strFields = new RegExp([\n  // Existing fields\n  \"status\",\n  \"Direction\",\n  \"Units\",\n  \"base64Data\",\n  \"base16Data\",\n  \"devAddr\",\n  \"deviceAddDecoded\",\n  \"codeRate\",\n  \"ID\",\n  \"gaseraDateTime\",\n  \"manufacturer\",\n  \"deviceName\",\n  \"parameter0\",\n  \"parameter1\",\n  \"parameter2\",\n  \"parameter3\",\n  \"parameter4\",\n  \"gaseraName\",\n  \"gaseraIP\",\n  \"netmask\",\n  \"gateway\",\n  \"taskName0\",\n  \"taskName1\",\n  \"taskName2\",\n  \"taskName3\",\n  \"taskName4\",\n  \"casNumbers\",\n  \"hostIP\",\n  \"humidityGroup\",\n  \"temperatureGroup\",\n  \"chamberTime\",\n  \"operationLabel\",\n  \"programName\",\n  \"changeLabel\",\n  \"programName1\",\n  \"programName2\",\n  \"programName3\",\n  \"programName4\",\n  \"programName5\",\n  \"dapGroup\",\n  \"majorVariable\",\n  \"program_counters\"\n].join(\"|\"));\n\n\nconst doNotInclude = /timestamp|dateStamp/\n\nlet fields = {}\nfor (let x in msg.payload) {\n    if (!msg.payload.hasOwnProperty(x) || doNotInclude.test(x))\n        continue;\n        \n    // Parse dateTime\n    if (x == 'dateTime') {\n        fields['time'] = Date.parse(msg.payload[x] + \" UTC\")\n        continue;\n    }\n        \n    // Include string fields as-is\n    if (strFields.test(x)) {\n        fields[x] = msg.payload[x];\n        continue;\n    }\n    \n    // Try to parse float fields\n    const val = parseFloat(msg.payload[x])\n    // Only include if fload field is not NaN. \n    // Otherwise, InfluxDB will reject the whole datapoint. \n    if(!isNaN(val))\n        fields[x] = val\n}\n\nconst tags = { \n    device_id: msg.topic.split(\"/\")[0],\n    device_name: id_lookup[msg.topic.split(\"/\")[0]]\n    \n}\n\nmsg.measurement = msg.topic.split(\"/\")[1];\n\n// add logic for dealing with BME280 and BME680\nif (msg.measurement == \"BME280\" || msg.measurement == \"BME680\") {\n    // see https://github.com/finitespace/BME280/blob/72a11d3b7d484995eb34c6bb8533c5ceb2aa4156/src/EnvironmentCalculations.cpp\n    // also https://github.com/finitespace/BME280\n    if (fields[\"humidity\"] > 0) {\n        fields[\"dewPoint\"] = 243.04 * (Math.log(fields[\"humidity\"]/100.0) + ((17.625 * fields[\"temperature\"])/(243.04 + fields[\"temperature\"])))/(17.625 - Math.log(fields[\"humidity\"]/100.0) - ((17.625 * fields[\"temperature\"])/(243.04 + fields[\"temperature\"])));\n    }else{\n        fields[\"dewPoint\"] = 0.0;\n        \n    }\n    \n}\n\nmsg.payload = [fields, tags];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2980,
+        "y": 740,
+        "wires": [
+            [
+                "398acdd273c87156",
+                "367688f66d28779d"
+            ]
+        ]
+    },
+    {
+        "id": "bcf5dea499ecd920",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "6d81027f06ed63bd",
+        "name": "write to InfluxDB for Mints data",
+        "measurement": "",
+        "precision": "n",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "${DOCKER_INFLUXDB_INIT_ORG}",
+        "bucket": "${DOCKER_INFLUXDB_INIT_BUCKET}",
+        "x": 3350,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "398acdd273c87156",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload[1].device_name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 3150,
+        "y": 740,
+        "wires": [
+            [
+                "bcf5dea499ecd920",
+                "9812d841438f864d"
+            ]
+        ]
+    },
+    {
+        "id": "9812d841438f864d",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3450,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "367688f66d28779d",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3250,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "7a24450d2590a736",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "ISG001",
+        "topic": "+/ISG001",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1430,
+        "y": 860,
+        "wires": [
+            [
+                "8e9ca31b0d471503"
+            ]
+        ]
+    },
+    {
+        "id": "8e9ca31b0d471503",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 860,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
         "id": "e08e29b143ca2326",
         "type": "mqtt in",
         "z": "031894918d4df6bb",
