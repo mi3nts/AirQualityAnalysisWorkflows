@@ -3033,6 +3033,78 @@
         ]
     },
     {
+        "id": "17ca97737a0e0ec5",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "SEN0463",
+        "topic": "+/SEN0463",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1440,
+        "y": 740,
+        "wires": [
+            [
+                "ec7a3074959dc37b"
+            ]
+        ]
+    },
+    {
+        "id": "ec7a3074959dc37b",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 740,
+        "wires": [
+            [
+                "304ca8d3d559712f"
+            ]
+        ]
+    },
+    {
+        "id": "b3559eeaa9cbf219",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "RS_FSXCS_N01",
+        "topic": "+/RS_FSXCS_N01",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "eeac082b50da81c5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1460,
+        "y": 800,
+        "wires": [
+            [
+                "71beb40e7060e4a7"
+            ]
+        ]
+    },
+    {
+        "id": "71beb40e7060e4a7",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1730,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "e08e29b143ca2326",
         "type": "mqtt in",
         "z": "031894918d4df6bb",
